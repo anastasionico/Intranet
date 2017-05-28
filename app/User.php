@@ -18,7 +18,7 @@ class User extends Authenticatable
         'img','name','surname',
             'job_title','email','password',
             'username',
-            'birth_date','department_id','expenses_mileage_rate','expenses_auth_id',
+            'birthdate','department_id','expenses_mileage_rate','expenses_auth_id',
             'holiday_manager','holiday_total','holiday_taken',
     ];
 
@@ -30,9 +30,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function scopeStore($query)
-    {
-        
-    }
+    
+    //All the fields present on the array $dates array will be automatically accessible in the views with Carbon 
+    protected $dates = ['created_at', 'updated_at', 'last_login', 'birthdate'];
+    
 }

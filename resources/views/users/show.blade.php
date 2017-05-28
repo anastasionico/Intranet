@@ -58,15 +58,21 @@
 	        </tr>
 	        <tr>
 	          	<td>Department</td>
-	          	<td>{{ $user->department }}</td>
+	          	<td>{{ $user->department_id }}</td>
 	        </tr>
 	        <tr>
 	          	<td>Job title</td>
 	          	<td>{{ $user->job_title }}</td>
 	        </tr>
 	        <tr>
-	          	<td>Dirthday</td>
-	          	<td>{{ $user->birthdate }}</td>
+	        	<td>Birthday</td>
+	          	<td>
+	          		@if($user->birthdate !== null)
+	          			{{ $user->birthdate->toFormattedDateString() }}
+	          		@else
+	          			{{ 'ND'}}
+	          		@endif	
+	        	</td>
 	        </tr>
 	        <tr>
 	          	<td>Created</td>
@@ -78,7 +84,13 @@
 	        </tr>
 	        <tr>
 	          	<td>Last Login</td>
-	          	<td>{{ $user->last_login }}</td>
+	          	<td>
+	          		@if($user->last_login === null)
+		          		{{ "Never logged in" }}
+		          	@else
+		          		{{ $user->updated_at->diffForHumans() }}
+		          	@endif
+	          	</td>
 	        </tr>
 	        <tr>
 	          	<td>Expenses Manager</td>
@@ -102,7 +114,9 @@
 	        </tr>
 	      	<tr>
 	          	<td>Holiday Outstanding Day</td>
-	          	<td>{{ $user->holiday_outstanding }}</td>
+	          	<td>
+	          		{{ $user->holiday_total - $user->holiday_taken }}
+	          	</td>
 	        </tr>
 	    </table>
 	    <a href="/users/edit/{{ $user->id }}" class="btn btn-primary">

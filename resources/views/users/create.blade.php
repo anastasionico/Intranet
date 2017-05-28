@@ -5,6 +5,7 @@
 
 @section('sectionTable')
 	<div class="table-responsive p-2">
+		@include('layouts/errors')
 		<h1 class="sub-header">Create a new user</h1>
 		<form action="/users" method="post" enctype="multipart/form-data">
 	    	{{ csrf_field() }}
@@ -30,7 +31,7 @@
 	    	</div>
 	    	<div class="form-group">
 	    		<label for="username">Username *</label>
-	    		<input type="text" name="username" class="form-control" placeholder="Min 4 characters" required>
+	    		<input type="text" name="username" class="form-control" placeholder="Min 3 characters" required>
 	    	</div>
 	    	<div class="form-group">
 	    		<label for="password">Password *</label>
@@ -58,8 +59,8 @@
 	    		</select>
 	    	</div>
 	    	<div class="form-group">
-	    		<label for="expenses_mileage_rate">Expenses Mileage Rate *</label>
-	    		<input type="number" name="expenses_mileage_rate" class="form-control" placeholder="20" required>
+	    		<label for="expenses_mileage_rate">Expenses Mileage Rate</label>
+	    		<input type="number" name="expenses_mileage_rate" class="form-control" placeholder="20">
 	    	</div>
 	    	<div class="form-group">
 	    		<label for="holiday_manager">Holiday Manager *</label>
@@ -73,7 +74,7 @@
 	    	</div>
 	    	<div class="form-group">
 	    		<label for="holiday_taken">Already taken days holiday (current year) *</label>
-	    		<input type="number" name="holiday_taken" class="form-control" required>
+	    		<input type="number" name="holiday_taken" class="form-control" min='0' required>
 	    	</div>
 	    	<div class="form-group">
 	    		<input type="submit" value="submit" class="btn btn-default">

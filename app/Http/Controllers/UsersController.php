@@ -41,40 +41,47 @@ class UsersController extends Controller
      */
     public function store()
     {
-        
+     
         //validion
         $this->validate(request(),[
-            //'img' => 'nullable|image|dimensions:max-width:1024',
+            'img' => 'nullable|image|dimensions:max-width:1024',
             'name' => 'required|alpha',
             'surname' => 'required|alpha',
-            'job_title' => 'nullable|alpha',
+            'job_title' => 'nullable',
             'email' => 'required|email|unique:users,email',
-            'username' => 'required|min:4|alpha_num',
+            'username' => 'required|min:3|alpha_num',
             'password' => 'required|confirmed',
             'birthdate' => 'nullable|date|before:yesterday',
             'department_id' => 'required|integer',
             'expenses_auth_id' => 'required|integer',
-            'expenses_mileage_rate' => 'required',
+            'expenses_mileage_rate' => '',
             'holiday_manager' => 'required|integer',
             'holiday_total' => 'required|integer',
             'holiday_taken' => 'required|integer',
         ]);
-
+        request()->password = bcrypt(request()->password);
+        
+        
         //store
-        User::create(
-            request(['name','surname',
-                'job_title','email',
-                'username','password',
-                'birthdate','department_id',
-                'expenses_auth_id','expenses_mileage_rate',
-                'holiday_manager','holiday_total','holiday_taken'
-            ])
+        User::create([
+                'name' => request('name'),
+                'surname' => request('surname'),
+                'job_title' => request('job_title'),
+                'email' => request('email'),
+                'username' => request('username'),
+                'password' => bcrypt(request('password')),
+                'birthdate' => request('birthdate'),
+                'department_id' => request('department_id'),
+                'expenses_auth_id' => request('expenses_auth_id'),
+                'expenses_mileage_rate' => request('expenses_mileage_rate'),
+                'holiday_manager' => request('holiday_manager'),
+                'holiday_total' => request('holiday_total'),
+                'holiday_taken' => request('holiday_taken'),
+            ]
         );
         
         //redirect to home page   
-        return redirect('users');
-       
-        /*holiday_outstanding has to been calculate by subtracting the holiday_total by the holiday_taken */
+        return redirect('/users');
     }
 
     /**
