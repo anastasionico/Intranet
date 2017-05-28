@@ -49,7 +49,10 @@
 				        <td>{{ $user->email }}</td>
 				        <td>
 				        	<a href="/users/{{ $user->id }}" class="btn btn-default">
-				        		See profile
+				        		View
+				        	</a>
+				        	<a href="/users/edit/{{ $user->id }}" class="btn btn-primary">
+				        		Edit
 				        	</a>
 				        	<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
 				        		Delete

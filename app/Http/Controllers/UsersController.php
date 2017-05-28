@@ -98,7 +98,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('users/edit', compact('user'));
     }
 
     /**
@@ -110,7 +111,8 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd(request()->all());
+        
     }
 
     /**

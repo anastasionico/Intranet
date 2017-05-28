@@ -28,24 +28,88 @@
 @endsection
 
 @section('sectionTable')
-	<div class="table-responsive">
+	<div class="table-responsive  col-sm-6 col-md-6">
 		
 		<h2 class="sub-header">User Details</h2>
 	    <table class="table table-striped">
-	      	<thead>
-		        <tr>
-		          	<th>Name</th>
-		          	<th>Surname</th>
-		          	<th>Email</th>
-		        </tr>
-	      	</thead>
-	      	<tbody>
-				<tr>
-			        <td>{{ $user->name }}</td>
-			        <td>{{ $user->surname }}</td>
-			        <td>{{ $user->email }}</td>
-			    </tr>
-		    </tbody>
+	        <tr>
+	          	<td>Id</td>
+	          	<td>{{ $user->id }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Image</td>
+	          	<td>{{ $user->img }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Name</td>
+	          	<td>{{ $user->name }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Surname</td>
+	          	<td>{{ $user->surname }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Email</td>
+	          	<td>{{ $user->email }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Username</td>
+	          	<td>{{ $user->username }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Department</td>
+	          	<td>{{ $user->department }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Job title</td>
+	          	<td>{{ $user->job_title }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Dirthday</td>
+	          	<td>{{ $user->birthdate }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Created</td>
+	          	<td>{{ $user->created_at }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Updated</td>
+	          	<td>{{ $user->updated_at }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Last Login</td>
+	          	<td>{{ $user->last_login }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Expenses Manager</td>
+	          	<td>{{ $user->expenses_auth_id }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Expenses Mileage Rate</td>
+	          	<td>{{ $user->expenses_mileage_rate }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Holiday Manager</td>
+	          	<td>{{ $user->holiday_manager }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Holiday Total Days (per year)</td>
+	          	<td>{{ $user->holiday_total }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Holiday Taken (current year)</td>
+	          	<td>{{ $user->holiday_taken }}</td>
+	        </tr>
+	      	<tr>
+	          	<td>Holiday Outstanding Day</td>
+	          	<td>{{ $user->holiday_outstanding }}</td>
+	        </tr>
 	    </table>
+	    <a href="/users/edit/{{ $user->id }}" class="btn btn-primary">
+    		Edit
+    	</a>
+    	<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
+    		Delete
+    	</a>
 	</div>    
 @endsection
