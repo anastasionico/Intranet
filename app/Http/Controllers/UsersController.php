@@ -137,6 +137,7 @@ class UsersController extends Controller
         //UPDATE
         $updateUser = User::updateUser($id, request()->all());
         //REDIRECT TO SHOW PAGE
+        return redirect("/users/{$id}");
     }
 
     /**

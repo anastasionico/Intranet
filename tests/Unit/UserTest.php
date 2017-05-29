@@ -61,16 +61,20 @@ class UserTest extends TestCase
 
     public function testUpdate()
     {
-        // Given an user (create a fake one using factory) i need to sent some new data to the edit function 
+        // Given an user (create a fake one using factory) I need to sent some new data to the edit function 
         $newUserUpdate = factory(User::class)->create();
         $newUserUpdateId = $newUserUpdate['id'];
         $Arrayrequest['name'] = 'Roberta';
         $Arrayrequest['username'] = 'Roby1';
         
+        
         // I need to send the id and the new data to the function that will save the new data into the database
-        User::updateUser($newUserUpdateId , $Arrayrequest );
+        $userUpdated = User::updateUser($newUserUpdateId , $Arrayrequest );
         
         // Then i will check if the update_at field of the record has been update and if i was redirected to the users/ page again (verify if the user has been update )
+        $this->assertEquals($userUpdated['attributes']['username'], 'Roby1');
+        $this->assertEquals($userUpdated['attributes']['name'], 'Roberta');
+
         //(verify if the admin had been redirected to the  show page)
     }
     

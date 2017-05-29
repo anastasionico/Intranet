@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -36,10 +36,23 @@ class User extends Authenticatable
     
     public static function updateUser($id, $request)
     {
-        //i need to retriev the user based on the id on the method's attribute, update all the field to the database;
-        $user = DB::table('users')->where('id', 100)->get();
-        dd($user);
+        
+        //find the user with the selected id
+        $user = User::find($id);
+        
+        //edit all the attribyte of the record with the requested one
+        foreach ($request as $key => $value) {
+            if($key === '_token' || $key ==='password_confirmation'){continue;}
+            if($key === 'password'){$user->$key = bcrypt($value);continue;}
+            $user->$key = "$value";
+            
+        }
+        //save
+        $user->save();
+        
+        return $user = User::find($id);
         
 
     }
+    
 }
