@@ -23,48 +23,55 @@ class UserTest extends TestCase
     */	
     
     public function testStore(){
-    	//given that run the command to create a new user App\user::create();
-    	$newUser = factory(User::class)->create();
-    
-    	//the user should be saved into the database and PHPunit will be able to match the new user with the new data
+    	// Given that run the command to create a new user App\user::create();
+    	$newUserTestStore = factory(User::class)->create();
+        
+    	// The user should be saved into the database and PHPunit will be able to match the new user with the new data
 		$this->assertDatabaseHas('users',[
-		    "name" => $newUser->name,
-		    "username" => $newUser->username,
-		    "surname" => $newUser->surname,
-		    "department_id" => 1,
-		    "email" =>  $newUser->email,
-		    "password" => $newUser->password,
-		    "remember_token" => $newUser->remember_token,
+		    "name" => $newUserTestStore->name,
+		    "username" => $newUserTestStore->username,
+		    "surname" => $newUserTestStore->surname,
+		    "department_id" => $newUserTestStore->department_id,
+		    "email" =>  $newUserTestStore->email,
+		    "password" => $newUserTestStore->password,
+		    "remember_token" => $newUserTestStore->remember_token,
 		  ]);
 	}
     
     public function testDestroy(){
-        //create a new user record into the database
-        $newUser = factory(User::class)->make();
+        // Create a new user record into the database
+        $newUserTestDestroy = factory(User::class)->create();
 
-        //delete the element 
-        $fetchUser = User::where('email',$newUser->email);
+        // Delete the element 
+        $fetchUser = User::where('email',$newUserTestDestroy->email);
         $fetchUser->delete();
         
-        //verify that the element is not in the database anymore
+        // Verify that the element is not in the database anymore
         $this->assertDatabasemissing('users',[
-            "name" => $newUser->name,
-            "username" => $newUser->username,
-            "surname" => $newUser->surname,
+            "name" => $newUserTestDestroy->name,
+            "username" => $newUserTestDestroy->username,
+            "surname" => $newUserTestDestroy->surname,
             "department_id" => 1,
-            "email" =>  $newUser->email,
-            "password" => $newUser->password,
-            "remember_token" => $newUser->remember_token,
+            "email" =>  $newUserTestDestroy->email,
+            "password" => $newUserTestDestroy->password,
+            "remember_token" => $newUserTestDestroy->remember_token,
         ]);
     }
+    
 
     public function testUpdate()
     {
+        // Given an user (create a fake one using factory) i need to sent some new data to the edit function 
+        $newUserUpdate = factory(User::class)->create();
+        $newUserUpdateId = $newUserUpdate['id'];
+        $Arrayrequest['name'] = 'Roberta';
+        $Arrayrequest['username'] = 'Roby1';
         
-        //given I edit the field and submit the form with new data
+        // I need to send the id and the new data to the function that will save the new data into the database
+        User::updateUser($newUserUpdateId , $Arrayrequest );
         
-        //I will trigger the update method in the user controller
-        //then i will check if the update_at form has been update and if i was redirected to the users/ page again
-
+        // Then i will check if the update_at field of the record has been update and if i was redirected to the users/ page again (verify if the user has been update )
+        //(verify if the admin had been redirected to the  show page)
     }
+    
 }

@@ -34,4 +34,12 @@ class User extends Authenticatable
     //All the fields present on the array $dates array will be automatically accessible in the views with Carbon 
     protected $dates = ['created_at', 'updated_at', 'last_login', 'birthdate'];
     
+    public static function updateUser($id, $request)
+    {
+        //i need to retriev the user based on the id on the method's attribute, update all the field to the database;
+        $user = DB::table('users')->where('id', 100)->get();
+        dd($user);
+        
+
+    }
 }

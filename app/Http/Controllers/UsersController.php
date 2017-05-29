@@ -41,7 +41,6 @@ class UsersController extends Controller
      */
     public function store()
     {
-     
         //validion
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',
@@ -54,13 +53,11 @@ class UsersController extends Controller
             'birthdate' => 'nullable|date|before:yesterday',
             'department_id' => 'required|integer',
             'expenses_auth_id' => 'required|integer',
-            'expenses_mileage_rate' => '',
+            'expenses_mileage_rate' => 'nullable',
             'holiday_manager' => 'required|integer',
             'holiday_total' => 'required|integer',
             'holiday_taken' => 'required|integer',
         ]);
-        request()->password = bcrypt(request()->password);
-        
         
         //store
         User::create([
@@ -116,10 +113,30 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        dd(request()->all());
+        //VALIDATION
+        $this->validate(request(),[
+            'img' => 'nullable|image|dimensions:max-width:1024',
+            'name' => 'required|alpha',
+            'surname' => 'required|alpha',
+            'job_title' => 'nullable',
+            'email' => 'required|email',
+            'username' => 'required|min:3|alpha_num',
+            'password' => 'required|confirmed',
+            'birthdate' => 'nullable|date|before:yesterday',
+            'department_id' => 'required|integer',
+            'expenses_auth_id' => 'required|integer',
+            'expenses_mileage_rate' => 'nullable',
+            'holiday_manager' => 'required|integer',
+            'holiday_total' => 'required|integer',
+            'holiday_taken' => 'required|integer',
+        ]);
+        //dd(request()->all());
         
+        //UPDATE
+        $updateUser = User::updateUser($id, request()->all());
+        //REDIRECT TO SHOW PAGE
     }
 
     /**

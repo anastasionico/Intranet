@@ -6,10 +6,13 @@
 @section('sectionTable')
 	<div class="table-responsive p-2">
 		<h1 class="sub-header">Edit user</h1>
+		@include('layouts/errors')
 		<form action="/users/update/{{ $user->id }}" method="post" enctype="multipart/form-data">
 	    	{{ csrf_field() }}
 	    	<div class="form-group">
-	    		<img src="">{{-- Image to sort out --}}
+	    		{{-- Image to sort out --}}
+	    		<label for="img">Current image Photo</label>
+	    		<img src="">
 	    	</div>
 	    	<div class="form-group">
 	    		<label for="img">Update Photo</label>
@@ -46,7 +49,7 @@
 	    	
 	    	<div class="form-group">
 	    		<label for="birthdate">Birth Date</label>
-	    		<input type="date" name="birthdate" class="form-control" value="{{ $user->birthdate }}" >
+	    		<input type="date" name="birthdate" class="form-control" value="{{ $user->birthdate->format('Y-m-d') }}" >
 	    	</div>
 	    	<div class="form-group">
 	    		<label for="department_id">Department *</label>
@@ -63,8 +66,8 @@
 	    		</select>
 	    	</div>
 	    	<div class="form-group">
-	    		<label for="expenses_mileage_rate">Expenses Mileage Rate *</label>
-	    		<input type="number" name="expenses_mileage_rate" class="form-control" placeholder="20"  value="{{ $user->expenses_mileage_rate }}" required>
+	    		<label for="expenses_mileage_rate">Expenses Mileage Rate </label>
+	    		<input type="number" name="expenses_mileage_rate" class="form-control" placeholder="20"  value="{{ $user->expenses_mileage_rate }}">
 	    	</div>
 	    	<div class="form-group">
 	    		<label for="holiday_manager">Holiday Manager *</label>

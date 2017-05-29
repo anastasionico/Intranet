@@ -115,7 +115,8 @@
 	      	<tr>
 	          	<td>Holiday Outstanding Day</td>
 	          	<td>
-	          		{{ $user->holiday_total - $user->holiday_taken }}
+	          		{{ $holiday_outstanding = $user->holiday_total - $user->holiday_taken }}
+
 	          	</td>
 	        </tr>
 	    </table>
