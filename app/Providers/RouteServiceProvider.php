@@ -23,7 +23,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //Route::pattern('id','[0-9]+'); //This line contraints all the id in the web.php file to be number by using the regular expression provided
 
         parent::boot();
     }

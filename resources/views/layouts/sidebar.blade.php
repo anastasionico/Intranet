@@ -5,6 +5,11 @@
     <li><a href="/users/create">Create</a></li>
   </ul>
   
+  <h3>Tasks</h3>
+  <ul class="nav nav-sidebar">
+    <li><a href="/tasks">See all</a></li>
+  </ul>
+
   <h3>Expenses</h3>
   <ul class="nav nav-sidebar">
     <li><a href="">Manage all</a></li>

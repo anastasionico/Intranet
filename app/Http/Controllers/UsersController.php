@@ -113,7 +113,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
         //VALIDATION
         $this->validate(request(),[
@@ -135,7 +135,8 @@ class UsersController extends Controller
         //dd(request()->all());
         
         //UPDATE
-        $updateUser = User::updateUser($id, request()->all());
+        User::updateUser($request, $id);
+        
         //REDIRECT TO SHOW PAGE
         return redirect("/users/{$id}");
     }

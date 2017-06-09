@@ -51,7 +51,7 @@
 				        	<a href="/users/{{ $user->id }}" class="btn btn-default">
 				        		View
 				        	</a>
-				        	<a href="/users/edit/{{ $user->id }}" class="btn btn-primary">
+				        	<a href="/users/edit/{{ $user->id }}" class="btn btn-info">
 				        		Edit
 				        	</a>
 				        	<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">

@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->date('birthdate')->nullable();
-            $table->integer('department_id')->default(1); //This is a test default change it after I create the department table;
+            $table->integer('department_id')->unsigned()->default(0);
             $table->string('email')->unique();
             $table->string('job_title')->nullable();
             $table->integer('expenses_auth_id')->nullable();

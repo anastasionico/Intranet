@@ -9,7 +9,7 @@
 		@include('layouts/errors')
 		<form action="/users/update/{{ $user->id }}" method="post" enctype="multipart/form-data">
 	    	{{ csrf_field() }}
-	    	<div class="form-group">
+			<div class="form-group">
 	    		{{-- Image to sort out --}}
 	    		<label for="img">Current image Photo</label>
 	    		<img src="">
@@ -46,11 +46,17 @@
 	    		<label for="password_confirmation">Repeat Password *</label>
 	    		<input type="password" name="password_confirmation" class="form-control" placeholder=""  value="{{ $user->password }}"  required>
 	    	</div>
-	    	
+
 	    	<div class="form-group">
 	    		<label for="birthdate">Birth Date</label>
-	    		<input type="date" name="birthdate" class="form-control" value="{{ $user->birthdate->format('Y-m-d') }}" >
+	    			@if(is_null($user->birthdate))
+	    				<?php $birthdate = 'nd' ?>
+	    			@else
+	    				<?php $birthdate = $user->birthdate->format('Y-m-d'); ?>	
+	    			@endif
+				<input type="date" name="birthdate" class="form-control" value="{{ $birthdate}}">
 	    	</div>
+
 	    	<div class="form-group">
 	    		<label for="department_id">Department *</label>
 	    		<select name="department_id"  class="form-control" required>

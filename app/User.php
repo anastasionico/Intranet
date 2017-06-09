@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -34,19 +34,34 @@ class User extends Authenticatable
     //All the fields present on the array $dates array will be automatically accessible in the views with Carbon 
     protected $dates = ['created_at', 'updated_at', 'last_login', 'birthdate'];
     
-    public static function updateUser($id, $request)
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+    public function task(){
+        return $this->hasMany('App\Task');
+    }
+    public static function updateUser( $request, $id)
     {
         
         //find the user with the selected id
         $user = User::find($id);
         
         //edit all the attribyte of the record with the requested one
-        foreach ($request as $key => $value) {
-            if($key === '_token' || $key ==='password_confirmation'){continue;}
-            if($key === 'password'){$user->$key = bcrypt($value);continue;}
-            $user->$key = "$value";
-            
-        }
+        $user->name = $request->input('name');
+        $user->surname = $request->input('surname');
+        $user->job_title = $request->input('job_title');
+        $user->email = $request->input('email');
+        $user->username = $request->input('username');
+        $user->password = $request->input('password');
+        $user->birthdate = $request->input('birthdate');
+        $user->department_id = $request->input('department_id');
+        $user->expenses_auth_id = $request->input('expenses_auth_id');
+        $user->expenses_mileage_rate = $request->input('expenses_mileage_rate');
+        $user->holiday_manager = $request->input('holiday_manager');
+        $user->holiday_total = $request->input('holiday_total');
+        $user->holiday_taken = $request->input('holiday_taken');
+        
         //save
         $user->save();
         
