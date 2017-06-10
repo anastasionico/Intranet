@@ -17,6 +17,7 @@
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
+                color: #fff;
             }
 
             .full-height {
@@ -48,7 +49,7 @@
             }
 
             .links > a {
-                
+                color: #bbb;
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
@@ -64,31 +65,31 @@
         <link rel="stylesheet" type="text/css" href="css/app.css">
     </head>
     <body>
-        <div class="container-full welcome-page">
+        <div class="container-full welcome-page clearfix">
             <div class="halfwide  d-inline-block">
-                aaa
+                <div class="title m-b-md">
+                    <img class="welcome-page-logo" src="/img/logo.png">
+                    Intranet
+                    <h4>Imperial Commercials</h4>
+                </div>
             </div>
             <div class="halfwide  d-inline-block" style="float:right;">
-              <div class="flex-center position-ref full-height">
-                    @if (Route::has('login'))
-                        <div class="top-right links">
-                            @if (Auth::check())
-
-                                <a href="{{ url('/home') }}">Home</a>
-                            @else
-                                <a href="{{ url('/login') }}">Login</a>
-                                {{-- <a href="{{ url('/register') }}">Register</a> --}}
-                            @endif
-                        </div>
-                    @endif
-
+                <div class="flex-center position-ref full-height">
+                    {{--
+                        @if (Route::has('login'))
+                            <div class="top-right links">
+                                @if (Auth::check())
+    
+                                    <a href="{{ url('/home') }}">Home</a>
+                                @else
+                                    <a href="{{ url('/login') }}">Login</a>
+                                    {{- - <a href="{{ url('/register') }}">Register</a> - -}}
+                                @endif
+                            </div>
+                        @endif
+                    --}}
                     <div class="content">
-                        <div class="title m-b-md">
-                            Intranet
-                            <h4>Imperial Commercials</h4>
-                        </div>
-                        
-                        <div class="panel panel-default">
+                        <div class="panel panel-default-welcome">
                                 <div class="panel-body">
                                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                                         {{ csrf_field() }}
@@ -132,12 +133,12 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <div class="col-md-8 col-md-offset-4">
-                                                <button type="submit" class="btn btn-primary">
+                                             <div class="col-md-6 col-md-offset-4">
+                                                <button type="submit" class="btn btn-info">
                                                     Login
                                                 </button>
 
-                                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                <a class="btn btn-default" href="{{ route('password.request') }}">
                                                     Forgot Your Password?
                                                 </a>
                                             </div>

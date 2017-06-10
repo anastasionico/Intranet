@@ -34,16 +34,41 @@
 .d-inline-block{
   display: inline-block;
 }
-.welcome-page{
+.welcome-page{  
+  background-image: linear-gradient(to bottom, #e76 0%, $primary 100%), url('/img/welcome.jpg');
+  background-blend-mode:color;
+  //background-image:url('/img/welcome.jpg');
+  background-size: cover;
+
   & > div:nth-child(2){
-    background-color: #46f;
+    background-color: rgba($primary,0.9);
+
+  }
+
+  &-logo{
+    width: 61px;
+    height: auto;
+    vertical-align: baseline;
   }
 }
+.title{
+  color:$soft_grey;
+  
+  text-align: center;
+  margin-top: 33%;
+}
 
-.panel-default{
-    margin-bottom: 22px;
-    background-color: rgba( $primary, 0.5);
-    border: 1px solid transparent;
-    border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+.panel-default-welcome{
+  color:$soft_grey;
+  margin-bottom: 22px;
+  background-color: rgba( $primary, 0);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.clearfix{
+  &:after{
+    content:'';
+    clear: both;
+  }
 }
