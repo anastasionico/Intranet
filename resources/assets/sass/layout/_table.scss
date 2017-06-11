@@ -1,0 +1,21 @@
+.table-striped { 
+	& > tbody{ 
+		& > td{
+			border-top: 1px solid red;
+		}
+		& > tr:nth-of-type(odd) {
+			background-color:$primaryLight;
+		}
+	}
+}	
+
+
+.table {
+	& > tbody {
+		& > tr {
+			& > td{
+				border-top:0;
+			}
+		}
+	}
+}

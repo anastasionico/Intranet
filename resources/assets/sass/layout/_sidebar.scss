@@ -8,11 +8,15 @@
 }
 @media (min-width: 768px) {
   .sidebar {
-    padding: 2em;
     display: inline-block;
+    
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: $primary;
+    background-color: $secondary;
+    color: $primary;
+    a{
+      color: $primary;
+    }
   }
 }
 
@@ -30,5 +34,5 @@
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
   color: #fff;
-  background-color: #428bca;
+  background-color: $secondaryDarken;
 }

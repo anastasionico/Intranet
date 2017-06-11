@@ -1,4 +1,7 @@
+.page-header{
+  border-bottom:1px solid $primaryLight;
+}
 .sub-header {
   padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $primaryLight;
 }

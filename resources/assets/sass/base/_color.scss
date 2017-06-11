@@ -1,5 +1,10 @@
-$primary:#0d0d28;
-$secondary:#eee;
-$tertiary:#333;
+$primary:#335; //dark blue
+$primaryLight:lighten( $primary, 5%);
+$secondary:#eee; //silver mercedes
+$secondaryDarken:darken( $secondary, 10%);
 
-$soft_grey:#bbb;
+$tertiary:#55a;
+
+$danger:#d32a2a;
+$info:#287dd1;
+$success:#29d251;

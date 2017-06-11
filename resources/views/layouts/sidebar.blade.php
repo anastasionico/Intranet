@@ -1,4 +1,4 @@
-<div class="col-sm-3 col-md-2 sidebar p-1 pt-0">
+
   <h3>User</h3>
   <ul class="nav nav-sidebar">
     <li class="active"><a href="/users">Browse list<span class="sr-only">(current)</span></a></li>
@@ -29,4 +29,3 @@
     <li><a href="">Request</a></li>
     <li><a href="">Delete request</a></li>
   </ul>
-</div>

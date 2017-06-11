@@ -7,4 +7,13 @@
 }
 .navbar {
     border-radius: 0;
+    background-color: $tertiary;
+	color: $secondary;
+
+}
+.navbar-inverse .navbar-brand {
+	color: $secondary;
+}
+.navbar-inverse .navbar-nav > li > a {
+	color: $secondary;
 }

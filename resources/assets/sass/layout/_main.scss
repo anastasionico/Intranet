@@ -1,6 +1,10 @@
 /*
  * Main content
  */
+body{
+  background-color:$primary;
+  color:$secondary;
+}
 
 .main {
   padding: 20px;
@@ -58,7 +62,7 @@
 .title{
   display: table-cell;
   vertical-align: middle;
-  color:$soft_grey;
+  color:$secondary;
   text-align: center;
   title &{
     display: table;
@@ -69,7 +73,7 @@
 }
 
 .panel-default-welcome{
-  color:$soft_grey;
+  color:$secondary;
   margin-bottom: 22px;
   background-color: rgba( $primary, 0);
   border: 1px solid transparent;

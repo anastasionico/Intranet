@@ -1,0 +1,24 @@
+.btn{
+	border-radius:0;
+}
+
+.btn-default{
+	color: $primary;
+    background-color: $secondary;
+    border-color: $primary;
+}
+.btn-danger{
+	color: $primary;
+    background-color: $danger;
+    border-color: $primary;
+}
+.btn-info{
+	color: $primary;
+    background-color: $info;
+    border-color: $primary;
+}
+.btn-success{
+	color: $primary;
+    background-color: $success;
+    border-color: $primary;
+}

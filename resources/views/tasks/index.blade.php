@@ -81,6 +81,7 @@
             <p class="page-header p-2">No task currently available</p>
         @endif   
         @if( count($tasksArchived))
+            <h4 class="page-header">Complete Tasks</h4>
             <table class="table table-striped rowTaskArchived">
                 <thead>
                     <tr class="rowTaskArchived">
