@@ -35,3 +35,7 @@ Route::post('/tasks/store', 'TasksController@store');
 Route::get('/tasks/edit/{id}', 'TasksController@edit');
 Route::post('/tasks/update/{id}', 'TasksController@update');
 Route::get('/tasks/delete/{id}', 'TasksController@destroy');
+
+Route::get('/company', 'CompanyController@index');
+Route::get('/company/create', 'CompanyController@create');
+Route::post('/company/store', 'CompanyController@store');

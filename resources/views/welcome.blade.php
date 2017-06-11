@@ -69,7 +69,7 @@
             <div class="halfwide  d-inline-block">
                 <div class="title m-b-md">
                     <img class="welcome-page-logo" src="/img/logo.png">
-                    Intranet
+                    <h1>Intranet</h1>
                     <h4>Imperial Commercials</h4>
                 </div>
             </div>

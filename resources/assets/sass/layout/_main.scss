@@ -40,22 +40,32 @@
   //background-image:url('/img/welcome.jpg');
   background-size: cover;
 
+  & > div:first-child{
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 50%;
+  }
   & > div:nth-child(2){
     background-color: rgba($primary,0.9);
-
   }
-
   &-logo{
-    width: 61px;
+    width: 120px;
     height: auto;
-    vertical-align: baseline;
   }
+  
 }
 .title{
+  display: table-cell;
+  vertical-align: middle;
   color:$soft_grey;
-  
   text-align: center;
-  margin-top: 33%;
+  title &{
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 50%;
+  }
 }
 
 .panel-default-welcome{
