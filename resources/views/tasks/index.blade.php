@@ -47,7 +47,7 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Priority</th>
-                        <th colspan="2" style="min-width:300px;">Creation</th>
+                        <th colspan="2" style="min-width:300px;">Created</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,14 +57,13 @@
                                 <td>{{ ucfirst($task->name) }}</td>
                                 <td>{{ $task->description }}</td>
                                 <td>
-                                @if($task->priority == 1)
-                                    <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
-                                @elseif($task->priority == 2)
-                                    <i class="fa fa-thermometer-half" aria-hidden="true"></i>
-                                @elseif($task->priority == 3)
-                                    <i class="fa fa-thermometer-full" aria-hidden="true" style="color:gold;"></i>
-                                @endif
-
+                                    @if($task->priority == 3)
+                                        <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+                                    @elseif($task->priority == 2)
+                                        <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+                                    @elseif($task->priority == 1)
+                                        <i class="fa fa-thermometer-full" aria-hidden="true" style="color:gold;"></i>
+                                    @endif
                                 </td>
                                 <td>
                                     {{$task->created_at->diffForHumans()}}
@@ -98,7 +97,7 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Priority</th>
-                        <th colspan="2" style="min-width:300px;">Creation</th>
+                        <th colspan="2" style="min-width:300px;">Completed</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -107,9 +106,17 @@
                                 <td>{{ $taskArchived->user->name }}</td>
                                 <td>{{ ucfirst($taskArchived->name) }}</td>
                                 <td>{{ $taskArchived->description }}</td>
-                                <td>{{ $taskArchived->priority }}</td>
+                                <td>
+                                    @if($task->priority == 3)
+                                        <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+                                    @elseif($task->priority == 2)
+                                        <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+                                    @elseif($task->priority == 1)
+                                        <i class="fa fa-thermometer-full" aria-hidden="true" style="color:gold;"></i>
+                                    @endif
+                                </td>
                                 <td colspan="2">
-                                    {{$taskArchived->created_at->diffForHumans()}}
+                                    {{$taskArchived->updated_at->diffForHumans()}}
                                 </td>
                             </tr>
                     @endforeach

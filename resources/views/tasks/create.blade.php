@@ -23,6 +23,7 @@
 		    	<div class="form-group">
 		    		<label for="priority">Priority</label>
 		    		<input type="number" name="priority" class="form-control" min="1" max="3"  value="3">
+		    		<small>1 hight, 2 medium, 3 low</small>
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="user_id">User</label>
