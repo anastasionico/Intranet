@@ -56,7 +56,16 @@
                                 <td>{{ $task->user->name }}</td>
                                 <td>{{ ucfirst($task->name) }}</td>
                                 <td>{{ $task->description }}</td>
-                                <td>{{ $task->priority }}</td>
+                                <td>
+                                @if($task->priority == 1)
+                                    <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+                                @elseif($task->priority == 2)
+                                    <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+                                @elseif($task->priority == 3)
+                                    <i class="fa fa-thermometer-full" aria-hidden="true" style="color:gold;"></i>
+                                @endif
+
+                                </td>
                                 <td>
                                     {{$task->created_at->diffForHumans()}}
                                 </td>

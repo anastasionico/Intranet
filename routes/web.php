@@ -65,5 +65,9 @@ Route::prefix('/sites')->group(function () {
 Route::prefix('/departments')->group(function () { 
 	Route::get('', 'DepartmentsController@index');
 	Route::get('/create', 'DepartmentsController@create');
-	Route::post('/store' , 'SitesController@store');
+	Route::post('/store' , 'DepartmentsController@store');
+	Route::get('/{id}' , 'DepartmentsController@show');
+	Route::get('/edit/{id}', 'DepartmentsController@edit');
+	Route::post('/update/{id}', 'DepartmentsController@update');
+	Route::get('/delete/{id}', 'DepartmentsController@destroy');
 });
