@@ -37,7 +37,6 @@ class TasksController extends Controller
         ]);
 
         //save
-
         Task::create([
             'name' => request('name'),
             'description' => request('description'),

@@ -11,6 +11,7 @@
           @include('layouts/nav')
           @yield('heroDiv')
           @yield('sectionTable')
+          @yield('aside')
         </div>
       </div><!-- end row-->
       

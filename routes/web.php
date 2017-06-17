@@ -51,3 +51,19 @@ Route::prefix('/company')->group(function () {
 	Route::get('/delete/{id}', 'CompanyController@destroy');
 });
 
+
+Route::prefix('/sites')->group(function () {
+	Route::get('', 'SitesController@index');
+	Route::get('/create', 'SitesController@create');
+	Route::post('/store' , 'SitesController@store');
+	Route::get('/{id}' , 'SitesController@show');
+	Route::get('/edit/{id}', 'SitesController@edit');
+	Route::post('/update/{id}', 'SitesController@update');
+	Route::get('/delete/{id}', 'SitesController@destroy');
+});
+
+Route::prefix('/departments')->group(function () { 
+	Route::get('', 'DepartmentsController@index');
+	Route::get('/create', 'DepartmentsController@create');
+	Route::post('/store' , 'SitesController@store');
+});

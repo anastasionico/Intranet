@@ -25,19 +25,19 @@
     <li>
       <a href="/company">
         <i class="fa fa-university" aria-hidden="true"></i>
-        Company
+        Companies
       </a>
     </li>
     <li>
-      <a href="/site">
+      <a href="/sites">
         <i class="fa fa-home" aria-hidden="true"></i>
-        Site
+        Sites
       </a>
     </li>
     <li>
-      <a href="/department">
+      <a href="/departments">
         <i class="fa fa-street-view" aria-hidden="true"></i>
-        Department
+        Depts
       </a>
     </li>
   </ul>

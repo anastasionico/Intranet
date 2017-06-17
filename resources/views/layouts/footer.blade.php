@@ -1,5 +1,9 @@
 <footer>
-      
+      {{-- <!-- google map api start -->
+      <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1pBKIr5tob6VQIO8ZStb1XgDJ-XrljXE&callback=initMap">
+      </script>     
+      <!-- google map api stop --> --}}
       <!-- Bootstrap core JavaScript
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->

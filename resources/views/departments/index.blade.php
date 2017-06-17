@@ -3,9 +3,9 @@
 @section('heroDiv')
 	<div class="row">
         <div class="col-xs-12 col-md-12">
-            <h1 class="page-header">Companies List</h1>
-            <a href="/company/create" class="btn btn-primary">
-                Insert new company
+            <h1 class="page-header">Department List</h1>
+            <a href="/departments/create" class="btn btn-primary">
+                Insert new department
             </a>        
         </div>
         
@@ -43,28 +43,30 @@
 		        <tr>
 		          	<th>Logo</th>
 		          	<th>Name</th>
-		          	<th>U.r.l.</th>
+		          	<th>Manufacturer</th>
+		          	<th>Company</th>
 		          	<th>Action</th>
 		        </tr>
 	      	</thead>
 	      	<tbody>
-	      		@foreach($companies as $company)
+	      		@foreach($departments as $department)
 					<tr>
-				        <td>{{ $company->img }}</td>
-				        <td>{{ $company->name }}</td>
+				        <td>{{ $department->img }}</td>
+				        <td>{{ $department->name }}</td>
+				        <td>{{ $department->manufacturer }}</td>
 				        <td>
-				        	<a href="{{ $company->url }}" target="_blank">
-				        		{{ $company->url }}
-				        	</a>
-				        </td>
+				        	<a href="/company/{{ $department->company->id }}">
+		          				{{ $department->company->name }}
+			          		</a> 
+			        	</td>
 				        <td>
-				        	<a href="/company/{{ $company->id }}" class="btn btn-default">
+				        	<a href="/departments/{{ $department->id }}" class="btn btn-default">
 				        		View
 				        	</a>
-				        	<a href="/company/edit/{{ $company->id }}" class="btn btn-info">
+				        	<a href="/departments/edit/{{ $department->id }}" class="btn btn-info">
 				        		Edit
 				        	</a>
-				        	<a href="/company/delete/{{ $company->id }}" class="btn btn-danger">
+				        	<a href="/departments/delete/{{ $department->id }}" class="btn btn-danger">
 				        		Delete
 				        	</a>
 				        </td>

@@ -5,8 +5,10 @@
 
 @section('sectionTable')
 	<div class="table-responsive p-2">
+		<h1 class="sub-header">Insert Company</h1>
+		<br><br><br>
 		@include('layouts/errors')
-		<h1 class="sub-header">Insert a new Company</h1>
+		<div class="col-md-6">
 		<form action="/company/store" method="post" enctype="multipart/form-data">
 	    	{{ csrf_field() }}
 	    	<div class="form-group">
