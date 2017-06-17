@@ -16,20 +16,6 @@ class CompanyTest extends TestCase
 
 	public function testSavingCompany()
 	{
-		//validate and save the data
-		$request = new \Illuminate\Http\Request;
-		$request->request->parameters->name= 'ImperialCommercials';
-		$request->request->url= 'www.imperialcommercials.co.uk';
 		
-		$company = new \App\Http\Controllers\CompanyController;
-		$company->store($request);
-
-		//check if the data has been saved into the database
-		$this->assertDatabaseHas('companies', [
-	        'name' => $request['name'],
-	        'url' => $request['url']
-	    ]);
-		//redirect to the /company page
-		$this->assertPathIs('/company');
 	}
 }

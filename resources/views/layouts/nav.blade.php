@@ -8,8 +8,25 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/home">Imperial Commercials Intranet</a>
+      <span class="nav-brand">
+        <a class="" href="/home">
+          <img class="" src="/img/logo.png">
+          Intranet Imperial Commercials
+        </a>
+      </span>
+      <span class="date navbar-right">
+        {{ date('d M Y') }}
+        {{ date('   D H:m') }}
+      </span>
+      <form class="navbar-form navbar-right">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input type="text" class="form-control" placeholder="Search...">
+      </form>
+      
     </div>
+  </div>
+
+  <div class="container-fluid">
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">{{ Auth::user()->name }}</a></li>
@@ -24,9 +41,7 @@
           @endif
         </li>
       </ul>
-      <form class="navbar-form navbar-right">
-        <input type="text" class="form-control" placeholder="Search...">
-      </form>
+      
     </div>
   </div>
 </nav>

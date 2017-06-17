@@ -98,7 +98,7 @@
                                             <label for="username" class="col-md-4 control-label">Username</label>
 
                                             <div class="col-md-6">
-                                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+                                                <input id="username" type="text" class="welcomeInput form-control " name="username" value="{{ old('username') }}" required autofocus>
 
                                                 @if ($errors->has('username'))
                                                     <span class="help-block">
@@ -146,12 +146,13 @@
                                     </form>
                                 </div>
                             </div>
+
                         <div class="links">
-                            <a href="https://laravel.com/docs">Documentation</a>
-                            <a href="https://laracasts.com">Laracasts</a>
-                            <a href="https://laravel-news.com">News</a>
-                            <a href="https://forge.laravel.com">Forge</a>
-                            <a href="https://github.com/laravel/laravel">GitHub</a>
+                            <a href="https://www.imperialcommercials.co.uk/">Imperial</a>
+                            <a href="https://www.sbcommercials.co.uk/">SB Commercials</a>
+                            <a href="http://www.orwelltruckandvan.co.uk/">Orwell</a>
+                            <a href="http://www.ttequip.co.uk/">TruckTrailerEquip</a>
+                            
                         </div>
                     </div>
                 </div>

@@ -90,7 +90,6 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        
         return view('/users/show', compact('user') );
     }
 
@@ -132,7 +131,6 @@ class UsersController extends Controller
             'holiday_total' => 'required|integer',
             'holiday_taken' => 'required|integer',
         ]);
-        //dd(request()->all());
         
         //UPDATE
         User::updateUser($request, $id);

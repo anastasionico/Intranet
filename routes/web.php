@@ -20,22 +20,34 @@ Auth::routes();
 
 
 Route::get('/home', 'UsersController@index')->name('home');
+Route::prefix('/users')->group(function () {
+	Route::get('', 'UsersController@index');
+	Route::get('/create', 'UsersController@create');
+	Route::get('/{id}', 'UsersController@show')->where('id','[0-9]+'); //the where() cointraints the {id} to be an integer.
+	Route::get('/edit/{id}', 'UsersController@edit');
+	Route::post('/update/{id}', 'UsersController@update');
+	Route::get('/delete/{id}', 'UsersController@destroy');
+	Route::post('','UsersController@store');	
+});
 
-Route::get('/users', 'UsersController@index');
-Route::get('/users/create', 'UsersController@create');
-Route::get('/users/{id}', 'UsersController@show')->where('id','[0-9]+'); //the where() cointraints the {id} to be an integer.
-Route::get('/users/edit/{id}', 'UsersController@edit');
-Route::post('/users/update/{id}', 'UsersController@update');
-Route::get('/users/delete/{id}', 'UsersController@destroy');
-Route::post('/users','UsersController@store');
 
-Route::get('/tasks', 'TasksController@index');
-Route::get('/tasks/create', 'TasksController@create');
-Route::post('/tasks/store', 'TasksController@store');
-Route::get('/tasks/edit/{id}', 'TasksController@edit');
-Route::post('/tasks/update/{id}', 'TasksController@update');
-Route::get('/tasks/delete/{id}', 'TasksController@destroy');
+Route::prefix('/tasks')->group(function () {
+	Route::get('', 'TasksController@index');
+	Route::get('/create', 'TasksController@create');
+	Route::post('/store', 'TasksController@store');
+	Route::get('/edit/{id}', 'TasksController@edit');
+	Route::post('/update/{id}', 'TasksController@update');
+	Route::get('/delete/{id}', 'TasksController@destroy');	
+});
 
-Route::get('/company', 'CompanyController@index');
-Route::get('/company/create', 'CompanyController@create');
-Route::post('/company/store', 'CompanyController@store');
+
+Route::prefix('/company')->group(function () {
+    Route::get('', 'CompanyController@index');
+	Route::get('/create', 'CompanyController@create');
+	Route::post('/store', 'CompanyController@store');
+	Route::get('/{id}', 'CompanyController@show');
+	Route::get('/edit/{id}', 'CompanyController@edit');
+	Route::post('/update/{id}', 'CompanyController@update');
+	Route::get('/delete/{id}', 'CompanyController@destroy');
+});
+
