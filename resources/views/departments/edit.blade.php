@@ -11,7 +11,7 @@
 		<div class="col-md-6">
 			<form action="/departments/update/{{ $department->id }}" method="post" enctype="multipart/form-data">
 		    	{{ csrf_field() }}
-				 <div class="form-group">
+				<div class="form-group">
 		    		<label for="name">Name *</label>
 		    		<input type="text" name="name" class="form-control" value="{{ $department->name }}" required>
 		    	</div>
@@ -21,6 +21,15 @@
 		    			<option value="{{ $department->site->id }}" selected>{{ $department->site->name }} - currently</option>
 		    			@foreach($sites as $site)
 		    				<option value="{{ $site->id }}">{{ $site->name }}</option>
+		    			@endforeach
+		    		</select>
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="manager">Manager *</label>
+		    		<select name='manager' class="form-control" required>
+		    			<option value="{{ $department->manager->id }}" selected>{{ $department->manager->name }} - currently</option>
+		    			@foreach($users as $user)
+		    				<option value="{{ $user->id }}">{{ $user->name }}</option>
 		    			@endforeach
 		    		</select>
 		    	</div>

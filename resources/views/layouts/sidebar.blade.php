@@ -9,7 +9,7 @@
     <li>
       <a href="/users/create">
         <i class="fa fa-user-plus" aria-hidden="true"></i> 
-        Create
+        Add
       </a>
     </li>
   </ul>

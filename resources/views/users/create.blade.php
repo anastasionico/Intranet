@@ -6,7 +6,7 @@
 @section('sectionTable')
 	<div class="table-responsive p-2 ">
 		@include('layouts/errors')
-		<h1 class="sub-header">Create a new user</h1>
+		<h1 class="sub-header">Add a new user</h1>
 		<div class="col-md-6">
 			<form action="/users" method="post" enctype="multipart/form-data">
 		    	{{ csrf_field() }}
@@ -21,10 +21,6 @@
 		    	<div class="form-group">
 		    		<label for="surname">Surname *</label>
 		    		<input type="text" name="surname" class="form-control" required>
-		    	</div>
-		    	<div class="form-group">
-		    		<label for="job_title">Job Title</label>
-		    		<input type="text" name="job_title" class="form-control">
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="email">Email *</label>
@@ -42,15 +38,15 @@
 		    		<label for="password_confirmation">Repeat Password *</label>
 		    		<input type="password" name="password_confirmation" class="form-control" placeholder=""  required>
 		    	</div>
-		    	
 		    	<div class="form-group">
-		    		<label for="birthdate">Birth Date</label>
-		    		<input type="date" name="birthdate" class="form-control">
-		    	</div>
-		    	<div class="form-group">
-		    		<label for="department_id">Department *</label>
-		    		<select name="department_id"  class="form-control" required>
-		    			<option value="1">department</option>
+		    		<label for="department">Department *</label>
+		    		<select name='department' class="form-control" required>
+		    			@foreach($departments as $department)
+			    				<option value="{{ $department->id }}">
+			    					{{ $department->name }} 
+			    					| Manager: {{ $department->manager->name }} {{ $department->manager->surname }}
+		    					</option>
+			    			@endforeach
 		    		</select>
 		    	</div>
 		    	<div class="form-group">
@@ -58,10 +54,6 @@
 		    		<select name="expenses_auth_id"  class="form-control" required>
 		    			<option value="1">John Doe</option>
 		    		</select>
-		    	</div>
-		    	<div class="form-group">
-		    		<label for="expenses_mileage_rate">Expenses Mileage Rate</label>
-		    		<input type="number" name="expenses_mileage_rate" class="form-control" placeholder="20">
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="holiday_manager">Holiday Manager *</label>
@@ -76,6 +68,18 @@
 		    	<div class="form-group">
 		    		<label for="holiday_taken">Already taken days holiday (current year) *</label>
 		    		<input type="number" name="holiday_taken" class="form-control" min='0' required>
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="job_title">Job Title</label>
+		    		<input type="text" name="job_title" class="form-control">
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="birthdate">Birth Date</label>
+		    		<input type="date" name="birthdate" class="form-control">
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="expenses_mileage_rate">Expenses Mileage Rate</label>
+		    		<input type="number" name="expenses_mileage_rate" class="form-control" placeholder="20">
 		    	</div>
 		    	<div class="form-group">
 		    		<input type="submit" value="submit" class="btn btn-default">

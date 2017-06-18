@@ -41,16 +41,20 @@
 	          	<td>{{ $department->name }}</td>
 	        </tr>
 	        <tr>
-	          	<td>Cost Center Last</td>
-	          	<td>{{ $department->cost_center_last }}</td>
-	        </tr>
-	        <tr>
 	          	<td>Site</td>
 	          	<td>
 	          		<a href="/sites/{{ $department->site->id }}">
 	          			{{ $department->site->name }}
 	          		</a> 
 	          	</td>	
+	        </tr>
+	        <tr>
+	          	<td>Manager</td>
+	          	<td>{{ $department->manager->name }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Cost Center Last</td>
+	          	<td>{{ $department->cost_center_last }}</td>
 	        </tr>
 	    </table>
 	    <a href="/departments/edit/{{ $department->id }}" class="btn btn-primary">

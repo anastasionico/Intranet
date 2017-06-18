@@ -24,6 +24,14 @@
 	    		</select>
 	    	</div>
 	    	<div class="form-group">
+	    		<label for="manager">Manager *</label>
+	    		<select name='manager' class="form-control" required>
+	    			@foreach($users as $user)
+		    				<option value="{{ $user->id }}">{{ $user->name }}</option>
+		    			@endforeach
+	    		</select>
+	    	</div>
+	    	<div class="form-group">
 	    		<label for="cost_center_last">Cost Center last *</label>
 	    		<input type="number" name="cost_center_last" class="form-control" min='0' required>
 	    	</div>

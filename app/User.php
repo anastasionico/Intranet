@@ -34,6 +34,7 @@ class User extends Authenticatable
     //All the fields present on the array $dates array will be automatically accessible in the views with Carbon 
     protected $dates = ['created_at', 'updated_at', 'last_login', 'birthdate'];
     
+    
     public function department()
     {
         return $this->belongsTo(Department::class);
@@ -41,6 +42,13 @@ class User extends Authenticatable
     public function task(){
         return $this->hasMany('App\Task');
     }
+
+    public function manager()
+    {
+        return $this->belongsTo(Department::class, 'manager_id');
+    }
+    
+
     public static function updateUser( $request, $id)
     {
         

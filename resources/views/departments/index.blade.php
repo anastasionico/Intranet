@@ -43,14 +43,17 @@
 		        <tr>
 		          	<th>Name</th>
 		          	<th>Site</th>
+		          	<th>Manager</th>
 		          	<th>Action</th>
 		        </tr>
 	      	</thead>
 	      	<tbody>
 	      		@foreach($departments as $department)
+
 					<tr>
 				        <td>{{ $department->name }}</td>
 				        <td>{{ $department->site->name }}</td>
+				        <td>{{ $department->manager->name }}</td>
 				        <td>
 				        	<a href="/departments/{{ $department->id }}" class="btn btn-default">
 				        		View

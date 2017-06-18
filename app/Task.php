@@ -12,4 +12,8 @@ class Task extends Model
  	{
  		return $this->belongsTo('App\User');
  	}
+
+ 	public static function countTasks(){
+        return  $countTask = Task::where('user_id', Auth::user()->id)->get();
+    }
 }

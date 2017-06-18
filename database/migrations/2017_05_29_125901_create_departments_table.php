@@ -19,6 +19,7 @@ class CreateDepartmentsTable extends Migration
             $table->string('name');
             $table->integer('cost_center_last');
             $table->integer('site_id')->unsigned();
+            $table->integer('manager_id')->unsigned();
             //$table->foreign('site_id')->references('id')->on('sites');
         });
     }

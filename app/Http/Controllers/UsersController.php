@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Department;
 
 class UsersController extends Controller
 {
@@ -30,7 +31,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('/users/create');
+        $departments = Department::all();
+        return view('/users/create' , compact('departments'));
     }
 
     /**
