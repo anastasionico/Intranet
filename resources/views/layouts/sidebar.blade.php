@@ -18,6 +18,7 @@
       <a href="/tasks">
         <i class="fa fa-tasks" aria-hidden="true"></i>
         Task List
+
       </a>
     </li>
   </ul>
@@ -83,3 +84,4 @@
       </a>
     </li>
   </ul>
+  

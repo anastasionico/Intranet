@@ -8,9 +8,8 @@
                 Create new task
             </a>        
         </div>
-        
     </div>
-    {{--
+    
     //These are nice layouted graph that can be used in the future
     <div class="row placeholders">
         <div class="col-xs-6 col-sm-3 placeholder">
@@ -34,7 +33,7 @@
             <span class="text-muted">Something else</span>
         </div>
     </div>
-    --}}
+    
 @endsection
 
 @section('sectionTable')
@@ -107,11 +106,11 @@
                                 <td>{{ ucfirst($taskArchived->name) }}</td>
                                 <td>{{ $taskArchived->description }}</td>
                                 <td>
-                                    @if($task->priority == 3)
+                                    @if($taskArchived->priority == 3)
                                         <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
-                                    @elseif($task->priority == 2)
+                                    @elseif($taskArchived->priority == 2)
                                         <i class="fa fa-thermometer-half" aria-hidden="true"></i>
-                                    @elseif($task->priority == 1)
+                                    @elseif($taskArchived->priority == 1)
                                         <i class="fa fa-thermometer-full" aria-hidden="true" style="color:gold;"></i>
                                     @endif
                                 </td>
@@ -120,8 +119,6 @@
                                 </td>
                             </tr>
                     @endforeach
-                    
-                            
                 </tbody>
             </table>
         @endif     

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Task extends Model
 {
@@ -14,6 +15,8 @@ class Task extends Model
  	}
 
  	public static function countTasks(){
-        return  $countTask = Task::where('user_id', Auth::user()->id)->get();
+        return  $countTask = Task::where('user_id', Auth::user()->id)
+        						->where('done', 0)
+        						->count();
     }
 }

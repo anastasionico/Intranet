@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Task;
 use App\User;
-
 
 class TasksController extends Controller
 {
@@ -19,7 +17,6 @@ class TasksController extends Controller
     {
     	$tasks = Task::where('done', '0')->orderBy('priority', 'asc')->get();
         $tasksArchived = Task::where('done', '1')->orderBy('updated_at', 'desc')->limit(10)->get();
-        $countTask = Task::countTasks();
         return view('tasks/index', compact(['tasks','tasksArchived','countTask']));
     }
 
