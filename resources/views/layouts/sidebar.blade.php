@@ -42,6 +42,20 @@
       </a>
     </li>
   </ul>
+  <ul class="nav nav-sidebar">  
+    <li>
+      <a href="/calendar">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        Calendar
+      </a>
+    </li>
+    <li>
+      <a href="/">
+        <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+        Holiday
+      </a>
+    </li>
+  </ul>
   <ul class="nav nav-sidebar">
     <li>
       <a href="">
@@ -70,18 +84,5 @@
       </a>
     </li>
   </ul>
-  <ul class="nav nav-sidebar">  
-    <li>
-      <a href="">
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-        Calendar
-      </a>
-    </li>
-    <li>
-      <a href="">
-        <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-        Holiday
-      </a>
-    </li>
-  </ul>
+  
   
