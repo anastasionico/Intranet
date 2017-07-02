@@ -103,8 +103,8 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
 
     public static function countTodayEvent()
     {
-        return $countTodayEvent = EventModel::where('start', '<', Carbon::now())
-            ->where('end', '>', Carbon::now())
+        return $countTodayEvent = EventModel::where('start', '<=', \DB::raw('curdate()'))
+            ->where('end', '>=', \DB::raw('curdate()'))
             ->count();
         
     }

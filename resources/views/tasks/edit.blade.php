@@ -31,6 +31,15 @@
 	    	<div class="form-group">
 	    		<label for="priority">Priority</label>
 	    		<input type="number" name="priority" class="form-control" min="1" max="3"  value="{{ $task->priority }}">
+	    		<small>1 hight, 2 medium, 3 low</small>
+	    	</div>
+	    	<div class="form-group">
+	    		<label for="user_id">User</label>
+	    		<select name="user_id" class="form-control">
+	    			@foreach($users as $user)
+	    				<option value="{{ $user->id }}">{{ $user->name }}</option>
+	    			@endforeach
+	    		</select>
 	    	</div>
 	    	<div class="form-group">
 	    		<input type="submit" value="submit" class="btn btn-default">
