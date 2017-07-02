@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layouts/nav' , function($view)
         {
            $view->with('countTasks', \App\Task::countTasks());
+           $view->with('countTodayEvent', \App\EventModel::countTodayEvent());
         });
     }
 

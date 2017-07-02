@@ -29,6 +29,22 @@
   <div class="container-fluid">
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        @if($countTodayEvent > 0)
+          <li style="position: relative;">
+            <a href="/calendar">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+                <span style="z-index: 10;
+                  position: absolute;
+                  bottom: 4px;
+                  right: 0;
+                  background-color: red;
+                  border-radius: 50%;
+                  padding: 0px 7px;">
+                    {{ $countTodayEvent }}
+                </span>
+            </a>
+          </li>
+        @endif
         @if($countTasks > 0)
           <li style="position: relative;">
             <a href="/tasks">

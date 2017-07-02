@@ -39,10 +39,15 @@
 
 @section('sectionTable')
 	<div class="table-responsive p-2">
+    <div>
+      <span class="success">Meeting</span>
+      <span class="info">Leisure</span>
+      <span class="danger">Conference</span>
+    </div>  
     
-      {!! $calendar->calendar() !!}
-      {!! $calendar->script() !!} 
-    
-  </div>    	
+    {!! $calendar->calendar() !!}
+    {!! $calendar->script() !!} 
+  </div>    
+  
 @endsection
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 
@@ -75,7 +76,6 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
         $end=date_create($end);
 		$formatend = date_format($end,"Y-m-d");
 
-
         $event = \Calendar::event(
 		    $title, //event title
 		    $isAllDay, //full day event?
@@ -89,7 +89,6 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
 			]
 		);
         
-
         EventModel::create([
             'title' => $title,
             'allDay' => $isAllDay,
@@ -101,4 +100,13 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
             'textColor' => $options['textColor'],
         ]);
     }
+
+    public static function countTodayEvent()
+    {
+        return $countTodayEvent = EventModel::where('start', '<', Carbon::now())
+            ->where('end', '>', Carbon::now())
+            ->count();
+        
+    }
+
 }
