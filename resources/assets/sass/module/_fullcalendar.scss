@@ -1,0 +1,14 @@
+
+.fc-unthemed .fc-today {
+  	background: $primaryLight;
+    background: -webkit-linear-gradient( $primaryLight,$secondary); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( $primaryLight,$secondary); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient( $primaryLight,$secondary); /* For Firefox 3.6 to 15 */
+    background: linear-gradient( $primaryLight,$secondary); /* Standard syntax */
+}
+
+
+.fc-event {
+    border-radius: 0;
+    border: 0px solid #3a87ad;
+}

@@ -75,7 +75,7 @@ Route::prefix('/departments')->group(function () {
 Route::prefix('/calendar')->group(function () { 
 	Route::get('', 'CalendarController@index');
 	Route::get('/create', 'CalendarController@create');
-	// Route::post('/store' , 'CalendarController@store');
+	Route::post('/store' , 'CalendarController@store');
 	// Route::get('/{id}' , 'CalendarController@show');
 	// Route::get('/edit/{id}', 'CalendarController@edit');
 	// Route::post('/update/{id}', 'CalendarController@update');

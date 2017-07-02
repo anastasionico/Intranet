@@ -20,12 +20,24 @@
 	    		<input type="checkbox" name="allDay">
 	    	</div>
 	    	<div class="form-group">
-	    		<label for="dateStart">Inicial date</label>
-	    		<input type="datetime-local" name="dateStart">
+	    		<label for="dateStart">date and hour start</label>
+	    		<input type="date" name="dateStart">
 	    	</div>
 	    	<div class="form-group">
-	    		<label for="dateEnd">Inicial date</label>
-	    		<input type="datetime-local" name="dateEnd">
+	    		<label for="dateEnd">date and hour end</label>
+	    		<input type="date" name="dateEnd">
+	    	</div>
+	    	<div class="form-group">
+	    		<label for="url">U.R.L.</label>
+	    		<input type="text" name="url" class="form-control">
+	    	</div>
+	    	<div class="form-group">
+	    		<label for="eventType">Type of event</label>
+		    	<select name='eventType' class="form-control">
+		    		<option value="meeting">meeting</option>
+		    		<option value="leisure">leisure</option>
+		    		<option value="conference">conference</option>
+		    	</select>
 	    	</div>
 	    	<div class="form-group">
 	    		<input type="submit" value="submit" class="btn btn-default">

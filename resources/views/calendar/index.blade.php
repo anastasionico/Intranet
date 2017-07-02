@@ -9,6 +9,8 @@
             </a>
         </div>
     </div>
+
+    
 	{{--
 	<div class="row placeholders">
         <div class="col-xs-6 col-sm-3 placeholder">
@@ -37,9 +39,10 @@
 
 @section('sectionTable')
 	<div class="table-responsive p-2">
-		{!! $calendar->calendar() !!}
-		
-    	{!! $calendar->script() !!}	
-	</div>    	
+    
+      {!! $calendar->calendar() !!}
+      {!! $calendar->script() !!} 
+    
+  </div>    	
 @endsection
 
