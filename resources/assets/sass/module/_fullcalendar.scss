@@ -1,14 +1,35 @@
-
 .fc-unthemed .fc-today {
-  	background: $primaryLight;
-    background: -webkit-linear-gradient( $primaryLight,$secondary); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient( $primaryLight,$secondary); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient( $primaryLight,$secondary); /* For Firefox 3.6 to 15 */
-    background: linear-gradient( $primaryLight,$secondary); /* Standard syntax */
+  	background: $primaryVeryLight;
 }
-
-
 .fc-event {
     border-radius: 0;
     border: 0px solid #3a87ad;
+    padding: 1em;
+
+}
+.fc-unthemed td, .fc-unthemed th{
+	border:5px solid $primary;
+	background: $primaryLight;
+
+}
+ .fc-unthemed th{
+ 	border-left:0px;
+ 	border-right:0px;
+	background: $primaryVeryLight;
+ }
+.fc-state-default{
+	font-size:5em;
+	box-shadow:none;
+	text-shadow:none;
+	border-color: $primary;
+    color: $primary;
+    background-image:none;
+	background: $primaryVeryLight;
+}
+.fc-state-disabled{
+	background: $primaryLight;	
+}
+.fc button{
+	padding:0 2em;
+	outline: none;
 }

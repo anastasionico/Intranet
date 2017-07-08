@@ -4,9 +4,9 @@
   <body>
     <div class="container-full">
       <div class="row">
-        <div class="col-sm-3 col-md-1 sidebar p-1 pt-0">
+        <aside class="col-sm-3 col-md-1 sidebar p-1 pt-0">
           @include('layouts/sidebar')
-        </div>  
+        </aside>  
         <div class="col-sm-8 col-md-11 p-0">
           @include('layouts/nav')
           @yield('heroDiv')

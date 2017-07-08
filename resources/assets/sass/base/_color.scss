@@ -1,6 +1,7 @@
 $primary : #335; //dark blue
 $primaryLight : lighten( $primary, 5%);
-$primaryDarken : darken( $primary, 10%);
+$primaryVeryLight : lighten( $primary, 15%);
+$primaryDarken : darken( $primary, 5%);
 $primaryVeryDarken : darken( $primary, 15%);
 
 $secondary : #eee; //silver mercedes

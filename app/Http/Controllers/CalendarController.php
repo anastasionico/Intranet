@@ -36,11 +36,7 @@ class CalendarController extends Controller
              
             );
         }
-
-
-        
         $calendar = \Calendar::addEvents($events);     
-        
         return view('/calendar/index', compact('calendar'));
     }
 
