@@ -11,7 +11,6 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
     protected $table = 'events';
 
     protected $fillable = ['title','allDay','start','end','url','backgroundColor','textColor'];
-    
     /**
      * The attributes that should be mutated to dates.
      *
@@ -25,6 +24,11 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
      *
      * @return int
      */
+    public function user()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
     public static function getId() {
         return $this->id;
     }
@@ -34,6 +38,7 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
      *
      * @return string
      */
+
     public function getTitle()
     {
         return $this->title;

@@ -1,7 +1,33 @@
-
+input.empty {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
 .form-control{
 	color : $secondary;
+	display: block;
+    width: 100%;
+    background-color: $primary;
+    background-image: none;
+    border:0;
+    border-bottom: 1px solid #ccd0d2;
+    border-radius: 4px;
+    box-shadow: none;
+    -webkit-transition: box-shadow 0.3s; /* Safari */
+    transition: box-shadow 0.3s;
+    
 }
+.form-control:focus {
+    border-color: none;
+    border:0;
+    outline: 0;
+    -webkit-box-shadow: 0px 3px 10px 1px rgba(255, 255, 255, 0.80);
+	-moz-box-shadow: 0px 3px 10px 1px rgba(255, 255, 255, 0.80);
+	box-shadow: 0px 3px 10px 1px rgba(255, 255, 255, 0.80);
+    
+}
+
 .panel{
 	color : $secondary;
 }

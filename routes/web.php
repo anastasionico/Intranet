@@ -76,8 +76,11 @@ Route::prefix('/calendar')->group(function () {
 	Route::get('', 'CalendarController@index');
 	Route::get('/create', 'CalendarController@create');
 	Route::post('/store' , 'CalendarController@store');
+	Route::get('/search' , 'CalendarController@search');
+	// Route::get('/getdata', 'CalendarController@getData');
 	// Route::get('/{id}' , 'CalendarController@show');
 	// Route::get('/edit/{id}', 'CalendarController@edit');
 	// Route::post('/update/{id}', 'CalendarController@update');
 	// Route::get('/delete/{id}', 'CalendarController@destroy');
 });
+

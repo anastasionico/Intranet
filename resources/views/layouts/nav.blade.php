@@ -19,8 +19,7 @@
         {{ date('   D H:m') }}
       </span>
       <form class="navbar-form navbar-right">
-        <i class="fa fa-search" aria-hidden="true"></i>
-        <input type="text" class="form-control" placeholder="Search...">
+        <input type="text" class="form-control empty" placeholder="&#xF002; Search...">
       </form>
       
     </div>

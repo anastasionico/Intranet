@@ -7,7 +7,7 @@ use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 use MaddHatter\LaravelFullcalendar\Event;
 use Carbon\Carbon;
 use App\EventModel;
-
+use App\User;
 
 
 class CalendarController extends Controller
@@ -43,13 +43,13 @@ class CalendarController extends Controller
     
     public function create()
     {
-    	return view('/calendar/create');
+    	$users = User::all();
+        return view('/calendar/create', compact('users'));
     }
 
     public function store(Request $request)
     {
-    	
-        //valitation
+    	//valitation
     	$this->validate(request(),[
     		'title' => 'required',
     		'allDay' => 'nullable',
@@ -58,7 +58,6 @@ class CalendarController extends Controller
     		'url' => 'nullable|url',
     		'eventType' => 'required'
 		]);
-
         //set specific data
     	if(request('allDay') == 'on' ){
     		$allDay = true;	
@@ -69,7 +68,6 @@ class CalendarController extends Controller
     		$dateStart = request('dateStart');
     		$dateEnd = request('dateEnd');
     	}
-        
     	switch (request('eventType')) {
             case 'meeting':
                 $backgroundColor = '#29d251';
@@ -84,18 +82,28 @@ class CalendarController extends Controller
                 $textColor = '#eee';
                 break;
         }
-
         $options = [
             'url' => request('url'),
             'backgroundColor' => $backgroundColor,
             'textColor' => $textColor,
         ];
-
-
-
         EventModel::addEvent(request('title'),$allDay,$dateStart,$dateEnd, $id = null, $options);
-
         //redirect
     	return redirect('/calendar');
+    }
+
+    public function search(Request $request)
+    {
+        $term = $request->term;
+        $users = User::where('name', "LIKE", '%'.$term.'%')->get();
+        $searchResult=[];
+        if( count($users) == 0){
+            $searchResult[] = "no user found";
+        }else{
+            foreach ($users as $user) {
+                $searchResult[] = $user->username;
+            }
+        }
+        return $searchResult;
     }
 }

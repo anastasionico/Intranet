@@ -39,6 +39,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Department::class);
     }
+    public function event(){
+        return $this->hasMany('App\EventModel');
+    }
     public function task(){
         return $this->hasMany('App\Task');
     }
