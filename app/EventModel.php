@@ -5,6 +5,8 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use MaddHatter\LaravelFullcalendar\Facades\Calendar;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
 {
@@ -24,9 +26,9 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
      *
      * @return int
      */
-    public function user()
+    public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User', 'event_user', 'event_id', 'user_id'); // related model, table name, field current model, field joining model
     }
 
     public static function getId() {
@@ -74,8 +76,9 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
         return $this->end;
     }
 
-    public static function addEvent($title, $isAllDay, $start, $end, $id = null, $options = [])
+    public static function addEvent($title, $isAllDay, $start, $end, $id = null, $options = [],$partecipants)
     {
+        //setting value
         $start=date_create($start);
 		$formatstart = date_format($start,"Y-m-d");
         $end=date_create($end);
@@ -94,7 +97,7 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
 			]
 		);
         
-        EventModel::create([
+        $event = EventModel::create([
             'title' => $title,
             'allDay' => $isAllDay,
             'start' => $start,
@@ -104,14 +107,15 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
             'backgroundColor' => $options['backgroundColor'],
             'textColor' => $options['textColor'],
         ]);
+
+        foreach ($partecipants as $partecipant_id) {
+            $event->users()->attach($partecipant_id);
+        }
     }
 
     public static function countTodayEvent()
     {
-        return $countTodayEvent = EventModel::where('start', '<=', \DB::raw('curdate()'))
-            ->where('end', '>=', \DB::raw('curdate()'))
-            ->count();
-        
+        $user = User::find(Auth::user()->id);
+        return $countTodayEvent = $user->events()->where('start', '<=', \DB::raw('curdate()'))->where('end', '>=', \DB::raw('curdate()'))->count();
     }
-
 }

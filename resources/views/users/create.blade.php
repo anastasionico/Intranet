@@ -7,7 +7,7 @@
 	<div class="table-responsive p-2 ">
 		@include('layouts/errors')
 		<h1 class="sub-header">Add a new user</h1>
-		<div class="col-md-6">
+		<div class="col-md-9">
 			<form action="/users" method="post" enctype="multipart/form-data">
 		    	{{ csrf_field() }}
 		    	<div class="form-group">
@@ -40,9 +40,9 @@
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="department">Department *</label>
-		    		<select name='department' class="form-control" required>
-		    			@foreach($departments as $department)
-			    				<option value="{{ $department->id }}">
+		    		<select name='department_id' class="form-control" required>
+							@foreach($departments as $department)
+								<option value="{{ $department->id }}">
 			    					{{ $department->name }} 
 			    					| Manager: {{ $department->manager->name }} {{ $department->manager->surname }}
 		    					</option>

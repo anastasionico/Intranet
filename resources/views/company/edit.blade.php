@@ -8,7 +8,7 @@
 		<h1 class="sub-header">Edit Company</h1>
 		<br><br><br>
 		@include('layouts/errors')
-		<div class="col-md-6">
+		<div class="col-md-9">
 			<form action="/company/update/{{ $company->id }}" method="post" enctype="multipart/form-data">
 		    	{{ csrf_field() }}
 				<div class="form-group">

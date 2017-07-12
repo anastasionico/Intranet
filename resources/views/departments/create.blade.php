@@ -8,7 +8,7 @@
 		<h1 class="sub-header">Add Department</h1>
 		<br><br><br>
 		@include('layouts/errors')
-		<div class="col-md-6">
+		<div class="col-md-9">
 		<form action="/departments/store" method="post" enctype="multipart/form-data">
 	    	{{ csrf_field() }}
 	    	<div class="form-group">

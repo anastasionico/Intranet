@@ -41,8 +41,9 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
+        
         //validion
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',

@@ -9,7 +9,7 @@
 		<br><br><br>
 		@include('layouts/errors')
 		<form action="/calendar/store" method="post" enctype="multipart/form-data">
-			<div class="col-md-10">
+			<div class="col-md-9">
 				{{ csrf_field() }}
 		    	<div class="form-group">
 		    		<label for="title">Title</label>
@@ -43,43 +43,24 @@
 		    		<input type="submit" value="submit" class="btn btn-default">
 		    	</div>
 		    </div>    
-			<div class="col-md-2">
-
-				<div class="form-group" id="partecipantsDiv">
-					<label for="eventType">Partecipants</label>
-					<input type="text" name="partecipant[]" id='serchPartecipant1' class="form-control"><br>
+		    <div class="col-md-3">
+		    	<div class="form-group" id="partecipantsDiv">
+					<label for="partecipants">Partecipants</label>
+					
+					<select class="js-example-basic-multiple form-control" multiple="multiple" name='partecipants[]'>
+						
+						@foreach($users as $user => $data)
+							<option value="{{$data['id']}}">{{$data['name']}} {{$data['surname']}}</option>
+					  	@endforeach
+					</select>
 				</div>
-				<a class="btn btn-success" id="addPartecipant">
-					<small><i class="fa fa-plus" aria-hidden="true"></i></small>
-				</a>
 			</div>
 		</form>
 	</div>
-	<script>
-		$(document).ready(function(){
-			var i = 1;
-			$('#addPartecipant').click(function(){
-				i++; 
-				console.log(i);
-				$('#partecipantsDiv').append("<input type='text' name='partecipant[]' id='serchPartecipant"+i+"' class='form-control'><br>");
-			})
 
-		});
-	</script>
-	<script>
-		//Autocomplete the partecipant field
-		$( function() {
-			var i = 1;
-
-			do{
-				var selector = "#serchPartecipant"+i;
-				$(document ).on("keydown", selector, function() {
-					$(this).autocomplete({
-		    			source: 'http://intranet.dev/calendar/search'
-		    		});
-				}); 	
-		    	i++;	
-	    	}while(i < 5)
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".js-example-basic-multiple").select2();
 		});
 	</script>
 @endsection

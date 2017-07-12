@@ -1,0 +1,32 @@
+.select2-container--default .select2-selection--multiple {
+	background-color:$primary;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: $secondary;
+    color: $primary;
+    border: 1px solid $secondary;
+    border-radius: $borderRadius;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 0 5px;
+}
+
+.select2-container--default .select2-results__option {
+    background-color: $tertiary;
+    color: $primary;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: $secondary;
+    color: $primary;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple{
+    border-color: none;
+    border:0;
+    outline: 0;
+    -webkit-box-shadow: 0px 3px 10px 1px rgba(255, 255, 255, 0.80);
+	-moz-box-shadow: 0px 3px 10px 1px rgba(255, 255, 255, 0.80);
+	box-shadow: 0px 3px 10px 1px rgba(255, 255, 255, 0.80);
+    
+}

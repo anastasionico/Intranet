@@ -39,9 +39,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Department::class);
     }
-    public function event(){
-        return $this->hasMany('App\EventModel');
+    
+    public function events()
+    {
+        return $this->belongsToMany('App\EventModel', 'event_user', 'user_id', 'event_id');  // related model, table name, field current model, field joining model
     }
+    
     public function task(){
         return $this->hasMany('App\Task');
     }

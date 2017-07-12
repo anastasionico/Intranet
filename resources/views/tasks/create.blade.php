@@ -8,7 +8,7 @@
 		<h1 class="sub-header">Create task</h1>
 		<br><br><br>
 		@include('layouts/errors')
-		<div class="col-md-6">
+		<div class="col-md-9">
 			<form action="/tasks/store" method="post">
 		    	{{ csrf_field() }}
 		    	{{-- method_field('PATCH') --}}

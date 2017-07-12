@@ -8,15 +8,17 @@ use MaddHatter\LaravelFullcalendar\Event;
 use Carbon\Carbon;
 use App\EventModel;
 use App\User;
-
+use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
 {
     public function index()
     {
+        //instanziate the events array and find all the event of the logged user
         $events = [];
-        $event = EventModel::all();
-
+        $user = User::find(Auth::user()->id);
+        $event = $user->events()->get();
+        
         foreach ($event as $eve) {
             $start=date_create($eve->start);
             $formatstart = date_format($start,"Y-m-d");
@@ -87,13 +89,17 @@ class CalendarController extends Controller
             'backgroundColor' => $backgroundColor,
             'textColor' => $textColor,
         ];
-        EventModel::addEvent(request('title'),$allDay,$dateStart,$dateEnd, $id = null, $options);
+        $partecipants = $request->partecipants;
+        
+
+        EventModel::addEvent(request('title'),$allDay,$dateStart,$dateEnd, $id = null, $options, $partecipants);
         //redirect
     	return redirect('/calendar');
     }
 
     public function search(Request $request)
     {
+        //this method search the user in the field select2 in the page calendar/create
         $term = $request->term;
         $users = User::where('name', "LIKE", '%'.$term.'%')->get();
         $searchResult=[];

@@ -56,7 +56,7 @@
       </a>
     </li>
   </ul>
-  <ul class="nav nav-sidebar">
+  {{-- <ul class="nav nav-sidebar">
     <li>
       <a href="">
         <i class="fa fa-calculator" aria-hidden="true"></i>
@@ -83,6 +83,6 @@
         Create 
       </a>
     </li>
-  </ul>
+  </ul> --}}
   
   
