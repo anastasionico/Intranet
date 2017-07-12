@@ -38,7 +38,7 @@
 @endsection
 
 @section('sectionTable')
-	<div class="table-responsive p-2">
+  <div class="table-responsive p-2">
     <div>
       <span class="success">Meeting</span>
       <span class="info">Leisure</span>

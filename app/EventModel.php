@@ -28,7 +28,7 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
      */
     public function users()
     {
-        return $this->belongsToMany('App\User', 'event_user', 'event_id', 'user_id'); // related model, table name, field current model, field joining model
+        return $this->belongsToMany('App\User', 'event_user', 'event_id', 'user_id')->withPivot('event_id', 'user_id'); // related model, table name, field current model, field joining model
     }
 
     public static function getId() {
