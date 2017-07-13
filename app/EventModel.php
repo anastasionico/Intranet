@@ -116,6 +116,11 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
     public static function countTodayEvent()
     {
         $user = User::find(Auth::user()->id);
-        return $countTodayEvent = $user->events()->where('start', '<=', \DB::raw('curdate()'))->where('end', '>=', \DB::raw('curdate()'))->count();
+        return $countTodayEvent = $user->events()
+                    ->where([
+                        ['events.start', '<=', \DB::raw('curdate()')],
+                        ['events.end', '>=', \DB::raw('curdate()')],
+                    ])
+                    ->count();
     }
 }
