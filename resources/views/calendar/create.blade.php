@@ -1,12 +1,15 @@
 @extends('layouts/master')
 
 @section('heroDiv')
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+      <h1 class="page-header">Create a new event</h1>
+      <i id="bubbleCalendarCreate" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
+    </div>
 @endsection
 
 @section('sectionTable')
 	<div class="table-responsive p-2">
-		<h1 class="sub-header">Insert Event</h1>
-		<br><br><br>
 		@include('layouts/errors')
 		<form action="/calendar/store" method="post" enctype="multipart/form-data">
 			<div class="col-md-9">
@@ -16,7 +19,7 @@
 		    		<input type="text" name="title" class="form-control"  required>
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="dateStart">date and hour start* </label>
+		    		<label for="dateStart">Which day is the event start? * </label>
 		    		<input type="date" name="dateStart" class="form-control" id="dateStart" required="">
 		    	</div>
 		    	<div class="form-group">
@@ -24,7 +27,7 @@
 		    		<input type="checkbox" name="allDay" id="allDay" >
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="dateEnd">date and hour end</label>
+		    		<label for="dateEnd">Event ends</label>
 		    		<span id="allday_warning" class="hidden">
 		    			<small> 
 		    				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -40,9 +43,10 @@
 		    	<div class="form-group">
 		    		<label for="eventType">Type of event</label>
 			    	<select name='eventType' class="form-control">
-			    		<option value="meeting">meeting</option>
-			    		<option value="leisure">leisure</option>
-			    		<option value="conference">conference</option>
+			    		<option value="meeting">Meeting</option>
+			    		<option value="leisure">Leisure</option>
+			    		<option value="conference">Conference</option>
+			    		<option value="appointment">Appointment</option>
 			    	</select>
 		    	</div>
 		    	<div class="form-group">

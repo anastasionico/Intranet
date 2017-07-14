@@ -32,13 +32,7 @@
           <li style="position: relative;">
             <a href="/calendar">
               <i class="fa fa-calendar" aria-hidden="true"></i>
-                <span style="z-index: 10;
-                  position: absolute;
-                  bottom: 4px;
-                  right: 0;
-                  background-color: red;
-                  border-radius: 50%;
-                  padding: 0px 7px;">
+                <span class="notification-circle">
                     {{ $countTodayEvent }}
                 </span>
             </a>
@@ -48,13 +42,7 @@
           <li style="position: relative;">
             <a href="/tasks">
               <i class="fa fa-tasks" aria-hidden="true"></i>
-                <span style="z-index: 10;
-                  position: absolute;
-                  bottom: 4px;
-                  right: 0;
-                  background-color: red;
-                  border-radius: 50%;
-                  padding: 0px 7px;">
+                <span class="notification-circle">
                     {{ $countTasks }}
                 </span>
             </a>

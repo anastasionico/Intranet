@@ -2,13 +2,15 @@
 
 @section('heroDiv')
 	<div class="row">
-        <div class="col-xs-12 col-md-12">
-            <h1 class="page-header">Calendar</h1>
-            <a href="/calendar/create" class="btn btn-primary">
-                Create new event
-            </a>
-        </div>
+    <div class="col-xs-12 col-md-12">
+      <h1 class="page-header">Calendar</h1>
+      <a href="/calendar/create" class="btn btn-primary">
+          Create new event
+      </a>
+      <i id="bubbleCalendarIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
     </div>
+  </div>
+
 
     
 	{{--
@@ -40,9 +42,11 @@
 @section('sectionTable')
   <div class="table-responsive p-2">
     <div>
+      Legend: 
       <span class="success">Meeting</span>
       <span class="info">Leisure</span>
       <span class="danger">Conference</span>
+      <span class="warning">Appointment</span>
     </div>  
     
     {!! $calendar->calendar() !!}

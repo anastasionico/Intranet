@@ -89,3 +89,48 @@ body{
     clear: both;
   }
 }
+.informationBubble{
+  position: absolute;
+  top: 0;
+  right: 20px;
+  cursor: help;
+
+  animation-name: arriveFromRight;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+.informationBubble:hover:after{
+  padding: 1em;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  z-index: 10;
+  width: 230px;
+  color: $primary;
+  
+  
+
+  -webkit-border-radius: 20px;
+  -webkit-border-top-right-radius: 0;
+  -moz-border-radius: 20px;
+  -moz-border-radius-topright: 0;
+  border-radius: 20px;
+  border-top-right-radius: 0;
+
+  background-color:$secondary;
+  animation-name: cartoonBubbleTR;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+#bubbleTasksIndex:hover:after{
+  content: "The first group indicates the tasks that need to be done, the second the tasks already finished.";
+}
+#bubbleCalendarIndex:hover:after{
+  content: "Use the arrows to scroll through the months.
+  Bring the cursor over the events to show the participants.";
+}
+#bubbleCalendarCreate:hover:after{
+  content: "Use the left side to add the event details and the right side to add the participants";
+}

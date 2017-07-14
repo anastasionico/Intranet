@@ -6,7 +6,8 @@
             <h1 class="page-header">Task List</h1>
             <a href="/tasks/create" class="btn btn-primary">
                 Create new task
-            </a>        
+            </a>
+            <i id="bubbleTasksIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>        
         </div>
     </div>
     
