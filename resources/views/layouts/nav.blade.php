@@ -11,7 +11,10 @@
       <span class="nav-brand">
         <a class="" href="/home">
           <img class="" src="/img/logo.png">
-          Intranet Imperial Commercials
+          Intranet Imperial Commercials 
+          <sup>
+            <small class="danger">BETA</small>
+          </sup>
         </a>
       </span>
       <span class="date navbar-right">

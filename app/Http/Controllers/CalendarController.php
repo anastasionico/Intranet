@@ -9,7 +9,6 @@ use Carbon\Carbon;
 use App\EventModel;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-
 class CalendarController extends Controller
 {
     public function index()
@@ -85,7 +84,8 @@ class CalendarController extends Controller
     		'dateStart' => 'required',
     		'dateEnd' => 'nullable',
     		'url' => 'nullable|url',
-    		'eventType' => 'required'
+    		'eventType' => 'required',
+            'recurring' => 'required'
 		]);
         //set specific data
     	if(request('allDay') == 'on' ){
@@ -115,14 +115,32 @@ class CalendarController extends Controller
                 $textColor = '#eee';
                 break;
         }
+        switch (request('recurring')) {
+            case 'meeting':
+                $backgroundColor = '#29d251';
+                $textColor = '#eee';
+                break;
+            case 'leisure':
+                $backgroundColor = '#287dd1';
+                $textColor = '#eee';
+                break;
+            case 'conference':
+                $backgroundColor = '#d32a2a';
+                $textColor = '#eee';
+                break;
+            case 'appointment':
+                $backgroundColor = '#d1bd28';
+                $textColor = '#eee';
+                break;
+        }
         $options = [
             'url' => request('url'),
             'backgroundColor' => $backgroundColor,
             'textColor' => $textColor,
+            'recurring' => $request->recurring,
         ];
         $partecipants = $request->partecipants;
         
-
         EventModel::addEvent(request('title'),$allDay,$dateStart,$dateEnd, $id = null, $options, $partecipants);
         //redirect
     	return redirect('/calendar');

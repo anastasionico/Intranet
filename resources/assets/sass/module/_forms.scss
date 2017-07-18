@@ -1,3 +1,5 @@
+
+
 input.empty {
     font-family: FontAwesome;
     font-style: normal;
@@ -40,4 +42,7 @@ input.empty {
 }
 .panel-body {
  	color : $secondary;
+}
+.welcome-page input{
+    background-color: transparent;
 }

@@ -37,8 +37,8 @@
 		    		<input type="date" name="dateEnd"  class="form-control" id="dateEnd">
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="url">U.R.L.</label>
-		    		<input type="text" name="url" class="form-control">
+		    		<label for="url">External Link</label>
+		    		<input type="text" name="url" class="form-control" placeholder="https://www.imperialcommercials.co.uk/">
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="eventType">Type of event</label>
@@ -49,6 +49,18 @@
 			    		<option value="appointment">Appointment</option>
 			    	</select>
 		    	</div>
+		    	<div class="form-group">
+		    		<label for="eventType">Type of event</label>
+			    	<select name="recurring"  class="form-control">
+						<option value="null" selected="">Single event</option>
+						<option value="P1D">Daily</option>
+						<option value="P7D">Weekly</option>
+						<option value="P1M">Monthly</option>
+						<option value="P3M">Every 3 months</option>
+						<option value="P6M">Every 6 months</option>
+						<option value="P1Y">Annually</option>
+					</select>
+				</div>
 		    	<div class="form-group">
 		    		<input type="submit" value="submit" class="btn btn-default">
 		    	</div>

@@ -80,36 +80,49 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
     {
         //setting value
         $start=date_create($start);
-		$formatstart = date_format($start,"Y-m-d");
+        $formatstart = date_format($start,"Y-m-d");
         $end=date_create($end);
 		$formatend = date_format($end,"Y-m-d");
-
-        $event = \Calendar::event(
-		    $title, //event title
-		    $isAllDay, //full day event?
-		    $formatstart, //start time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg)
-		    $formatend, //end time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg),
-			$id, //optional event ID
-			[
-				'url' => $options['url'],
-	            'backgroundColor' => $options['backgroundColor'],
-	            'textColor' => $options['textColor'],
-			]
-		);
+        $recurring = $options['recurring'];
         
-        $event = EventModel::create([
-            'title' => $title,
-            'allDay' => $isAllDay,
-            'start' => $start,
-            'end' => $end,
-            //'id' => $id,
-            'url' => $options['url'],
-            'backgroundColor' => $options['backgroundColor'],
-            'textColor' => $options['textColor'],
-        ]);
+        //$eventDates is an array of all the dates of a selected event
+        $eventDates = self::getRecurringDates($recurring, $start, $end);
+       
+        foreach ($eventDates as $date) {
+            $date = date_create($date);
+            $formatdate = date_format($date,"Y-m-d");
+            
+            //creation events
+            $event = \Calendar::event(
+                $title, //event title
+                $isAllDay, //full day event?
+                $date, //start time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg)
+                $date, //end time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg),
+                $id, //optional event ID
+                [
+                    'url' => $options['url'],
+                    'backgroundColor' => $options['backgroundColor'],
+                    'textColor' => $options['textColor'],
+                ]
+            );
+            $event = EventModel::create([
+                'title' => $title,
+                'allDay' => $isAllDay,
+                'start' => $formatdate,
+                'end' => $formatdate,
+                //'id' => $id,
+                'url' => $options['url'],
+                'backgroundColor' => $options['backgroundColor'],
+                'textColor' => $options['textColor'],
+            ]);
 
-        foreach ($partecipants as $partecipant_id) {
-            $event->users()->attach($partecipant_id);
+            foreach ($partecipants as $partecipant_id) {
+                $event->users()->attach($partecipant_id);
+                $partecipantsEmails = User::find($partecipant_id)->pluck('email')->toArray();
+            }
+            foreach ($partecipantsEmails as $email) {
+                mail("$email", "You have a new event" , "New calendar entry $formatdate");
+            }
         }
     }
 
@@ -122,5 +135,35 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
                         ['events.end', '>=', \DB::raw('curdate()')],
                     ])
                     ->count();
+    }
+
+    public static function getRecurringDates($recurring, $start, $end){
+        if($recurring !== 'null'){
+            $interval = new \DateInterval($recurring);
+            $dates = new \DatePeriod($start, $interval, $end);
+            $out = array();
+
+            if (!empty($dates)) {
+                foreach($dates as $dt) {
+                    $out[] = array(
+                        $dt->format('Y'),
+                        $dt->format('m'),
+                        $dt->format('d')
+                    );
+                    // $outRefine += implode(" ",$out);
+                }
+                foreach ($out as $arrayOfDates) {
+                    $outRefine[] = implode("-",$arrayOfDates);
+                }
+            }
+            return $outRefine;
+        }else{
+            $start =  (array) $start;
+            $start= date_create($start['date']);
+            $start = date_format($start,"Y-m-d");
+            $outRefine[] = $start;
+            
+            return $outRefine;
+        }
     }
 }
