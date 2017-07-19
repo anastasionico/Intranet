@@ -47,6 +47,7 @@
       <span class="info">Leisure</span>
       <span class="danger">Conference</span>
       <span class="warning">Appointment</span>
+      <span class="purple">Holiday</span>
     </div>  
     
     {!! $calendar->calendar() !!}

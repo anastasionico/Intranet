@@ -80,24 +80,45 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
     {
         //setting value
         $start=date_create($start);
-        $formatstart = date_format($start,"Y-m-d");
         $end=date_create($end);
-		$formatend = date_format($end,"Y-m-d");
-        $recurring = $options['recurring'];
+        $end=date_add($end, date_interval_create_from_date_string('1 day'));
         
-        //$eventDates is an array of all the dates of a selected event
-        $eventDates = self::getRecurringDates($recurring, $start, $end);
-       
-        foreach ($eventDates as $date) {
-            $date = date_create($date);
-            $formatdate = date_format($date,"Y-m-d");
+		$recurringOptions = array(
+            'recurring' => $options['recurring'],
+            'repeatTo' => $options['repeatTo']
+        );
+
+        $eventDates[] = array(
+            'start' => $start->format("Y-m-d"),
+            'end' => $end->format("Y-m-d"),
+        );
+        $repeatToTimestamp = strtotime($recurringOptions['repeatTo']);
+
+        //if it is not a single event and it does recurr do a do-while until it reaches the repeatTotimestamp 
+        if($recurringOptions['recurring'] != 'null'){
+            do{
+                $start->add(new \DateInterval($recurringOptions['recurring']));
+                $end->add(new \DateInterval($recurringOptions['recurring']));  
+                $eventDates[] = array(
+                    'start' => $start->format("Y-m-d"),
+                    'end' => $end->format("Y-m-d"),
+                );
+                $startTimestamp = $start->getTimestamp();
+                $newdate = date("Y-m-d",$startTimestamp);
+            }while($startTimestamp <= $repeatToTimestamp);
+        }
+        
+
+        foreach ($eventDates as $events) {
+            $start = date_create($events['start']);
+            $end = date_create($events['end']);
             
             //creation events
             $event = \Calendar::event(
                 $title, //event title
                 $isAllDay, //full day event?
-                $date, //start time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg)
-                $date, //end time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg),
+                $start, //start time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg)
+                $end, //end time, must be a DateTime object or valid DateTime format (http://bit.ly/1z7QWbg),
                 $id, //optional event ID
                 [
                     'url' => $options['url'],
@@ -108,8 +129,8 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
             $event = EventModel::create([
                 'title' => $title,
                 'allDay' => $isAllDay,
-                'start' => $formatdate,
-                'end' => $formatdate,
+                'start' => $start->format('Y-m-d'),
+                'end' => $end->format('Y-m-d'),
                 //'id' => $id,
                 'url' => $options['url'],
                 'backgroundColor' => $options['backgroundColor'],
@@ -120,10 +141,14 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
                 $event->users()->attach($partecipant_id);
                 $partecipantsEmails = User::find($partecipant_id)->pluck('email')->toArray();
             }
+            
             foreach ($partecipantsEmails as $email) {
-                mail("$email", "You have a new event" , "New calendar entry $formatdate");
+                $mailDate = date_format($date,"l d F Y");
+                $mailMessage = "You have been registered to a new event on $mailDate, Please have a look at you calendar. http://intranet.dev/calendar";
+                mail("$email", "Imperial Commercials Intranet - New event " , "$mailMessage");
             }
         }
+   
     }
 
     public static function countTodayEvent()
@@ -135,35 +160,5 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
                         ['events.end', '>=', \DB::raw('curdate()')],
                     ])
                     ->count();
-    }
-
-    public static function getRecurringDates($recurring, $start, $end){
-        if($recurring !== 'null'){
-            $interval = new \DateInterval($recurring);
-            $dates = new \DatePeriod($start, $interval, $end);
-            $out = array();
-
-            if (!empty($dates)) {
-                foreach($dates as $dt) {
-                    $out[] = array(
-                        $dt->format('Y'),
-                        $dt->format('m'),
-                        $dt->format('d')
-                    );
-                    // $outRefine += implode(" ",$out);
-                }
-                foreach ($out as $arrayOfDates) {
-                    $outRefine[] = implode("-",$arrayOfDates);
-                }
-            }
-            return $outRefine;
-        }else{
-            $start =  (array) $start;
-            $start= date_create($start['date']);
-            $start = date_format($start,"Y-m-d");
-            $outRefine[] = $start;
-            
-            return $outRefine;
-        }
     }
 }

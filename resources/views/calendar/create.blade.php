@@ -1,3 +1,4 @@
+
 @extends('layouts/master')
 
 @section('heroDiv')
@@ -9,6 +10,7 @@
 @endsection
 
 @section('sectionTable')
+	
 	<div class="table-responsive p-2">
 		@include('layouts/errors')
 		<form action="/calendar/store" method="post" enctype="multipart/form-data">
@@ -19,14 +21,43 @@
 		    		<input type="text" name="title" class="form-control"  required>
 		    	</div>
 		    	<div class="form-group">
+		    		<label for="eventType">Type of event</label>
+			    	<select name='eventType' class="form-control">
+			    		<option value="meeting">Meeting</option>
+			    		<option value="leisure">Leisure</option>
+			    		<option value="conference">Conference</option>
+			    		<option value="appointment">Appointment</option>
+			    		<option value="holiday">Holiday</option>
+			    	</select>
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="url">External Link</label>
+		    		<input type="text" name="url" class="form-control" placeholder="https://www.imperialcommercials.co.uk/">
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="eventType">Recurring</label>
+			    	<select name="recurring"  class="form-control" id="selectRecurring" onchange="showFieldRecurring()">
+						<option value="null" selected>Single event</option>
+						<option value="P7D">Weekly</option>
+						<option value="P1M">Monthly</option>
+						<option value="P3M">Every 3 months</option>
+						<option value="P6M">Every 6 months</option>
+						<option value="P1Y">Annually</option>
+					</select>
+				</div>
+		    	<div class="form-group">
 		    		<label for="dateStart">Which day is the event start? * </label>
+		    		<span onclick="setToday()" class="btn btn-info btn-sm">Today</span>
+		    		<span onclick="setNextWeek()" class="btn btn-info btn-sm">Next Week</span>
+		    		<span onclick="setNextMonth()" class="btn btn-info btn-sm">Next Month</span>
 		    		<input type="date" name="dateStart" class="form-control" id="dateStart" required="">
 		    	</div>
+
 		    	<div class="form-group">
 		    		<label for="allDay">Full Day *</label>
 		    		<input type="checkbox" name="allDay" id="allDay" >
 		    	</div>
-		    	<div class="form-group">
+		    	<div class="form-group" id="dateEndDiv">
 		    		<label for="dateEnd">Event ends</label>
 		    		<span id="allday_warning" class="hidden">
 		    			<small> 
@@ -36,31 +67,10 @@
 		    		</span>
 		    		<input type="date" name="dateEnd"  class="form-control" id="dateEnd">
 		    	</div>
-		    	<div class="form-group">
-		    		<label for="url">External Link</label>
-		    		<input type="text" name="url" class="form-control" placeholder="https://www.imperialcommercials.co.uk/">
+		    	<div class="form-group" id="repeatToDiv">
+		    		<label for="Repeat_to">Repeat until</label>
+		    		<input type="date" name="Repeat_to" class="form-control" id="Repeat_to">
 		    	</div>
-		    	<div class="form-group">
-		    		<label for="eventType">Type of event</label>
-			    	<select name='eventType' class="form-control">
-			    		<option value="meeting">Meeting</option>
-			    		<option value="leisure">Leisure</option>
-			    		<option value="conference">Conference</option>
-			    		<option value="appointment">Appointment</option>
-			    	</select>
-		    	</div>
-		    	<div class="form-group">
-		    		<label for="eventType">Type of event</label>
-			    	<select name="recurring"  class="form-control">
-						<option value="null" selected="">Single event</option>
-						<option value="P1D">Daily</option>
-						<option value="P7D">Weekly</option>
-						<option value="P1M">Monthly</option>
-						<option value="P3M">Every 3 months</option>
-						<option value="P6M">Every 6 months</option>
-						<option value="P1Y">Annually</option>
-					</select>
-				</div>
 		    	<div class="form-group">
 		    		<input type="submit" value="submit" class="btn btn-default">
 		    	</div>
@@ -87,11 +97,20 @@
 	</script>
 
 	<script type="text/javascript">
+		var eventLenghtDiv = document.getElementById('eventLenghtDiv');
+		var repeatToDiv = document.getElementById('repeatToDiv');
+		var selectRecurring = document.getElementById('selectRecurring');
 		var allDay = document.getElementById('allDay');
 		var dateStart = document.getElementById('dateStart');
+		var dateEndDiv = document.getElementById('dateEndDiv');
 		var dateEnd = document.getElementById('dateEnd');
+		var selectRecurring = document.getElementById('selectRecurring');
 		var allday_warning = document.getElementById('allday_warning');
 		var maxDate = 2117 + "-" + 12 + "-" + 31;
+		
+
+		
+		
 
 		allDay.addEventListener("click", setDateEnd );
 		dateStart.addEventListener("change", function(){
@@ -99,7 +118,20 @@
 			dateEnd.setAttribute("min", dateStart.value);
 			dateEnd.setAttribute("max", maxDate);
 		} );
-		
+
+		function showFieldRecurring(){
+			if(selectRecurring.value == 'null'){
+				repeatToDiv.style.display='none';	
+			}else{
+				repeatToDiv.style.display='block';	
+			}
+		}
+		function setToday(){
+			var today = new Date();
+			var dd = today.getMonth() + today.getDate();
+			console.log(dd);
+			dateStart.value = "2014-02-09";
+		}
 		function setDateEnd(){
 			if(allDay.checked) {
 			    dateEnd.value = dateStart.value;

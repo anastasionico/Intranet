@@ -114,30 +114,18 @@ class CalendarController extends Controller
                 $backgroundColor = '#d1bd28';
                 $textColor = '#eee';
                 break;
-        }
-        switch (request('recurring')) {
-            case 'meeting':
-                $backgroundColor = '#29d251';
+            case 'holiday':
+                $backgroundColor = '#d1288c';
                 $textColor = '#eee';
-                break;
-            case 'leisure':
-                $backgroundColor = '#287dd1';
-                $textColor = '#eee';
-                break;
-            case 'conference':
-                $backgroundColor = '#d32a2a';
-                $textColor = '#eee';
-                break;
-            case 'appointment':
-                $backgroundColor = '#d1bd28';
-                $textColor = '#eee';
-                break;
+                break;        
         }
         $options = [
             'url' => request('url'),
             'backgroundColor' => $backgroundColor,
             'textColor' => $textColor,
             'recurring' => $request->recurring,
+            'eventLenght' => $request->eventLenght,
+            'repeatTo' => $request->Repeat_to,
         ];
         $partecipants = $request->partecipants;
         
