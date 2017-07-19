@@ -142,11 +142,11 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
                 $partecipantsEmails = User::find($partecipant_id)->pluck('email')->toArray();
             }
             
-            foreach ($partecipantsEmails as $email) {
-                $mailDate = date_format($date,"l d F Y");
-                $mailMessage = "You have been registered to a new event on $mailDate, Please have a look at you calendar. http://intranet.dev/calendar";
-                mail("$email", "Imperial Commercials Intranet - New event " , "$mailMessage");
-            }
+            // foreach ($partecipantsEmails as $email) {
+            //     $mailDate = date_format($start,"l d F Y");
+            //     $mailMessage = "You have been registered to a new event on $mailDate, Please have a look at you calendar. http://intranet.dev/calendar";
+            //     mail("$email", "Imperial Commercials Intranet - New event " , "$mailMessage");
+            // }
         }
    
     }

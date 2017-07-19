@@ -17,11 +17,11 @@
 			<div class="col-md-9">
 				{{ csrf_field() }}
 		    	<div class="form-group">
-		    		<label for="title">Title* </label>
+		    		<label for="title">Title *</label>
 		    		<input type="text" name="title" class="form-control"  required>
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="eventType">Type of event</label>
+		    		<label for="eventType">Type of event *</label>
 			    	<select name='eventType' class="form-control">
 			    		<option value="meeting">Meeting</option>
 			    		<option value="leisure">Leisure</option>
@@ -35,7 +35,7 @@
 		    		<input type="text" name="url" class="form-control" placeholder="https://www.imperialcommercials.co.uk/">
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="eventType">Recurring</label>
+		    		<label for="eventType">Recurring *</label>
 			    	<select name="recurring"  class="form-control" id="selectRecurring" onchange="showFieldRecurring()">
 						<option value="null" selected>Single event</option>
 						<option value="P7D">Weekly</option>
@@ -46,19 +46,22 @@
 					</select>
 				</div>
 		    	<div class="form-group">
-		    		<label for="dateStart">Which day is the event start? * </label>
-		    		<span onclick="setToday()" class="btn btn-info btn-sm">Today</span>
-		    		<span onclick="setNextWeek()" class="btn btn-info btn-sm">Next Week</span>
-		    		<span onclick="setNextMonth()" class="btn btn-info btn-sm">Next Month</span>
+		    		<label for="dateStart">Which day is the event start? *</label>
+		    			<span style="float: right;">
+		    				<span onclick="setToday()" class="btn btn-info btn-sm">Today</span>
+				    		<span onclick="setNextWeek()" class="btn btn-info btn-sm">Next Week</span>
+				    		<span onclick="setNextMonth()" class="btn btn-info btn-sm">Next Month</span>	
+		    			</span>
 		    		<input type="date" name="dateStart" class="form-control" id="dateStart" required="">
 		    	</div>
 
 		    	<div class="form-group">
-		    		<label for="allDay">Full Day *</label>
+		    		<label for="allDay">Full Day</label>
 		    		<input type="checkbox" name="allDay" id="allDay" >
 		    	</div>
 		    	<div class="form-group" id="dateEndDiv">
-		    		<label for="dateEnd">Event ends</label>
+		    		<label for="dateEnd">Event ends *</label>
+					<i id="bubbleEventEndCreate" class="fa fa-info-circle Bubble" aria-hidden="true"></i>
 		    		<span id="allday_warning" class="hidden">
 		    			<small> 
 		    				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -68,11 +71,8 @@
 		    		<input type="date" name="dateEnd"  class="form-control" id="dateEnd">
 		    	</div>
 		    	<div class="form-group" id="repeatToDiv">
-		    		<label for="Repeat_to">Repeat until</label>
+		    		<label for="Repeat_to">Repeat until* </label>
 		    		<input type="date" name="Repeat_to" class="form-control" id="Repeat_to">
-		    	</div>
-		    	<div class="form-group">
-		    		<input type="submit" value="submit" class="btn btn-default">
 		    	</div>
 		    </div>    
 		    <div class="col-md-3">
@@ -86,6 +86,11 @@
 					  	@endforeach
 					</select>
 				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group">
+		    		<input type="submit" value="submit" class="btn btn-default">
+		    	</div>
 			</div>
 		</form>
 	</div>
@@ -128,9 +133,18 @@
 		}
 		function setToday(){
 			var today = new Date();
-			var dd = today.getMonth() + today.getDate();
-			console.log(dd);
-			dateStart.value = "2014-02-09";
+			var dd = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + today.getDate();
+			dateStart.value = dd;
+		}
+		function setNextWeek(){
+			var today = new Date();
+			var dd = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + (today.getDate()+7);
+			dateStart.value = dd;
+		}
+		function setNextMonth(){
+			var today = new Date();
+			var dd = today.getFullYear() + '-' + ("0" + (today.getMonth() + 2)).slice(-2) + '-' + today.getDate();
+			dateStart.value = dd;
 		}
 		function setDateEnd(){
 			if(allDay.checked) {

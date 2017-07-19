@@ -50,3 +50,26 @@ input.empty {
 #eventLenghtDiv, #repeatToDiv{
     display:none;
 }
+.Bubble:hover:after{
+  padding: 1em;
+  position: absolute;
+  
+  z-index: 10;
+  width: 230px;
+  color: $primary;
+  
+  
+
+  -webkit-border-radius: 20px;
+  -webkit-border-top-right-radius: 0;
+  -moz-border-radius: 20px;
+  -moz-border-radius-topleft: 0;
+  border-radius: 20px;
+  border-top-left-radius: 0;
+
+  background-color:$secondary;
+  animation-name: cartoonBubbleTL;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
