@@ -18,8 +18,7 @@ class User extends Authenticatable
         'img','name','surname',
             'job_title','email','password',
             'username',
-            'birthdate','department_id','expenses_mileage_rate','expenses_auth_id',
-            'holiday_manager','holiday_total','holiday_taken',
+            'birthdate','department_id','expenses_mileage_rate','manager_id','holiday_total','holiday_taken','level','on_holiday'
     ];
 
     /**
@@ -65,14 +64,14 @@ class User extends Authenticatable
         $user->name = $request->input('name');
         $user->surname = $request->input('surname');
         $user->job_title = $request->input('job_title');
+        $user->level = $request->input('job_level');
         $user->email = $request->input('email');
         $user->username = $request->input('username');
         $user->password = $request->input('password');
         $user->birthdate = $request->input('birthdate');
         $user->department_id = $request->input('department_id');
-        $user->expenses_auth_id = $request->input('expenses_auth_id');
         $user->expenses_mileage_rate = $request->input('expenses_mileage_rate');
-        $user->holiday_manager = $request->input('holiday_manager');
+        $user->manager_id = $request->input('personal_manager');
         $user->holiday_total = $request->input('holiday_total');
         $user->holiday_taken = $request->input('holiday_taken');
         

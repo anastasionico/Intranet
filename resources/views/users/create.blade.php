@@ -41,24 +41,22 @@
 		    	<div class="form-group">
 		    		<label for="department">Department *</label>
 		    		<select name='department_id' class="form-control" required>
-							@foreach($departments as $department)
-								<option value="{{ $department->id }}">
-			    					{{ $department->name }} 
-			    					| Manager: {{ $department->manager->name }} {{ $department->manager->surname }}
-		    					</option>
-			    			@endforeach
+						@foreach($departments as $department)
+							<option value="{{ $department->id }}">
+		    					{{ $department->name }} 
+		    					| Manager: {{ $department->manager->name }} {{ $department->manager->surname }}
+	    					</option>
+		    			@endforeach
 		    		</select>
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="expenses_auth_id">Expenses Manager *</label>
-		    		<select name="expenses_auth_id"  class="form-control" required>
-		    			<option value="1">John Doe</option>
-		    		</select>
-		    	</div>
-		    	<div class="form-group">
-		    		<label for="holiday_manager">Holiday Manager *</label>
-		    		<select name="holiday_manager"  class="form-control" required>
-		    			<option value="1">John Doe</option>
+		    		<label for="personal_manager">Personal Manager *</label>
+		    		<select name="personal_manager"  class="form-control" required>
+		    			@foreach($users as $user)
+							<option value="{{ $user->id }}">
+		    					{{ $user->name }} {{ $user->surname }}
+	    					</option>
+		    			@endforeach
 		    		</select>
 		    	</div>
 		    	<div class="form-group">
@@ -70,8 +68,12 @@
 		    		<input type="number" name="holiday_taken" class="form-control" min='0' required>
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="job_title">Job Title</label>
+		    		<label for="job_title">Job Title *</label>
 		    		<input type="text" name="job_title" class="form-control">
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="job_level">Job Level *</label>
+		    		<input type="number" name="job_level" class="form-control" min="1" value="1">
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="birthdate">Birth Date</label>
@@ -79,7 +81,7 @@
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="expenses_mileage_rate">Expenses Mileage Rate</label>
-		    		<input type="number" name="expenses_mileage_rate" class="form-control" placeholder="20">
+		    		<input type="number" name="expenses_mileage_rate" class="form-control" value="20">
 		    	</div>
 		    	<div class="form-group">
 		    		<input type="submit" value="submit" class="btn btn-default">

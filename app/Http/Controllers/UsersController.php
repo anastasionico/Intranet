@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Department;
 
+
 class UsersController extends Controller
 {
     public function __construct()
@@ -31,8 +32,9 @@ class UsersController extends Controller
      */
     public function create()
     {
+        $users = User::all();
         $departments = Department::all();
-        return view('/users/create' , compact('departments'));
+        return view('/users/create' , compact('departments','users'));
     }
 
     /**
@@ -43,42 +45,41 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // dd($request->all());
         //validion
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',
             'name' => 'required|alpha',
             'surname' => 'required|alpha',
-            'job_title' => 'nullable',
+            'job_title' => 'required',
+            'job_level' => 'required',
             'email' => 'required|email|unique:users,email',
             'username' => 'required|min:3|alpha_num',
             'password' => 'required|confirmed',
             'birthdate' => 'nullable|date|before:yesterday',
             'department_id' => 'required|integer',
-            'expenses_auth_id' => 'required|integer',
+            'personal_manager' => 'required|integer',
             'expenses_mileage_rate' => 'nullable',
-            'holiday_manager' => 'required|integer',
             'holiday_total' => 'required|integer',
             'holiday_taken' => 'required|integer',
         ]);
         
         //store
         User::create([
-                'name' => request('name'),
-                'surname' => request('surname'),
-                'job_title' => request('job_title'),
-                'email' => request('email'),
-                'username' => request('username'),
-                'password' => bcrypt(request('password')),
-                'birthdate' => request('birthdate'),
-                'department_id' => request('department_id'),
-                'expenses_auth_id' => request('expenses_auth_id'),
-                'expenses_mileage_rate' => request('expenses_mileage_rate'),
-                'holiday_manager' => request('holiday_manager'),
-                'holiday_total' => request('holiday_total'),
-                'holiday_taken' => request('holiday_taken'),
-            ]
-        );
+            'name' => request('name'),
+            'surname' => request('surname'),
+            'job_title' => request('job_title'),
+            'level' => request('job_level'),
+            'email' => request('email'),
+            'username' => request('username'),
+            'password' => bcrypt(request('password')),
+            'birthdate' => request('birthdate'),
+            'department_id' => request('department_id'),
+            'manager_id' => request('personal_manager'),
+            'expenses_mileage_rate' => request('expenses_mileage_rate'),
+            'holiday_total' => request('holiday_total'),
+            'holiday_taken' => request('holiday_taken'),
+        ]);
         
         //redirect to home page   
         return redirect('/users');
@@ -104,8 +105,15 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        $users = User::all();
         $user = User::find($id);
-        return view('users/edit', compact('user'));
+        $personal_manager_id = $user->manager_id;
+        $departments = Department::all();
+
+        $personal_manager = User::find($personal_manager_id);
+        
+        // dd($user);
+        return view('users/edit', compact('users', 'user','departments','personal_manager'));
     }
 
     /**
@@ -117,20 +125,21 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all() );
         //VALIDATION
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',
             'name' => 'required|alpha',
             'surname' => 'required|alpha',
-            'job_title' => 'nullable',
+            'job_title' => 'required',
+            'job_level' => 'required',
             'email' => 'required|email',
             'username' => 'required|min:3|alpha_num',
             'password' => 'required|confirmed',
             'birthdate' => 'nullable|date|before:yesterday',
             'department_id' => 'required|integer',
-            'expenses_auth_id' => 'required|integer',
+            'personal_manager' => 'required|integer',
             'expenses_mileage_rate' => 'nullable',
-            'holiday_manager' => 'required|integer',
             'holiday_total' => 'required|integer',
             'holiday_taken' => 'required|integer',
         ]);

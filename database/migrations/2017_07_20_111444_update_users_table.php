@@ -17,7 +17,7 @@ class UpdateUsersTable extends Migration
             $t->renameColumn('expenses_auth_id', 'manager_id');
             $t->dropColumn('holiday_manager');
             $t->integer('level')->unsigned();
-            $t->boolean('on_holiday');
+            $t->boolean('on_holiday')->default(0);
         });
     }
 
