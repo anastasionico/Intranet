@@ -81,20 +81,17 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
         //setting value
         $start=date_create($start);
         $end=date_create($end);
-        $end=date_add($end, date_interval_create_from_date_string('1 day'));
-        
-		$recurringOptions = array(
+        $recurringOptions = array(
             'recurring' => $options['recurring'],
             'repeatTo' => $options['repeatTo']
         );
-
         $eventDates[] = array(
             'start' => $start->format("Y-m-d"),
             'end' => $end->format("Y-m-d"),
         );
         $repeatToTimestamp = strtotime($recurringOptions['repeatTo']);
 
-        //if it is not a single event and it does recurr do a do-while until it reaches the repeatTotimestamp 
+        //if it is not a single event and it does recurr do a do-while to fill all the start and end variable until it reaches the repeatTotimestamp 
         if($recurringOptions['recurring'] != 'null'){
             do{
                 $start->add(new \DateInterval($recurringOptions['recurring']));
@@ -108,11 +105,9 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
             }while($startTimestamp <= $repeatToTimestamp);
         }
         
-
         foreach ($eventDates as $events) {
             $start = date_create($events['start']);
             $end = date_create($events['end']);
-            
             //creation events
             $event = \Calendar::event(
                 $title, //event title
@@ -142,11 +137,11 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
                 $partecipantsEmails = User::find($partecipant_id)->pluck('email')->toArray();
             }
             
-            // foreach ($partecipantsEmails as $email) {
-            //     $mailDate = date_format($start,"l d F Y");
-            //     $mailMessage = "You have been registered to a new event on $mailDate, Please have a look at you calendar. http://intranet.dev/calendar";
-            //     mail("$email", "Imperial Commercials Intranet - New event " , "$mailMessage");
-            // }
+            foreach ($partecipantsEmails as $email) {
+                $mailDate = date_format($start,"l d F Y");
+                $mailMessage = "You have been registered to a new event on $mailDate, Please have a look at you calendar. http://intranet.dev/calendar";
+                mail("$email", "Imperial Commercials Intranet - New event " , "$mailMessage");
+            }
         }
    
     }
