@@ -59,10 +59,10 @@
 		    	<div class="form-group">
 		    		<label for="personal_manager">Personal Manager *</label> 
 		    		<select name="personal_manager"  class="form-control" required>
-		    			<option value="{{$personal_manager->id}}">{{$personal_manager->name}} | Current</option>
+		    			<option value="{{$personal_manager->id}}">{{$personal_manager->name}} {{$personal_manager->surname}} | Current</option>
 		    			@foreach($users as $user)
 							<option value="{{ $user->id }}">
-		    					{{ $user->name }} 
+		    					{{ $user->name }} {{ $user->surname }} 
 		    				</option>
 		    			@endforeach
 					</select>

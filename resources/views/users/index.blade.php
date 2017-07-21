@@ -1,7 +1,9 @@
 @extends('layouts/master')
 
 @section('heroDiv')
-	<h1 class="page-header p-2">Welcome {{ Auth::user()->name }} </h1>
+	<h1 class="page-header p-2">Welcome {{ Auth::user()->name }}</h1>
+	
+	
 	{{--
 	<div class="row placeholders">
         <div class="col-xs-6 col-sm-3 placeholder">

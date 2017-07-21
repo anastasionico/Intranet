@@ -29,8 +29,14 @@
 
 @section('sectionTable')
 	<div class="table-responsive  col-sm-6 col-md-6">
-		
-		<h2 class="sub-header">User Details</h2>
+		<h2 class="sub-header">
+			User Details
+			@if( $user->on_holiday == 1)
+          		<span class="btn btn-danger">
+          			Currently in Holiday
+          		</span>
+          	@endif
+		</h2>
 	    <table class="table table-striped">
 	        <tr>
 	          	<td>Id</td>
@@ -58,11 +64,19 @@
 	        </tr>
 	        <tr>
 	          	<td>Department</td>
-	          	<td>{{ $user->department_id }}</td>
+	          	<td>{{ $department->name }}</td>
 	        </tr>
 	        <tr>
-	          	<td>Job title</td>
+	          	<td>Personal Manager</td>
+	          	<td>{{ $personal_manager->name }} {{ $personal_manager->surname }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Job Title</td>
 	          	<td>{{ $user->job_title }}</td>
+	        </tr>
+	        <tr>
+	          	<td>Job Level</td>
+	          	<td>{{ $user->level }}</td>
 	        </tr>
 	        <tr>
 	        	<td>Birthday</td>
@@ -101,10 +115,6 @@
 	          	<td>{{ $user->expenses_mileage_rate }}</td>
 	        </tr>
 	        <tr>
-	          	<td>Holiday Manager</td>
-	          	<td>{{ $user->holiday_manager }}</td>
-	        </tr>
-	        <tr>
 	          	<td>Holiday Total Days (per year)</td>
 	          	<td>{{ $user->holiday_total }}</td>
 	        </tr>
@@ -114,10 +124,7 @@
 	        </tr>
 	      	<tr>
 	          	<td>Holiday Outstanding Day</td>
-	          	<td>
-	          		{{ $holiday_outstanding = $user->holiday_total - $user->holiday_taken }}
-
-	          	</td>
+	          	<td>{{ $holiday_outstanding = $user->holiday_total - $user->holiday_taken }}</td>
 	        </tr>
 	    </table>
 	    <a href="/users/edit/{{ $user->id }}" class="btn btn-primary">

@@ -94,7 +94,11 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('/users/show', compact('user') );
+        $personal_manager_id = $user->manager_id;
+        $personal_manager = User::find($personal_manager_id);
+        $department = Department::where('id', $user->department_id)->first();
+                
+        return view('/users/show', compact('user','department','personal_manager') );
     }
 
     /**
