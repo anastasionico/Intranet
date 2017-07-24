@@ -91,7 +91,7 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
         );
         $repeatToTimestamp = strtotime($recurringOptions['repeatTo']);
 
-        //if it is not a single event and it does recurr do a do-while to fill all the start and end variable until it reaches the repeatTotimestamp 
+        //if it is not a single event and it does recur do a do-while to fill all the start and end variable until it reaches the repeatTotimestamp 
         if($recurringOptions['recurring'] != 'null'){
             do{
                 $start->add(new \DateInterval($recurringOptions['recurring']));
@@ -149,11 +149,11 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
     public static function countTodayEvent()
     {
         $user = User::find(Auth::user()->id);
-        return $countTodayEvent = $user->events()
-                    ->where([
-                        ['events.start', '<=', \DB::raw('curdate()')],
-                        ['events.end', '>=', \DB::raw('curdate()')],
-                    ])
-                    ->count();
+        return  $countTodayEvent = $user->events()
+            ->where([
+                ['events.start', '<=', \DB::raw('now()')],
+                ['events.end', '>=', \DB::raw('now()')],
+            ])
+            ->count();
     }
 }

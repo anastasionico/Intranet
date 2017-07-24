@@ -43,8 +43,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\EventModel', 'event_user', 'user_id', 'event_id')->withPivot('event_id', 'user_id');  // related model, table name, field current model, field joining model
     }
+
+    public function holiday()
+    {
+        return $this->hasMany('App\Holiday');
+    }
     
-    public function task(){
+    public function task()
+    {
         return $this->hasMany('App\Task');
     }
 
@@ -53,10 +59,8 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class, 'manager_id');
     }
     
-
     public static function updateUser( $request, $id)
     {
-        
         //find the user with the selected id
         $user = User::find($id);
         
@@ -79,8 +83,5 @@ class User extends Authenticatable
         $user->save();
         
         return $user = User::find($id);
-        
-
     }
-    
 }

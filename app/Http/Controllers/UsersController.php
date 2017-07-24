@@ -116,7 +116,6 @@ class UsersController extends Controller
 
         $personal_manager = User::find($personal_manager_id);
         
-        // dd($user);
         return view('users/edit', compact('users', 'user','departments','personal_manager'));
     }
 

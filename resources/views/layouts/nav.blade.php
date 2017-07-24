@@ -18,8 +18,7 @@
         </a>
       </span>
       <span class="date navbar-right">
-        {{ date('d M Y') }}
-        {{ date('   D H:m') }}
+        {{ date('d m Y') }} | {{ date('h:i a') }}
       </span>
       <form class="navbar-form navbar-right">
         <input type="text" class="form-control empty" placeholder="&#xF002; Search...">
@@ -31,6 +30,16 @@
   <div class="container-fluid">
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        @if($countPendingHoliday > 0)
+          <li style="position: relative;">
+            <a href="/holiday">
+              <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                <span class="notification-circle">
+                    {{ $countPendingHoliday }}
+                </span>
+            </a>
+          </li>
+        @endif
         @if($countTodayEvent > 0)
           <li style="position: relative;">
             <a href="/calendar">

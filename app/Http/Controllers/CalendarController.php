@@ -18,14 +18,6 @@ class CalendarController extends Controller
         $user = User::find(Auth::user()->id);
         $event = $user->events()->get();
 
-        //FIX THIS!!!!!!!!!!!!!!!!! SHOW ONLY THE PARTECIPANT OF A SELECTED EVENT
-        // $currentEvent = EventModel::find(36);
-        // $userPerEvent = $currentEvent->users()->get(); 
-        // foreach ($userPerEvent as $use_eve) {
-        //     echo $use_eve->name;
-        // };
-        // exit;
-
         foreach ($event as $eve) {
             $currentEvent = EventModel::find($eve->id);
             $userPerEvent = $currentEvent->users()->get(); 
@@ -38,8 +30,6 @@ class CalendarController extends Controller
             $formatstart = date_format($start,"Y-m-d");
             $end=date_create($eve->end);
             $formatend = date_format($end,"Y-m-d");
-            // //FIX THIS!!!!!!!!!!!!!!!!!
-            // $partecipants = ['Topolino','Paperino','Pluto'];
             $events[] = \Calendar::event(
                 $eve->title, //event title
                 $eve->allDay, //full day event?
@@ -50,7 +40,6 @@ class CalendarController extends Controller
                     'textColor' => $eve->textColor,
                     'url' => $eve->url,
                     'backgroundColor' => $eve->backgroundColor,
-                    //FIX THIS!!!!!!!!!!!!!!!!!
                     'partecipants' => $partecipants
                 ]
             );

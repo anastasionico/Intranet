@@ -43,7 +43,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link rel="shortcut icon" href="{{{ asset('img/favicon.png') }}}">
-    
+    <?php
+      date_default_timezone_set("America/New_York");
+    ?>
   </head>
 
 

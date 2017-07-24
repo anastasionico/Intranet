@@ -50,7 +50,7 @@
       </a>
     </li>
     <li>
-      <a href="/">
+      <a href="/holiday">
         <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
         Holiday
       </a>

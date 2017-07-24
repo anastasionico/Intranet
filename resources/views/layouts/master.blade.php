@@ -2,6 +2,9 @@
 <html lang="en">
   @include('layouts/head')
   <body>
+    <?php
+      date_default_timezone_set("Europe/London");
+    ?>
     <div class="container-full">
       <div class="row">
         <aside class="col-sm-3 col-md-1 sidebar p-1 pt-0">

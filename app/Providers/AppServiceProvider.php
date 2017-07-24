@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
         {
            $view->with('countTasks', \App\Task::countTasks());
            $view->with('countTodayEvent', \App\EventModel::countTodayEvent());
+           $view->with('countPendingHoliday', \App\Holiday::countPendingHoliday());
         });
     }
 

@@ -20,7 +20,8 @@ Auth::routes();
 
 
 Route::get('/home', 'UsersController@index')->name('home');
-Route::prefix('/users')->group(function () {
+Route::prefix('/users')->group(function() 
+{
 	Route::get('', 'UsersController@index');
 	Route::get('/create', 'UsersController@create');
 	Route::get('/{id}', 'UsersController@show')->where('id','[0-9]+'); //the where() cointraints the {id} to be an integer.
@@ -31,7 +32,8 @@ Route::prefix('/users')->group(function () {
 });
 
 
-Route::prefix('/tasks')->group(function () {
+Route::prefix('/tasks')->group(function() 
+{
 	Route::get('', 'TasksController@index');
 	Route::get('/create', 'TasksController@create');
 	Route::post('/store', 'TasksController@store');
@@ -41,7 +43,8 @@ Route::prefix('/tasks')->group(function () {
 });
 
 
-Route::prefix('/company')->group(function () {
+Route::prefix('/company')->group(function() 
+{
     Route::get('', 'CompanyController@index');
 	Route::get('/create', 'CompanyController@create');
 	Route::post('/store', 'CompanyController@store');
@@ -52,7 +55,8 @@ Route::prefix('/company')->group(function () {
 });
 
 
-Route::prefix('/sites')->group(function () {
+Route::prefix('/sites')->group(function() 
+{
 	Route::get('', 'SitesController@index');
 	Route::get('/create', 'SitesController@create');
 	Route::post('/store' , 'SitesController@store');
@@ -62,7 +66,8 @@ Route::prefix('/sites')->group(function () {
 	Route::get('/delete/{id}', 'SitesController@destroy');
 });
 
-Route::prefix('/departments')->group(function () { 
+Route::prefix('/departments')->group(function() 
+{ 
 	Route::get('', 'DepartmentsController@index');
 	Route::get('/create', 'DepartmentsController@create');
 	Route::post('/store' , 'DepartmentsController@store');
@@ -72,15 +77,16 @@ Route::prefix('/departments')->group(function () {
 	Route::get('/delete/{id}', 'DepartmentsController@destroy');
 });
 
-Route::prefix('/calendar')->group(function () { 
+Route::prefix('/calendar')->group(function() 
+{ 
 	Route::get('', 'CalendarController@index');
 	Route::get('/create', 'CalendarController@create');
 	Route::post('/store' , 'CalendarController@store');
 	Route::get('/search' , 'CalendarController@search');
-	// Route::get('/getdata', 'CalendarController@getData');
-	// Route::get('/{id}' , 'CalendarController@show');
-	// Route::get('/edit/{id}', 'CalendarController@edit');
-	// Route::post('/update/{id}', 'CalendarController@update');
-	// Route::get('/delete/{id}', 'CalendarController@destroy');
 });
 
+Route::prefix('/holiday')->group(function()
+{
+	Route::get('', 'HolidayController@index');
+	Route::get('/create', 'HolidayController@create');
+});
