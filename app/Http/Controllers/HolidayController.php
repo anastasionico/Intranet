@@ -49,12 +49,12 @@ class HolidayController extends Controller
             );
 
         }
-
+        // dd($holidayList);
         $calendar = \Calendar::addEvents($holidayList);     
         $calendar = \Calendar::setCallbacks([
             'eventRender' => "function(event, element) {
             	if(event.approved == 0){
-            		element.addClass('holidayNotConfirmed');	
+                    element.addClass('holidayNotConfirmed');	
             	}
             }",
         ]);

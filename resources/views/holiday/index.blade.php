@@ -44,9 +44,9 @@
     <div>
       Legend: 
       @foreach($holidayList as $holiday)
-        <span style="color:{{ $holiday->options['backgroundColor'] }}">
-          {{ $holiday->title }}
-        </span>
+        <p style="color:{{ $holiday->options['backgroundColor'] }}">
+          {{ $holiday->title }} ( from: {{$holiday->start->format('d-M-y')}} to: {{$holiday->end->format('d-M-y')}} )
+        </p>
       @endforeach
     </div>  
     
