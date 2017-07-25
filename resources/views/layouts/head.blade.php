@@ -46,7 +46,8 @@
     <?php
       date_default_timezone_set("America/New_York");
     ?>
-  </head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
 
 
 

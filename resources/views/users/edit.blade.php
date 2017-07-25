@@ -12,7 +12,7 @@
 			<form action="/users/update/{{ $user->id }}" method="post" enctype="multipart/form-data">
 		    	{{ csrf_field() }}
 				<div class="form-group">
-		    		{{-- Image to sort out --}}
+		    		
 		    		<label for="img">Current image Photo</label>
 		    		<img src="">
 		    	</div>

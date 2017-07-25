@@ -14,7 +14,6 @@ class HolidayController extends Controller
 {
    	public function index()
     {
-    	//instanziate the events array and find all the event of the logged user
         $holidayList = [];
         $user = User::find(Auth::user()->id);
         $holidays = Holiday::all();
@@ -28,13 +27,12 @@ class HolidayController extends Controller
             $formatend = date_format($end,"Y-m-d");
            	$holiday_user = User::find($holiday->user_id);
            	unset($random_dechex);
-           	for ($i=0; $i <= 2; $i++) { 
-				$random_dechex[] = str_pad( dechex( mt_rand( 10, 225 ) ), 2, '0', STR_PAD_LEFT);
+            for ($i=0; $i <= 2; $i++) { 
+				$random_dechex[] = str_pad( dechex( mt_rand( 50, 205 ) ), 2, '0', STR_PAD_LEFT);
             }
             $random_color = "#". implode('', $random_dechex);
             $holiday_color[$holiday->user_id] = $random_color;
             
-
 			$holidayList[] = \Calendar::event(
                 "$holiday_user->name $holiday_user->surname", // $holiday->title, //event title
                 1, // $holiday->allDay, //full day event?
@@ -47,9 +45,8 @@ class HolidayController extends Controller
                     'approved' => $holiday->approved,
                 ]
             );
-
         }
-        // dd($holidayList);
+
         $calendar = \Calendar::addEvents($holidayList);     
         $calendar = \Calendar::setCallbacks([
             'eventRender' => "function(event, element) {
@@ -58,12 +55,15 @@ class HolidayController extends Controller
             	}
             }",
         ]);
-		
-        
 
         return view('/holiday/index', compact('calendar','holidayList','users'));
-		
     }
 
+    public function create()
+    {
+        $users = User::all();
+        $user = User::find(Auth::user()->id);
+        return view('/holiday/create', compact('user','users'));
+    }
     
 }
