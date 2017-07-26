@@ -14,3 +14,6 @@
 #bubbleHolidayIndex:hover:after{
   content: "Use the arrows to scroll through the months. The \000021  symbols indicate pending requests";
 }
+#bubbleHolidayDayReturning:hover:after{
+  content: "If the retuninig day falls on the weekend the system automatically calculates the next business day";
+}

@@ -37,7 +37,6 @@
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="dateStart">Which day does the holiday finish? *</label>
-		    		<i id="bubbleEventEndCreate" class="fa fa-info-circle Bubble" aria-hidden="true"></i>
 		    		<span id="allday_warning" class="hidden">
 		    			<small> 
 		    				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -52,15 +51,16 @@
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="dateReturning">Day returning *</label>
+		    		<i id="bubbleHolidayDayReturning" class="fa fa-info-circle Bubble" aria-hidden="true"></i>
 		    		<input type="date" name="dateReturning" class="form-control" id="dateReturning" required="">
 		    	</div>
 				<div class="form-group">
 		    		<label for="totalDayRequested">Total Day requested</label>
-		    		<input type="number" name="totalDayRequested" class="form-control" id="totalDayRequested" value="3" readonly="">
+		    		<input type="number" name="totalDayRequested" class="form-control" id="totalDayRequested" readonly="">
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="totalDayRequested">Day remaining after this request</label>
-		    		<input type="number" name="totalDayRequested" class="form-control" id="totalDayRequested" value="4" readonly="">
+		    		<label for="totalDayRemaining">Day remaining after this request</label>
+		    		<input type="number" name="totalDayRemaining" class="form-control" id="totalDayRemaining" readonly="">
 		    	</div>
 		    </div>    
 		    <div class="col-md-3">
@@ -107,7 +107,6 @@
 			$(".js-example-basic-multiple").select2();
 		});
 	</script>
-
 	<script type="text/javascript">
 		var eventLenghtDiv = document.getElementById('eventLenghtDiv');
 		var repeatToDiv = document.getElementById('repeatToDiv');
@@ -118,22 +117,11 @@
 		var dateEnd = document.getElementById('dateEnd');
 		var selectRecurring = document.getElementById('selectRecurring');
 		var allday_warning = document.getElementById('allday_warning');
+		var totalDayRequested = document.getElementById('totalDayRequested');
+		var totalDayRemaining = document.getElementById('totalDayRemaining');
+		
 		var maxDate = 2117 + "-" + 12 + "-" + 31;
 		
-		// allDay.addEventListener("click", setDateEnd );
-		// dateStart.addEventListener("change", function(){
-		// 	dateEnd.setAttribute("value", dateStart.value);
-		// 	dateEnd.setAttribute("min", dateStart.value);
-		// 	dateEnd.setAttribute("max", maxDate);
-		// } );
-
-		function showFieldRecurring(){
-			if(selectRecurring.value == 'null'){
-				repeatToDiv.style.display='none';	
-			}else{
-				repeatToDiv.style.display='block';	
-			}
-		}
 		function setTomorrow(){
 			var day = new Date();
 			
@@ -142,6 +130,7 @@
 			
 			dateStart.value = dd;
 		}
+
 		function setNextWeek(){
 			var day = new Date();
 			
@@ -150,6 +139,7 @@
 			
 			dateStart.value = dd;
 		}
+
 		function setNextMonth(){
 			var day = new Date();
 			
@@ -158,7 +148,9 @@
 			
 			dateStart.value = dd;
 		}
+
 		function setOneWeek(){
+			var today = new Date(dateStart.value);
 			var day = new Date(dateStart.value);
 			
 			day.setDate(day.getDate() + 7);
@@ -168,17 +160,19 @@
 			var dayOfWeek = day.getDay()
 
 			if(dayOfWeek != 0 && dayOfWeek != 6){
-				dateReturning.value = dd;		
+				dateReturning.value = dr = dd;		
 			}else{
 				while(day.getDay() == 0 || day.getDay() == 6){
 					day.setDate(day.getDate() + 1);
-					var rd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
-					console.log(rd);
-					dateReturning.value = rd;				
+					var dr = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
+					dateReturning.value = dr;				
 				}	
 			}
+			
 		}
+
 		function setTwoWeeks(){
+			var today = new Date(dateStart.value);
 			var day = new Date(dateStart.value);
 			
 			day.setDate(day.getDate() + 14);
@@ -188,15 +182,28 @@
 			var dayOfWeek = day.getDay()
 
 			if(dayOfWeek != 0 && dayOfWeek != 6){
-				dateReturning.value = dd;		
+				dateReturning.value = dr = dd;		
 			}else{
 				while(day.getDay() == 0 || day.getDay() == 6){
 					day.setDate(day.getDate() + 1);
-					var rd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
-					console.log(rd);
-					dateReturning.value = rd;				
+					var dr = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
+					dateReturning.value = dr;				
 				}	
 			}
+		}
+		document.getElementById("dateEnd").addEventListener("change", setTotalDayRequested);
+		function setTotalDayRequested(){
+			var date1 = new Date(dateStart.value);
+			var date2 = new Date(dateEnd.value);
+			var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+			totalDayRequested.value = diffDays;
+		}
+		document.getElementById("totalDayRequested").addEventListener("change", setTotalDayRemaining);
+		//try to catch the totalDayRequested.value and set $total day available - totalDayRequested.value 
+		function setTotalDayRemaining(){
+			console.log(totalDayRequested.value)
+			
 		}
 	</script>
 	<script type="text/javascript">
