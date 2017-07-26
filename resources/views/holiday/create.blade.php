@@ -18,8 +18,9 @@
 @section('sectionTable')
 	<?php 
 		$holiday_total = $user->holiday_total;
-		$holiday_taken = $user->holiday_taken;
-		$holiday_outstanding = $user->holiday_outstanding;
+		$holiday_taken = $user->holiday_taken; 
+		$holiday_available = $holiday_total - $holiday_taken;
+		$holiday_outstanding = $user->holiday_outstanding; //previous year
 	?>
 	<div class="table-responsive p-2">
 		@include('layouts/errors')
@@ -59,7 +60,7 @@
 		    		<input type="number" name="totalDayRequested" class="form-control" id="totalDayRequested" readonly="">
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="totalDayRemaining">Day remaining after this request</label>
+		    		<label for="totalDayRemaining">Day remaining after this request (this year)</label>
 		    		<input type="number" name="totalDayRemaining" class="form-control" id="totalDayRemaining" readonly="">
 		    	</div>
 		    </div>    
@@ -119,7 +120,21 @@
 		var allday_warning = document.getElementById('allday_warning');
 		var totalDayRequested = document.getElementById('totalDayRequested');
 		var totalDayRemaining = document.getElementById('totalDayRemaining');
+		document.getElementById("dateEnd").addEventListener("change", function(){
+			var day = new Date(dateEnd.value);
+			var dd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
+
+			checkWeekday(dd, day);
+			setTotalDayRequested();
+
+		});
 		
+
+
+		// document.getElementById("dateEnd").addEventListener("change", setTotalDayRequested);
+		document.getElementById("totalDayRequested").addEventListener("change", setTotalDayRemaining);
+		
+
 		var maxDate = 2117 + "-" + 12 + "-" + 31;
 		
 		function setTomorrow(){
@@ -150,37 +165,30 @@
 		}
 
 		function setOneWeek(){
-			var today = new Date(dateStart.value);
 			var day = new Date(dateStart.value);
 			
 			day.setDate(day.getDate() + 7);
 			var dd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
-			
 			dateEnd.value = dd;
-			var dayOfWeek = day.getDay()
-
-			if(dayOfWeek != 0 && dayOfWeek != 6){
-				dateReturning.value = dr = dd;		
-			}else{
-				while(day.getDay() == 0 || day.getDay() == 6){
-					day.setDate(day.getDate() + 1);
-					var dr = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
-					dateReturning.value = dr;				
-				}	
-			}
 			
+			checkWeekday( dd, day);
+			setTotalDayRequested();
 		}
 
 		function setTwoWeeks(){
-			var today = new Date(dateStart.value);
 			var day = new Date(dateStart.value);
 			
 			day.setDate(day.getDate() + 14);
 			var dd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
-			
 			dateEnd.value = dd;
-			var dayOfWeek = day.getDay()
+			
+			checkWeekday(dd, day);
+			setTotalDayRequested();
+		}
 
+		function checkWeekday(dd, day){
+			var dayOfWeek = day.getDay()
+			
 			if(dayOfWeek != 0 && dayOfWeek != 6){
 				dateReturning.value = dr = dd;		
 			}else{
@@ -191,27 +199,31 @@
 				}	
 			}
 		}
-		document.getElementById("dateEnd").addEventListener("change", setTotalDayRequested);
+
+		
 		function setTotalDayRequested(){
 			var date1 = new Date(dateStart.value);
 			var date2 = new Date(dateEnd.value);
 			var timeDiff = Math.abs(date2.getTime() - date1.getTime());
 			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 			totalDayRequested.value = diffDays;
+			setTotalDayRemaining()
 		}
-		document.getElementById("totalDayRequested").addEventListener("change", setTotalDayRemaining);
-		//try to catch the totalDayRequested.value and set $total day available - totalDayRequested.value 
+
+		
 		function setTotalDayRemaining(){
-			console.log(totalDayRequested.value)
+			// var holiday_available = {{ $holiday_available }};
+			var totalDayRemainingNum = {{ $holiday_available }} - totalDayRequested.value ;
+			totalDayRemaining.value = totalDayRemainingNum;
 			
 		}
 	</script>
 	<script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
-        var holiday_total = {{ $holiday_total }};
         var holiday_taken = {{ $holiday_taken }};
-        var holiday_available = holiday_total - holiday_taken;
+        var holiday_available = {{ $holiday_available }};
+        
         function drawChart() {
             var options = {
             	pieHole: 0.9,
