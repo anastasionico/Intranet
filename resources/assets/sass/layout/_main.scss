@@ -124,19 +124,3 @@ body{
   animation-iteration-count: 1;
   animation-timing-function: ease-in-out;
 }
-#bubbleTasksIndex:hover:after{
-  content: "The first group indicates the tasks that need to be done, the second the tasks already finished.";
-}
-#bubbleCalendarIndex:hover:after{
-  content: "Use the arrows to scroll through the months.
-  Bring the cursor over the events to show the participants.";
-}
-#bubbleCalendarCreate:hover:after{
-  content: "Use the left side to add the event details and the right side to add the participants";
-}
-#bubbleEventEndCreate:hover:after{
-  content: "Indicate the last date of the event, In case of repeated events each event will have the same duration";
-}
-#bubbleHolidayIndex:hover:after{
-  content: "Use the arrows to scroll through the months. The \000021  symbols indicate pending requests";
-}

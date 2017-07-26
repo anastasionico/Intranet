@@ -63,7 +63,8 @@ class HolidayController extends Controller
     {
         $users = User::all();
         $user = User::find(Auth::user()->id);
-        return view('/holiday/create', compact('user','users'));
+        $manager = User::find($user->manager_id);
+        return view('/holiday/create', compact('user','users','manager'));
     }
     
 }
