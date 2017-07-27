@@ -24,7 +24,12 @@
 	?>
 	<div class="table-responsive p-2">
 		@include('layouts/errors')
-		<form action="/calendar/store" method="post" enctype="multipart/form-data">
+		<form action="/holiday/store" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+			<input type="hidden" name="holiday_total" value="{{$holiday_total}}">
+			<input type="hidden" name="holiday_taken" value="{{$holiday_taken}}">
+			<input type="hidden" name="holiday_available" value="{{$holiday_available}}">
+			<input type="hidden" name="holiday_outstanding" value="{{$holiday_outstanding}}">
 			<div class="col-md-9">
 				{{ csrf_field() }}
 		    	<div class="form-group">

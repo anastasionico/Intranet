@@ -67,4 +67,44 @@ class HolidayController extends Controller
         return view('/holiday/create', compact('user','users','manager'));
     }
     
+    public function store(Request $request)
+    {
+        //validation
+        $this->validate(request(),[
+            'user_id' => 'required|exists:users,id',
+            'holiday_total' => 'required|integer',
+            'holiday_taken' => 'required||integer|max:'.$request->holiday_total,
+            'holiday_available' => 'required|integer|min:1',
+            'holiday_outstanding' => 'required|integer',
+            'dateStart' => 'required|date|after:today',
+            'dateEnd' => 'required|date|after:dateStart',
+            'dateReturning' => 'required|date|after:dateStart',
+            'totalDayRequested' => 'required|integer|min:1',
+            'totalDayRemaining' => 'required|integer|min:0',
+            'manager' => 'required|array|min:0'
+        ]);
+        
+        //add user details
+        $user=User::where('id',$request->user_id)->first();
+        // dd($user->surname);
+        
+        //save
+        Holiday::create([
+            'user_id' => request('user_id'),
+            'start' => request('dateStart'),
+            'end' => request('dateEnd'),
+            'returning_day' => request('dateReturning')
+        ]);
+
+        //I have to create a show page with the detail of the holiday and the button approve or deny and send the link of this page to the email of the manager
+        //send request via email
+
+        //save sessionmessage and redirect to holiday index
+    }
+
+    public function show($id)
+    {
+        $holiday = Holiday::find($id);
+        dd($holiday->all());
+    }
 }

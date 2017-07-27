@@ -56,7 +56,6 @@ class CalendarController extends Controller
 
         return view('/calendar/index', compact('calendar'));
     }
-
     
     public function create()
     {
@@ -66,7 +65,7 @@ class CalendarController extends Controller
 
     public function store(Request $request)
     {
-    	//valitation
+    	//validation
     	$this->validate(request(),[
     		'title' => 'required',
     		'allDay' => 'nullable',

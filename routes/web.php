@@ -31,7 +31,6 @@ Route::prefix('/users')->group(function()
 	Route::post('','UsersController@store');	
 });
 
-
 Route::prefix('/tasks')->group(function() 
 {
 	Route::get('', 'TasksController@index');
@@ -41,7 +40,6 @@ Route::prefix('/tasks')->group(function()
 	Route::post('/update/{id}', 'TasksController@update');
 	Route::get('/delete/{id}', 'TasksController@destroy');	
 });
-
 
 Route::prefix('/company')->group(function() 
 {
@@ -53,7 +51,6 @@ Route::prefix('/company')->group(function()
 	Route::post('/update/{id}', 'CompanyController@update');
 	Route::get('/delete/{id}', 'CompanyController@destroy');
 });
-
 
 Route::prefix('/sites')->group(function() 
 {
@@ -89,4 +86,6 @@ Route::prefix('/holiday')->group(function()
 {
 	Route::get('', 'HolidayController@index');
 	Route::get('/create', 'HolidayController@create');
+	Route::post('/store', 'HolidayController@store');
+	Route::get('/{id}' , 'HolidayController@show');
 });

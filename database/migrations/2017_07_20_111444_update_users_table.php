@@ -13,7 +13,8 @@ class UpdateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $t){
+        Schema::table('users', function(Blueprint $t)
+        {
             $t->renameColumn('expenses_auth_id', 'manager_id');
             $t->dropColumn('holiday_manager');
             $t->integer('level')->unsigned();

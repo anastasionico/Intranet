@@ -16,6 +16,9 @@
 			& > td{
 				border-top:0;
 			}
+			& > td:nth-child(2){
+				text-align: right;
+			}	
 		}
 	}
 }
