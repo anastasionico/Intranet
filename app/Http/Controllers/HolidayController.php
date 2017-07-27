@@ -11,6 +11,7 @@ use App\User;
 use App\Department;
 use Illuminate\Support\Facades\Auth;
 
+
 class HolidayController extends Controller
 {
    	public function index()
@@ -33,14 +34,14 @@ class HolidayController extends Controller
             }
             $random_color = "#". implode('', $random_dechex);
             $holiday_color[$holiday->user_id] = $random_color;
-            
-			$holidayList[] = \Calendar::event(
+            $holidayList[] = \Calendar::event(
                 "$holiday_user->name $holiday_user->surname", // $holiday->title, //event title
                 1, // $holiday->allDay, //full day event?
                 $start, //start time (you can also use Carbon instead of DateTime)
                 $end, //end time (you can also use Carbon instead of DateTime)
                 $holiday->id, //optionally, you can specify an event ID
                 [
+                    'url' => '/holiday/'.$holiday->id,
                     'user_id' => $holiday_user->id,
                     'backgroundColor' => $holiday_color[$holiday->user_id],
                     'approved' => $holiday->approved,
@@ -56,6 +57,9 @@ class HolidayController extends Controller
                     element.addClass('holidayNotConfirmed');	
             	}
             }",
+            'eventClick' => 'function() {
+                showModal();
+            }'
         ]);
 
         return view('/holiday/index', compact('calendar','holidayList','users'));
@@ -101,11 +105,8 @@ class HolidayController extends Controller
         
         //send request via email //notification sent
         
-        //save sessionmessage and redirect to holiday index
-        $request->session()->flash('alert-store-success', 'The request was successfully sent.');
-        
+        $request->session()->flash('alert-success', 'The request was successfully sent.');
         return redirect('/holiday');
-        
     }
 
     public function show($id)
@@ -122,11 +123,20 @@ class HolidayController extends Controller
 
     public function accept($id)
     {
-        dd("Holiday $id has been accepted");
+        $holiday = Holiday::find($id);
+        $holiday->approved = 1;
+        $holiday->save();
+        \Session::flash('alert-success', 'You have accepted the holiday request'); 
+        // $request->session()->flash('alert-success', '');
+        return redirect('/holiday');
     }
 
     public function deny($id)
     {
-        dd("Holiday $id has been denied");
+        $holiday = Holiday::find($id);
+        $holiday->approved = 2;
+        $holiday->save();
+        \Session::flash('alert-danger', 'This holiday request has been declined'); 
+        return redirect('/holiday');
     }
 }

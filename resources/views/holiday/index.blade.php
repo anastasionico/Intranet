@@ -10,12 +10,24 @@
           Book a Holiday
       </a>
       <i id="bubbleHolidayIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
+      <br>
+      @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+        @if(Session::has('alert-' . $msg))
+          <br><br>
+          <div class="alert alert-{{ $msg }}">
+            {{ Session::get('alert-' . $msg) }} 
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </div>  
+        @endif
+      @endforeach
+
+
+
       @if(Session::has('alert-store-success'))
         <p class="btn btn-success">
           {{ Session::get('alert-store-success') }} 
           <i class="fa fa-check" aria-hidden="true"></i>
         </p>  
-        
       @endif
 
       

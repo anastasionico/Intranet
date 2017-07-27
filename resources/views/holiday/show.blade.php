@@ -117,13 +117,16 @@
 	        </tr>
 	    </table>
 	</div>
-	<div class="text-right col-sm-12 col-md-12">
-		<a href="/holiday/accept/{{ $holiday->id }}" class="btn btn-success">
-			Accept
-		</a>
-		<a href="/holiday/deny/{{ $holiday->id }}" class="btn btn-danger">
-			Deny
-		</a>
-	</div>
+	@if($holiday->approved == 0)
+		<div class="text-right col-sm-12 col-md-12">
+			<a href="/holiday/accept/{{ $holiday->id }}" class="btn btn-success">
+				Accept
+			</a>
+			<a href="/holiday/deny/{{ $holiday->id }}" class="btn btn-danger">
+				Decline
+			</a>
+		</div>
+	@endif
+	
 	
 @endsection
