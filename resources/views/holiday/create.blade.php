@@ -78,7 +78,7 @@
 		    <div class="col-md-3">
 		    	<div class="form-group" id="partecipantsDiv">
 					<label for="manager">Manager</label>
-					<select class="js-example-basic-multiple form-control" multiple="multiple" name='manager[]'>
+					<select class="js-example-basic-single form-control" name='manager'>
 						@foreach($users as $user => $data)
 							@if($data['id'] != $manager->id && $data['id'] != Auth::user()->id)
 								@if($data['on_holiday'] == 1)
@@ -116,7 +116,7 @@
 
 	<script>
 		$(document).ready(function() {
-			$(".js-example-basic-multiple").select2();
+			$(".js-example-basic-single").select2();
 		});
 	</script>
 	<script type="text/javascript">

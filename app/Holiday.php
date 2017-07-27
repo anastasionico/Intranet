@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class Holiday extends Model implements \MaddHatter\LaravelFullcalendar\Event
 {
-    protected $fillable = ['user_id', 'start', 'end', 'returning_day'];
+    protected $fillable = ['user_id', 'start', 'end', 'returning_day','approved_by'];
+    protected $dates = ['created_at', 'updated_at', 'start', 'end', 'returning_day'];
+
     public function users()
     {
     	return $this->belongsTo("App\User");
@@ -68,6 +70,13 @@ class Holiday extends Model implements \MaddHatter\LaravelFullcalendar\Event
     {
         $user = User::find(Auth::user()->id);
         return  $countPendingHoliday = Holiday::where('user_id', Auth::user()->id)
+                                ->where('approved', 0)
+                                ->count();
+    }
+    public static function countPendingHolidayRequest()
+    {
+        $user = User::find(Auth::user()->id);
+        return  $countPendingHoliday = Holiday::where('approved_by', Auth::user()->id)
                                 ->where('approved', 0)
                                 ->count();
     }

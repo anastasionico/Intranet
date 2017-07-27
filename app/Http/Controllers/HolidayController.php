@@ -8,6 +8,7 @@ use MaddHatter\LaravelFullcalendar\Event;
 use Carbon\Carbon;
 use App\Holiday;
 use App\User;
+use App\Department;
 use Illuminate\Support\Facades\Auth;
 
 class HolidayController extends Controller
@@ -20,7 +21,7 @@ class HolidayController extends Controller
         $users = User::all();
 
         foreach ($holidays as $holiday) {
-			$currentEvent = Holiday::find($holiday->id);
+            $currentEvent = Holiday::find($holiday->id);
     	    $start=date_create($holiday->start);
     	    $formatstart = date_format($start,"Y-m-d");
             $end=date_create($holiday->end);
@@ -43,6 +44,7 @@ class HolidayController extends Controller
                     'user_id' => $holiday_user->id,
                     'backgroundColor' => $holiday_color[$holiday->user_id],
                     'approved' => $holiday->approved,
+                    'approved_by' => $holiday->approved_by,
                 ]
             );
         }
@@ -69,6 +71,7 @@ class HolidayController extends Controller
     
     public function store(Request $request)
     {
+
         //validation
         $this->validate(request(),[
             'user_id' => 'required|exists:users,id',
@@ -81,30 +84,49 @@ class HolidayController extends Controller
             'dateReturning' => 'required|date|after:dateStart',
             'totalDayRequested' => 'required|integer|min:1',
             'totalDayRemaining' => 'required|integer|min:0',
-            'manager' => 'required|array|min:0'
+            'manager' => 'required|integer'
         ]);
         
         //add user details
         $user=User::where('id',$request->user_id)->first();
-        // dd($user->surname);
-        
+                
         //save
         Holiday::create([
             'user_id' => request('user_id'),
             'start' => request('dateStart'),
             'end' => request('dateEnd'),
-            'returning_day' => request('dateReturning')
+            'returning_day' => request('dateReturning'),
+            'approved_by' => request('manager')
         ]);
-
-        //I have to create a show page with the detail of the holiday and the button approve or deny and send the link of this page to the email of the manager
-        //send request via email
-
+        
+        //send request via email //notification sent
+        
         //save sessionmessage and redirect to holiday index
+        $request->session()->flash('alert-store-success', 'The request was successfully sent.');
+        
+        return redirect('/holiday');
+        
     }
 
     public function show($id)
     {
         $holiday = Holiday::find($id);
-        dd($holiday->all());
+        $totalDayRequested = $holiday->start->diff($holiday->end);
+        $user = User::find($holiday->user_id);
+        $personal_manager = User::find($user->manager_id);
+        $department = Department::where('id', $user->department_id)->first();
+        $totalDayRemaining = (($user->holiday_total + $user->outstanding) - $user->holiday_taken) - $totalDayRequested->d; 
+
+        return view('holiday.show', compact('user', 'holiday', 'totalDayRequested', 'totalDayRemaining', 'personal_manager', 'department'));
+    }
+
+    public function accept($id)
+    {
+        dd("Holiday $id has been accepted");
+    }
+
+    public function deny($id)
+    {
+        dd("Holiday $id has been denied");
     }
 }

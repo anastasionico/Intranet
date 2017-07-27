@@ -124,13 +124,18 @@
 	          	<td>{{ $user->holiday_total }}</td>
 	        </tr>
 	        <tr>
+	          	<td>Holiday Outstanding (previous year)</td>
+	          	<td>{{ $user->holiday_outstanding }}</td>
+	        </tr>
+	        <tr>
 	          	<td>Holiday Taken (current year)</td>
 	          	<td>{{ $user->holiday_taken }}</td>
 	        </tr>
 	      	<tr>
-	          	<td>Holiday Outstanding Day</td>
-	          	<td>{{ $holiday_outstanding = $user->holiday_total - $user->holiday_taken }}</td>
+	          	<td>Holiday Available</td>
+	          	<td>{{ ($user->holiday_total + $user->holiday_outstanding) - $user->holiday_taken }}</td>
 	        </tr>
+	        
 	    </table>
 	</div>
 	<div class="text-right col-sm-12 col-md-12">

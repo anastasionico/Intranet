@@ -88,4 +88,7 @@ Route::prefix('/holiday')->group(function()
 	Route::get('/create', 'HolidayController@create');
 	Route::post('/store', 'HolidayController@store');
 	Route::get('/{id}' , 'HolidayController@show');
+	Route::get('/accept/{id}' , 'HolidayController@accept');
+	Route::get('/deny/{id}' , 'HolidayController@deny');
+
 });

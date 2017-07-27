@@ -30,6 +30,17 @@
   <div class="container-fluid">
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        @if($countPendingHolidayRequest > 0)
+          <li style="position: relative;">
+            <a href="/holiday">
+              <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                <span class="sr-only"></span>
+                <span class="notification-circle">
+                    {{ $countPendingHolidayRequest }}
+                </span>
+            </a>
+          </li>
+        @endif
         @if($countPendingHoliday > 0)
           <li style="position: relative;">
             <a href="/holiday">
