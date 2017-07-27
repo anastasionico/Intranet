@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-xs-12 col-md-12">
       <h1 class="page-header">Book a Holiday</h1>
-      <i id="bubbleCalendarCreate" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
+      <i id="bubbleHolidayCreate" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
     </div>
     <div class="row placeholders">
     	<div class="row placeholders">
@@ -61,6 +61,12 @@
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="totalDayRemaining">Day remaining after this request (this year)</label>
+		    		<span id="dayRemaining_warning" class="hidden">
+		    			<small> 
+		    				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+		    				If you remain with less than 0 days the request will not be accepted.
+	    				</small>
+		    		</span>
 		    		<input type="number" name="totalDayRemaining" class="form-control" id="totalDayRemaining" readonly="">
 		    	</div>
 		    </div>    
@@ -117,25 +123,19 @@
 		var dateEndDiv = document.getElementById('dateEndDiv');
 		var dateEnd = document.getElementById('dateEnd');
 		var selectRecurring = document.getElementById('selectRecurring');
-		var allday_warning = document.getElementById('allday_warning');
+		var dayRemaining_warning = document.getElementById('dayRemaining_warning');
 		var totalDayRequested = document.getElementById('totalDayRequested');
 		var totalDayRemaining = document.getElementById('totalDayRemaining');
+		document.getElementById("totalDayRequested").addEventListener("change", setTotalDayRemaining);
+		var maxDate = 2117 + "-" + 12 + "-" + 31;
+
 		document.getElementById("dateEnd").addEventListener("change", function(){
 			var day = new Date(dateEnd.value);
 			var dd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
 
 			checkWeekday(dd, day);
 			setTotalDayRequested();
-
 		});
-		
-
-
-		// document.getElementById("dateEnd").addEventListener("change", setTotalDayRequested);
-		document.getElementById("totalDayRequested").addEventListener("change", setTotalDayRemaining);
-		
-
-		var maxDate = 2117 + "-" + 12 + "-" + 31;
 		
 		function setTomorrow(){
 			var day = new Date();
@@ -214,7 +214,18 @@
 		function setTotalDayRemaining(){
 			// var holiday_available = {{ $holiday_available }};
 			var totalDayRemainingNum = {{ $holiday_available }} - totalDayRequested.value ;
-			totalDayRemaining.value = totalDayRemainingNum;
+			if(totalDayRemainingNum >= 0){
+				totalDayRemaining.value = totalDayRemainingNum;	
+				dayRemaining_warning.className -= " isActive";
+			    dayRemaining_warning.className = " danger hidden isHidden ";
+				dateEnd.className = ' form-control';
+			}else{
+				totalDayRemaining.value = 0;
+				dayRemaining_warning.className -= " hidden";
+			    dayRemaining_warning.className = " danger isActive";
+				dateEnd.className = ' form-control warning';
+			}
+			
 			
 		}
 	</script>

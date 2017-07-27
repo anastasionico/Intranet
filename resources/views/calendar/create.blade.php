@@ -113,10 +113,6 @@
 		var allday_warning = document.getElementById('allday_warning');
 		var maxDate = 2117 + "-" + 12 + "-" + 31;
 		
-
-		
-		
-
 		allDay.addEventListener("click", setDateEnd );
 		dateStart.addEventListener("change", function(){
 			dateEnd.setAttribute("value", dateStart.value);
