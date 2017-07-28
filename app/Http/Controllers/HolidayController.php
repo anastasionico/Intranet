@@ -10,6 +10,7 @@ use App\Holiday;
 use App\User;
 use App\Department;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\NewHolidayRequest;
 
 
 class HolidayController extends Controller
@@ -75,7 +76,7 @@ class HolidayController extends Controller
     
     public function store(Request $request)
     {
-
+        
         //validation
         $this->validate(request(),[
             'user_id' => 'required|exists:users,id',
@@ -103,7 +104,12 @@ class HolidayController extends Controller
             'approved_by' => request('manager')
         ]);
         
-        //send request via email //notification sent
+
+        // GET THE DATA OF THE MAILSERVER TO PUT INTO THE .ENV AND COMPLETE THIS BELOW
+        // $managerEmail = User::select('email')
+        //                 ->where('id', '=', "$request->manager")
+        //                 ->first();
+        // \Mail::to($managerEmail->email)->send(new NewHolidayRequest); 
         
         $request->session()->flash('alert-success', 'The request was successfully sent.');
         return redirect('/holiday');
