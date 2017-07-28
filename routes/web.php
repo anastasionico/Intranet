@@ -15,7 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/admin', function () {
-    return view('admin');
+    $users = \App\User::all();
+    $user = \App\User::find(Auth::user()->id);
+    $manager = \App\User::find($user->manager_id);
+    $tasksUser = \App\Task::select('*')
+                        ->where('user_id', '=', Auth::user()->id)
+                        ->count();
+                        
+    $tasksUserDone = \App\Task::select('*')
+                        ->where('user_id', '=', Auth::user()->id)
+                        ->where('done', '=', 1)
+                        ->count();
+                        
+	
+	
+    return view('admin', compact('users', 'user', 'manager','tasksUser', 'tasksUserDone'));
 });
 
 Auth::routes();
