@@ -111,14 +111,16 @@ class HolidayController extends Controller
 
     public function show($id)
     {
+        $users = User::all();
         $holiday = Holiday::find($id);
         $totalDayRequested = $holiday->start->diff($holiday->end);
         $user = User::find($holiday->user_id);
-        $personal_manager = User::find($user->manager_id);
+
+        $manager = User::find($user->manager_id);
         $department = Department::where('id', $user->department_id)->first();
         $totalDayRemaining = (($user->holiday_total + $user->outstanding) - $user->holiday_taken) - $totalDayRequested->d; 
 
-        return view('holiday.show', compact('user', 'holiday', 'totalDayRequested', 'totalDayRemaining', 'personal_manager', 'department'));
+        return view('holiday.show', compact('users', 'user', 'holiday', 'totalDayRequested', 'totalDayRemaining', 'manager', 'department'));
     }
 
     public function accept($id)
@@ -139,4 +141,14 @@ class HolidayController extends Controller
         \Session::flash('alert-danger', 'This holiday request has been declined'); 
         return redirect('/holiday');
     }
+
+    public function delegate(Request $request)
+    {
+        $holiday = Holiday::find($request->holiday_id);
+        $holiday->approved_by = $request->manager;
+        $holiday->save();
+        \Session::flash('alert-success', 'This holiday has been delegated'); 
+        return redirect('/holiday');   
+    }
 }
+

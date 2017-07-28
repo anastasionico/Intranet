@@ -32,7 +32,7 @@
 		<h2 class="sub-header">
 			User Details
 			@if( $user->on_holiday == 1)
-	      		<span class="btn btn-danger">
+	      		<span class="btn btn-warning">
 	      			Currently in Holiday
 	      		</span>
 	      	@endif

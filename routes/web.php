@@ -90,5 +90,6 @@ Route::prefix('/holiday')->group(function()
 	Route::get('/{id}' , 'HolidayController@show');
 	Route::get('/accept/{id}' , 'HolidayController@accept');
 	Route::get('/deny/{id}' , 'HolidayController@deny');
+	Route::post('/delegate' , 'HolidayController@delegate');
 
 });

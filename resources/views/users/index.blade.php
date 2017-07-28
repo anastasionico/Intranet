@@ -36,6 +36,7 @@
 		          	<th>Name</th>
 		          	<th>Surname</th>
 		          	<th>Email</th>
+		          	<th>Details</th>
 		          	<th>Action</th>
 		        </tr>
 	      	</thead>
@@ -45,6 +46,11 @@
 				        <td>{{ $user->name }}</td>
 				        <td>{{ $user->surname }}</td>
 				        <td>{{ $user->email }}</td>
+				        <td>
+				        	@if($user->on_holiday != 0)
+				        		<span class="label label-warning">On Holiday</span>
+				        	@endif	
+				        </td>
 				        <td>
 				        	<a href="/users/{{ $user->id }}" class="btn btn-default">
 				        		View

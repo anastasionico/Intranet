@@ -80,6 +80,7 @@
 					<label for="manager">Manager</label>
 					<select class="js-example-basic-single form-control" name='manager'>
 						@foreach($users as $user => $data)
+							{{-- If the looped user id not the personal manager and is not the current user show the names on the select-option --}}
 							@if($data['id'] != $manager->id && $data['id'] != Auth::user()->id)
 								@if($data['on_holiday'] == 1)
 									<option value="{{$data['id']}}">
@@ -93,8 +94,9 @@
 								@endif
 							@endif
 					  	@endforeach
+					  	{{-- If the manager is not in holiday show him as selected option --}}
 					  	@if($manager->on_holiday == 0)
-							<option value="{{ $manager->id}}" selected>
+					  		<option value="{{ $manager->id}}" selected>
 								{{ $manager->name}} {{ $manager->surname}}
 							</option>
 						@else

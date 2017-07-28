@@ -1,22 +1,26 @@
 #bubbleTasksIndex:hover:after{
-  content: "The first group indicates the tasks that need to be done, the second the tasks already finished.";
+  	content: "The first group indicates the tasks that need to be done, the second the tasks already finished.";
 }
 #bubbleCalendarIndex:hover:after{
-  content: "Use the arrows to scroll through the months.
-  Bring the cursor over the events to show the participants.";
+	content: "Use the arrows to scroll through the months.
+	Bring the cursor over the events to show the participants.";
 }
 #bubbleCalendarCreate:hover:after{
-  content: "Use the left side to add the event details and the right side to add the participants";
+  	content: "Use the left side to add the event details and the right side to add the participants";
 }
 #bubbleEventEndCreate:hover:after{
-  content: "Indicate the last date of the event, In case of repeated events each event will have the same duration";
+  	content: "Indicate the last date of the event, In case of repeated events each event will have the same duration";
 }
 #bubbleHolidayIndex:hover:after{
-  content: "Use the arrows to scroll through the months. The \000021  symbols indicate pending requests";
+  	content: "Use the arrows to scroll through the months. The \000021  symbols indicate pending requests";
 }
 #bubbleHolidayCreate:hover:after{
-  content: "Use the left side to add the holiday request details and the right side to indicate who have to receive the request";
+  	content: "Use the left side to add the holiday request details and the right side to indicate who have to receive the request";
 }
 #bubbleHolidayDayReturning:hover:after{
-  content: "If the retuninig day falls on the weekend the system automatically calculates the next business day";
+  	content: "If the retuninig day falls on the weekend the system automatically calculates the next business day";
+}
+#bubbleHolidayRequest:hover:after{
+ 	content: "The left side shows the information of the applicant, the right side indicates the request details. 
+	Choose if accept, decline or delegate to someone else.";
 }
