@@ -1,0 +1,25 @@
+.adminPage{
+	text-align:center;
+	
+	.panel{
+		div > &{
+			margin-bottom: 2em;
+		}
+
+		padding:0;
+		
+		box-sizing: border-box;
+		border:none;
+		.panel-heading {
+			background-color:$primaryDarken;
+			& a{
+				color:$secondary;
+			}
+		}
+		.panel-footer{
+			color:$primary;
+			background-color:$secondary;
+		}
+	}
+	
+}

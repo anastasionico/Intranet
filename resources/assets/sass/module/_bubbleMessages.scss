@@ -24,3 +24,6 @@
  	content: "The left side shows the information of the applicant, the right side indicates the request details. 
 	Choose if accept, decline or delegate to someone else.";
 }
+#bubbleAdminIndex:hover:after{
+ 	content: "Browse the panels or click on the headers to go to the page with the details of the information you are interested in";
+}

@@ -14,22 +14,28 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/admin', function () {
     $users = \App\User::all();
     $user = \App\User::find(Auth::user()->id);
     $manager = \App\User::find($user->manager_id);
     $tasksUser = \App\Task::select('*')
-                        ->where('user_id', '=', Auth::user()->id)
-                        ->count();
-                        
+        ->where('user_id', '=', Auth::user()->id)
+        ->count();
     $tasksUserDone = \App\Task::select('*')
-                        ->where('user_id', '=', Auth::user()->id)
-                        ->where('done', '=', 1)
-                        ->count();
-                        
-	
-	
-    return view('admin', compact('users', 'user', 'manager','tasksUser', 'tasksUserDone'));
+        ->where('user_id', '=', Auth::user()->id)
+        ->where('done', '=', 1)
+        ->count();
+	$tasksChart = \App\Task::selectRaw('count(*) count, date(updated_at) date')
+        ->groupBy('date')
+        ->orderByRaw('min(updated_at)')
+        ->get();
+
+    foreach($tasksChart as $task){
+    	$taskDate[] = $task->date;
+		$taskCount[] = $task->count;
+    };
+	return view('admin', compact('users', 'user', 'manager','tasksUser', 'tasksUserDone', 'taskDate','taskCount'));
 });
 
 Auth::routes();
