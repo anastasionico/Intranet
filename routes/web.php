@@ -29,6 +29,7 @@ Route::get('/admin', function () {
 	$tasksChart = \App\Task::selectRaw('count(*) count, date(updated_at) date')
         ->groupBy('date')
         ->orderByRaw('min(updated_at)')
+        ->where('user_id', '=', Auth::user()->id)
         ->get();
 
     foreach($tasksChart as $task){

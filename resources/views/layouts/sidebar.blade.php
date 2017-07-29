@@ -1,5 +1,12 @@
   <ul class="nav nav-sidebar">
     <li class="active">
+      <a href="/admin">
+        <i class="fa fa-dashboard" aria-hidden="true"></i> 
+        Dashboard
+        <span class="sr-only">(current)</span>
+      </a>
+    </li>
+    <li>
       <a href="/users">
         <i class="fa fa-users" aria-hidden="true"></i> 
         User list
