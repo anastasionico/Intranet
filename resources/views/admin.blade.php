@@ -46,6 +46,16 @@
     			    </div>
     		   </div>
         </div>
+        <div class="col-sm-12">
+          <div class="panel-default panel">
+            <div class="panel-heading">
+              <a href="/tasks">Department Organization Chart</a>
+            </div>
+            <div class="panel-body">
+              <div id="OrgChart"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>    
@@ -59,7 +69,8 @@
 		$holiday_outstanding = $user->holiday_outstanding; //previous year
 	?>
 	   
-   	<script type="text/javascript">
+   	
+  <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         var holiday_taken = {{ $holiday_taken }};
@@ -104,8 +115,8 @@
             var chart = new google.visualization.PieChart(document.getElementById('HolidayTotalPie'));
             chart.draw(data, options);
         }
-    </script>
-    <script type="text/javascript">
+  </script>
+  <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         var holiday_total = {{ $holiday_total }};
@@ -120,10 +131,10 @@
                 },
 				
                 titleTextStyle: { 
-            		color: '#fff',
-				  	fontSize: 20,
-				  	bold: true,
-				},
+            		  color: '#fff',
+      				  	fontSize: 20,
+      				  	bold: true,
+      				  },
                	
                	pieSliceBorderColor: 'transparent',
                	colors:['#eee','#55a','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
@@ -149,8 +160,8 @@
             var chart2 = new google.visualization.PieChart(document.getElementById('HolidayOutstandingPie'));
             chart2.draw(data, options);
         }
-    </script>
-    <script type="text/javascript">
+  </script>
+  <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         var task_total = {{ $tasksUser }};
@@ -194,8 +205,8 @@
             var chart3 = new google.visualization.PieChart(document.getElementById('TaskPie'));
             chart3.draw(data, options);
         }
-    </script>
-    <script type="text/javascript">
+  </script>
+  <script type="text/javascript">
     	google.charts.load('current', {'packages':['annotationchart']});
       	google.charts.setOnLoadCallback(drawChart);
 
@@ -206,13 +217,15 @@
           data.addRows([	
         		<?php
 		     		  $i = 0;
-		     		  foreach ($taskDate as $value) {
-		     			  $tempo = DateTime::createFromFormat("Y-m-d", $value);
-			 	    ?>
-		     			  	[new Date({{ $tempo->format("Y") }}, {{ $tempo->format("m") }}, {{ $tempo->format("d") }}), {{$taskCount[$i]}}],
+              if(isset($taskDate)){
+                foreach ($taskDate as $value) {
+                  $tempo = DateTime::createFromFormat("Y-m-d", $value);   
+            ?>
+		     			  	 [new Date({{ $tempo->format("Y") }}, {{ $tempo->format("m") }}, {{ $tempo->format("d") }}), {{$taskCount[$i]}}],
 		        <?php	
-                $i++;
-	     	      };
+                  $i++;
+	     	       };
+              };
             ?>
 		      ]);
 	      	var chart4 = new google.visualization.AnnotationChart(document.getElementById('TaskPieByTime'));
@@ -225,11 +238,33 @@
 
 	        chart4.draw(data, options);
       	}
+  </script>
+  <script type="text/javascript">
+    google.charts.load('current', {packages:["orgchart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Name');
+      data.addColumn('string', 'Manager');
+      
 
+      data.addRows([
+        <?php
+          foreach ($OrgChart as $OrgChartValue) {
+            $OrgChartValue['manager']= ($OrgChartValue['manager'] == $OrgChartValue['fullname'])? '' : $OrgChartValue['manager'] ;
+        ?>
+            [ {v:"<?= $OrgChartValue['fullname'] ?>", f:"<h5><?= $OrgChartValue['fullname']?></h5><small><i><?=$OrgChartValue['title'] ?></i></small>"},"<?= $OrgChartValue['manager'] ?>"],
+        <?php
+          }
+        ?>
+      ]);
 
-
-
-
-    </script>
+      // Create the chart.
+      var chart5 = new google.visualization.OrgChart(document.getElementById('OrgChart'));
+      // Draw the chart, setting the allowHtml option to true for the tooltips.
+      chart5.draw(data, {allowHtml:true});
+    }
+  </script>
     
 @endsection

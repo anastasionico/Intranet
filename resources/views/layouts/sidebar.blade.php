@@ -6,6 +6,8 @@
         <span class="sr-only">(current)</span>
       </a>
     </li>
+  </ul>  
+  <ul class="nav nav-sidebar">
     <li>
       <a href="/users">
         <i class="fa fa-users" aria-hidden="true"></i> 
@@ -33,7 +35,7 @@
     <li>
       <a href="/company">
         <i class="fa fa-university" aria-hidden="true"></i>
-        Companies
+        Co.
       </a>
     </li>
     <li>

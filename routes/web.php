@@ -36,11 +36,25 @@ Route::get('/admin', function () {
     	$taskDate[] = $task->date;
 		$taskCount[] = $task->count;
     };
-	return view('admin', compact('users', 'user', 'manager','tasksUser', 'tasksUserDone', 'taskDate','taskCount'));
+    
+	
+    
+    $i=1;
+    foreach ($users as $OrgChartUser) {
+    	$OrgChart[$i]['fullname'] = $OrgChartUser->name . " " . $OrgChartUser->surname;
+    	$OrgChart[$i]['title'] = $OrgChartUser->job_title;
+    	$OrgChartmanager = \App\User::select('name', 'surname')
+        	->where('id', '=', $OrgChartUser->manager_id)->first()->toArray();
+        $OrgChartmanager = implode(' ', $OrgChartmanager);
+        
+		$OrgChart[$i]['manager'] = $OrgChartmanager;
+    	$i++;
+    };
+    
+    return view('admin', compact('users', 'user', 'manager','tasksUser', 'tasksUserDone', 'taskDate','taskCount', 'OrgChart'));
 });
 
 Auth::routes();
-
 
 Route::get('/home', 'UsersController@index')->name('home');
 Route::prefix('/users')->group(function() 
