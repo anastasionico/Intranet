@@ -71,7 +71,6 @@ class User extends Authenticatable
         $user->level = $request->input('job_level');
         $user->email = $request->input('email');
         $user->username = $request->input('username');
-        $user->password = bcrypt(request('password'));
         $user->birthdate = $request->input('birthdate');
         $user->department_id = $request->input('department_id');
         $user->expenses_mileage_rate = $request->input('expenses_mileage_rate');

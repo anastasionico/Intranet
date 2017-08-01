@@ -109,8 +109,6 @@ body{
   width: 230px;
   color: $primary;
   
-  
-
   -webkit-border-radius: 20px;
   -webkit-border-top-right-radius: 0;
   -moz-border-radius: 20px;
@@ -124,3 +122,16 @@ body{
   animation-iteration-count: 1;
   animation-timing-function: ease-in-out;
 }
+
+.loader {
+    margin: 0 auto;
+    border: 1px solid #f3f3f3; /* Light grey */
+    border-bottom: 6px solid $primary; /* Blue */
+    border-right: 3px solid $primaryLight; /* Blue */
+    border-top: 1px solid $primaryVeryLight; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin .3s linear infinite;
+}
+

@@ -7,11 +7,12 @@
       <i id="bubbleAdminIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>        
     	<div class="row adminPage">
         <div class="col-sm-6">
-            <div class="panel-default panel panelHolidayOutstanding">
+            <div class="panel-default panel panelHolidayOutstanding" id="panelHolidayOutstanding">
               <div class="panel-heading">
                 <a href="/holiday">Total amount of vacation days {{ date('Y')}} </a>
               </div>
               <div class="panel-body">
+                <div class="loader"></div>
                 <div id="HolidayOutstandingPie" style="width: 100%; height: auto;display: inline-block;padding: 0"></div>
     			    </div>
     		   </div>
@@ -22,6 +23,7 @@
               <a href="/holiday">Holiday Summary {{ date('Y')}}</a>
             </div>
     				<div class="panel-body">
+              <div class="loader"></div>
        				<div id="HolidayTotalPie" style="width: 100%; height: auto;display: inline-block;padding: 0"></div>
     	  		</div>
           </div>
@@ -32,6 +34,7 @@
               <a href="/tasks">Tasks Summary</a>
             </div>
             <div class="panel-body">
+              <div class="loader"></div>
               <div id="TaskPie" style="width: 100%; height: auto;display: inline-block;padding: 0"></div>
     			  </div>
           </div>
@@ -42,6 +45,7 @@
                 <a href="/tasks">Task Completed per Day</a>
               </div>
               <div class="panel-body">
+                <div class="loader"></div>
                 <div id="TaskPieByTime" style="width: 100%; height: auto"></div>
     			    </div>
     		   </div>
@@ -52,6 +56,7 @@
               <a href="/tasks">Department Organization Chart</a>
             </div>
             <div class="panel-body">
+              <div class="loader"></div>
               <div id="OrgChart"></div>
             </div>
           </div>
@@ -68,8 +73,14 @@
 		$holiday_available = $holiday_total - $holiday_taken;
 		$holiday_outstanding = $user->holiday_outstanding; //previous year
 	?>
-	   
-   	
+  <script>
+    window.addEventListener('load',function(){
+      var loaders = document.getElementsByClassName('loader');
+      for (var i=0;i<loaders.length;i+=1){
+        loaders[i].style.display = 'none';
+      }
+    });
+  </script>    	   
   <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
@@ -248,13 +259,16 @@
       data.addColumn('string', 'Name');
       data.addColumn('string', 'Manager');
       
+      [{v:'Mike', f:'Mike<div style="color:red; font-style:italic">President</div>'},'', 'The President'],
+
+
 
       data.addRows([
         <?php
           foreach ($OrgChart as $OrgChartValue) {
             $OrgChartValue['manager']= ($OrgChartValue['manager'] == $OrgChartValue['fullname'])? '' : $OrgChartValue['manager'] ;
         ?>
-            [ {v:"<?= $OrgChartValue['fullname'] ?>", f:"<h5><?= $OrgChartValue['fullname']?></h5><small><i><?=$OrgChartValue['title'] ?></i></small>"},"<?= $OrgChartValue['manager'] ?>"],
+            [ {v:"<?= $OrgChartValue['fullname'] ?>", f:"<?= $OrgChartValue['fullname'] ." ".$OrgChartValue['title'] ?>" }, "<?= $OrgChartValue['manager'] ?>" ],
         <?php
           }
         ?>
@@ -266,5 +280,5 @@
       chart5.draw(data, {allowHtml:true});
     }
   </script>
-    
+  
 @endsection

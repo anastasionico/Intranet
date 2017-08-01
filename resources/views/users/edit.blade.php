@@ -37,14 +37,6 @@
 		    		<input type="text" name="username" class="form-control" placeholder="Min 4 characters"  value="{{ $user->username }}" required>
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="password">Password *</label>
-		    		<input type="password" name="password" class="form-control" placeholder="Min 6 characters"  value="{{ $user->password }}"  required>
-		    	</div>
-		    	<div class="form-group">
-		    		<label for="password_confirmation">Repeat Password *</label>
-		    		<input type="password" name="password_confirmation" class="form-control" placeholder=""  value="{{ $user->password }}"  required>
-		    	</div>
-		    	<div class="form-group">
 		    		<label for="department_id">Department *</label>
 		    		<select name="department_id"  class="form-control" required>
 		    			<option value="{{ $user->department->id }}">{{ $user->department->name }} | Current</option>

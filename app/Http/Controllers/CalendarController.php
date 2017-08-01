@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\EventModel;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+
 class CalendarController extends Controller
 {
     public function index()

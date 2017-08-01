@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Department;
+use Illuminate\Support\Facades\Auth;
 
 
 class UsersController extends Controller
@@ -45,7 +46,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        
         //validion
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',
@@ -128,7 +129,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all() );
+         
         //VALIDATION
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',
@@ -138,7 +139,6 @@ class UsersController extends Controller
             'job_level' => 'required',
             'email' => 'required|email',
             'username' => 'required|min:3|alpha_num',
-            'password' => 'required|confirmed',
             'birthdate' => 'nullable|date|before:yesterday',
             'department_id' => 'required|integer',
             'personal_manager' => 'required|integer',
@@ -166,5 +166,28 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect('/users');
+    }
+
+    public function editPassword(){
+        return view('users.updatepassword');
+    }
+    public function updatePassword(request $request){
+        $this->validate(request(),[
+            "oldPassword" => 'required',
+            "password" => 'required|confirmed',
+        ]);
+
+        $user_oldPassword =  Auth::user()->password;
+        if(!password_verify($request->input('oldPassword'), $user_oldPassword)){
+            $request->session()->flash('alert-danger', 'Sorry The old password is not correct');
+            return redirect('/users/editpassword');
+        }
+
+        $user = Auth::user();
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        $request->session()->flash('alert-success', 'You have changed your password');
+        return redirect('/users/editpassword');
     }
 }

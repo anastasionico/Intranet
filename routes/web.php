@@ -36,9 +36,6 @@ Route::get('/admin', function () {
     	$taskDate[] = $task->date;
 		$taskCount[] = $task->count;
     };
-    
-	
-    
     $i=1;
     foreach ($users as $OrgChartUser) {
     	$OrgChart[$i]['fullname'] = $OrgChartUser->name . " " . $OrgChartUser->surname;
@@ -57,6 +54,7 @@ Route::get('/admin', function () {
 Auth::routes();
 
 Route::get('/home', 'UsersController@index')->name('home');
+
 Route::prefix('/users')->group(function() 
 {
 	Route::get('', 'UsersController@index');
@@ -66,6 +64,8 @@ Route::prefix('/users')->group(function()
 	Route::post('/update/{id}', 'UsersController@update');
 	Route::get('/delete/{id}', 'UsersController@destroy');
 	Route::post('','UsersController@store');	
+	Route::get('/editpassword', "UsersController@editPassword");
+	Route::post('/updatepassword', "UsersController@updatePassword");
 });
 
 Route::prefix('/tasks')->group(function() 
