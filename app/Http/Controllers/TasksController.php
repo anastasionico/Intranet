@@ -16,7 +16,7 @@ class TasksController extends Controller
     public function index()
     {
     	$tasks = Task::where('done', '0')->orderBy('priority', 'asc')->get();
-        $tasksArchived = Task::where('done', '1')->orderBy('updated_at', 'desc')->limit(10)->get();
+        $tasksArchived = Task::where('done', '1')->orderBy('updated_at', 'desc')->paginate(5);
         return view('tasks/index', compact(['tasks','tasksArchived','countTask']));
     }
 

@@ -122,6 +122,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $tasksArchived->links() }}
         @endif     
     </div>    
 @endsection
