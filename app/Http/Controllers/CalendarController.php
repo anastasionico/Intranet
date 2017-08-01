@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         //instanziate the events array and find all the event of the logged user

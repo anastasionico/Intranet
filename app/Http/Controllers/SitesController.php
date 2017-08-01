@@ -8,6 +8,11 @@ use App\Company;
 
 class SitesController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
 	public function index()
 	{
 		$sites = Site::all();

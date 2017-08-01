@@ -20,9 +20,9 @@
       <span class="date navbar-right">
         {{ date('d m Y') }} | {{ date('h:i a') }}
       </span>
-      <form class="navbar-form navbar-right">
+      {{-- <form class="navbar-form navbar-right">
         <input type="text" class="form-control empty" placeholder="&#xF002; Search...">
-      </form>
+      </form> --}}
       
     </div>
   </div>
@@ -71,7 +71,6 @@
             </a>
           </li>
         @endif
-        <li><a href="#">{{ Auth::user()->name }}</a></li>
         <li><a href="/users/editpassword"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
         <li>
           @if ( Auth::check())
@@ -83,6 +82,7 @@
             </form>  
           @endif
         </li>
+        <li><a href="#">{{ Auth::user()->name }}</a></li>
       </ul>
       
     </div>

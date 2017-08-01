@@ -71,12 +71,9 @@
 		        variationCount += (variations[check] == true) ? 1 : 0;
 		    }
 		    score += (variationCount - 1) * 10;
-
-		    score = parseInt(score);
+			score = parseInt(score);
 
 			Passwordstrength.value = score;    
-			
-
 			if (score <= 50 ) {
 				PasswordstrengthText.className = 'danger';
 			    PasswordstrengthText.innerHTML= 'Weak Password';

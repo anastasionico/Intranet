@@ -49,7 +49,7 @@ Route::get('/admin', function () {
     };
     
     return view('admin', compact('users', 'user', 'manager','tasksUser', 'tasksUserDone', 'taskDate','taskCount', 'OrgChart'));
-});
+})->middleware('auth');
 
 Auth::routes();
 
