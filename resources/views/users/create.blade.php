@@ -74,6 +74,7 @@
 		    	<div class="form-group">
 		    		<label for="job_level">Job Level *</label>
 		    		<input type="number" name="job_level" class="form-control" min="1" value="1">
+		    		<small>1 entry, 2 senior, 3 manager</small>
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="birthdate">Birth Date</label>

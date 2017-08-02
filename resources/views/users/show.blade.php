@@ -110,7 +110,10 @@
 	          	<td>Job Title</td>
 	          	<td>{{ $user->job_title }}</td>
 	        </tr>
-	        
+	        <tr>
+	          	<td>Job Level</td>
+	          	<td>{{ $user->level }}</td>
+	        </tr>
 	        <tr>
 	          	<td>Expenses Manager</td>
 	          	<td>{{ $user->expenses_auth_id }}</td>

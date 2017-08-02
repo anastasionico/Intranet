@@ -28,7 +28,7 @@
 
 @section('sectionTable')
 	<div class="table-responsive p-2">
-		<table class="table table-striped">
+		<table class="table table-striped usersIndexTable" >
 	      	<thead>
 		        <tr>
 		          	<th>Name</th>
@@ -45,6 +45,24 @@
 				        <td>{{ $user->surname }}</td>
 				        <td>{{ $user->email }}</td>
 				        <td>
+				        	<span class="label label-info">
+					        	@php
+									switch ($user->level) {
+									case 1:
+									    echo "Entry";
+									    break;
+									case 2:
+										echo "Supervisor";
+									    break;
+								    case 3:
+										echo "Manager";
+									    break;
+								    case 4:
+										echo "Admin";
+									    break;
+									}
+								@endphp
+							</span>
 				        	@if($user->on_holiday != 0)
 				        		<span class="label label-warning">On Holiday</span>
 				        	@endif	
