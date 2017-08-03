@@ -129,8 +129,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-         
-        //VALIDATION
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',
             'name' => 'required|alpha',

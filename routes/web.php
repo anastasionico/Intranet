@@ -130,3 +130,21 @@ Route::prefix('/holiday')->group(function()
 	Route::post('/delegate' , 'HolidayController@delegate');
 
 });
+
+Route::prefix('/roles')->group(function()
+{
+	Route::get('/','RoleController@index');
+	Route::get('/create' , 'RoleController@create');	
+	Route::post('/store', 'RoleController@store');	
+	Route::get('/{id}', 'RoleController@show');
+	Route::get('/edit/{id}', 'RoleController@edit');
+	Route::Post('/update/{id}' , 'RoleController@update');
+	Route::get('/delete/{id}', 'RoleController@destroy');
+});
+
+Route::prefix('/permissions')->group(function(){
+	Route::get('/','PermissionController@index');
+	Route::get('/create','PermissionController@create');
+	Route::post('/store','PermissionController@store');
+	Route::get('/delete/{id}', 'PermissionController@destroy');
+});

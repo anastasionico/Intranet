@@ -26,7 +26,7 @@ class TasksController extends Controller
         return view('tasks/create' , compact('users'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
         //validate
         $this->validate(request(),[

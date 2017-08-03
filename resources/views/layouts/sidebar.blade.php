@@ -24,10 +24,23 @@
   </ul>
   <ul class="nav nav-sidebar">  
     <li>
+      <a href="/roles">
+        <i class="fa fa-id-card-o" aria-hidden="true"></i>
+        Roles
+      </a>
+    </li>
+    <li>
+      <a href="/permissions">
+        <i class="fa fa-credit-card" aria-hidden="true"></i>
+        Approval
+      </a>
+    </li>
+  </ul>
+  <ul class="nav nav-sidebar">  
+    <li>
       <a href="/tasks">
         <i class="fa fa-tasks" aria-hidden="true"></i>
         Task List
-
       </a>
     </li>
   </ul>
@@ -65,6 +78,7 @@
       </a>
     </li>
   </ul>
+  
   {{-- <ul class="nav nav-sidebar">
     <li>
       <a href="">
