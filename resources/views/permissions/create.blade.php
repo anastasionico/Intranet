@@ -13,7 +13,8 @@
 		    	{{ csrf_field() }}
 				<div class="form-group">
 		    		<label for="name">Name *</label>
-		    		<input type="text" name="name" class="form-control" required placeholder="eg: user" id="namePermission" value="">
+					<input type="text" name="name" class="form-control" required placeholder="eg: user" id="namePermission" value="">
+		    		<small>at least 4 characters</small>
 		    	</div>
 		    	<div class="form-group">
 		    		<label class="checkbox-inline"><input type="checkbox" name="create" onclick="checkboxCreate()" id="createCheckbox" disabled='true'>Create</label>
@@ -36,7 +37,6 @@
 	    	</small>
 	    	<ul id="myList" class="list-group">
 	    	</ul>
-	    	
 	    </div>
 	</div>    
 	<script type="text/javascript">
@@ -64,7 +64,7 @@
 			var namePermission = document.getElementById('namePermission');
 		    var createCheckbox = document.getElementById('createCheckbox');
 		    var sidetable = document.getElementById('myList');
-		    var idName = 'create-' + namePermission.value; 
+		    var idName = namePermission.value + '-create'; 
 
 		    if( createCheckbox.checked == true){
 	    	 	var li = document.createElement("li");
@@ -83,7 +83,7 @@
 			var namePermission = document.getElementById('namePermission');
 		    var readCheckbox = document.getElementById('readCheckbox');
 		    var sidetable = document.getElementById('myList');
-		    var idName = 'read-' + namePermission.value; 
+		    var idName = namePermission.value + '-read'; 
 
 		    if( readCheckbox.checked == true){
 	    	 	var li = document.createElement("li");
@@ -102,7 +102,7 @@
 			var namePermission = document.getElementById('namePermission');
 		    var updateCheckbox = document.getElementById('updateCheckbox');
 		    var sidetable = document.getElementById('myList');
-		    var idName = 'update-' + namePermission.value; 
+		    var idName = namePermission.value + '-update'; 
 
 		    if( updateCheckbox.checked == true){
 	    	 	var li = document.createElement("li");
@@ -121,7 +121,7 @@
 			var namePermission = document.getElementById('namePermission');
 		    var deleteCheckbox = document.getElementById('deleteCheckbox');
 		    var sidetable = document.getElementById('myList');
-		    var idName = 'delete-' + namePermission.value; 
+		    var idName = namePermission.value + '-delete'; 
 
 		    if( deleteCheckbox.checked == true){
 	    	 	var li = document.createElement("li");

@@ -15,7 +15,7 @@ class PermissionController extends Controller
     
     public function index()
     {
-    	$permissions = Permission::paginate(10);
+    	$permissions = Permission::orderBy('name')->paginate(10);
     	// dd($permissions);
     	return view('/permissions/index', compact('permissions'));
     }
@@ -34,8 +34,8 @@ class PermissionController extends Controller
 
 
 		if($request->create){
-			$slug = 'create-' . str_replace(' ', "-", request('name'));
-			$name = 'create-' . request('name');
+			$slug = str_replace(' ', "-", request('name')) . '-create';
+			$name = request('name') . '-create';
 			Permission::create([
 				'name' => $name,
 				'slug' => $slug,
@@ -43,8 +43,8 @@ class PermissionController extends Controller
 			]);
 		}
 		if($request->update){
-			$slug = 'update-' . str_replace(' ', "-", request('name'));
-			$name = 'update-' . request('name');
+			$slug = str_replace(' ', "-", request('name')) . '-update';
+			$name = request('name') . '-update';
 			Permission::create([
 				'name' => $name,
 				'slug' => $slug,
@@ -52,8 +52,8 @@ class PermissionController extends Controller
 			]);
 		}
 		if($request->read){
-			$slug = 'read-' . str_replace(' ', "-", request('name'));
-			$name = 'read-' . request('name');
+			$slug = str_replace(' ', "-", request('name')) . '-read';
+			$name = request('name') . '-read';
 			Permission::create([
 				'name' => $name,
 				'slug' => $slug,
@@ -61,8 +61,8 @@ class PermissionController extends Controller
 			]);
 		}
 		if($request->delete){
-			$slug = 'delete-' . str_replace(' ', "-", request('name'));
-			$name = 'delete-' . request('name');
+			$slug = str_replace(' ', "-", request('name')) . '-delete';
+			$name = request('name') . '-delete';
 			Permission::create([
 				'name' => $name,
 				'slug' => $slug,
@@ -77,6 +77,36 @@ class PermissionController extends Controller
 		$permission = Permission::find($id);
 		$permission->delete();
 
-		return back();
+		return redirect('/permissions');
+	}
+
+	public function show($id)
+	{
+		$permission = Permission::find($id);
+		return view('/permissions/show', compact('permission'));
+	}
+
+	public function edit($id)
+	{
+		$permission = Permission::find($id);
+		return view('/permissions/edit', compact('permission'));
+	}
+	public function update(Request $request, $id)
+	{
+		// dd($request->all());
+		$this->validate(request(),[
+    		'name' => 'required',
+    		'description' => 'required',
+		]);
+
+		$name = $slug = str_replace(' ', "-", request('name'));
+
+		$permission = Permission::find($id);
+		$permission->name = $name;
+		$permission->slug = $slug;
+		$permission->description = request('description');
+		$permission->save();
+
+		return redirect('/permissions');
 	}
 }

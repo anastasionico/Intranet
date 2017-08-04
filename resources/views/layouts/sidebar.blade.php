@@ -32,7 +32,7 @@
     <li>
       <a href="/permissions">
         <i class="fa fa-credit-card" aria-hidden="true"></i>
-        Approval
+        Perms
       </a>
     </li>
   </ul>
