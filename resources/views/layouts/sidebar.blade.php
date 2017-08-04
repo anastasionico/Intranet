@@ -24,15 +24,15 @@
   </ul>
   <ul class="nav nav-sidebar">  
     <li>
-      <a href="/roles">
-        <i class="fa fa-id-card-o" aria-hidden="true"></i>
-        Roles
-      </a>
-    </li>
-    <li>
       <a href="/permissions">
         <i class="fa fa-credit-card" aria-hidden="true"></i>
         Perms
+      </a>
+    </li>
+    <li>
+      <a href="/roles">
+        <i class="fa fa-id-card-o" aria-hidden="true"></i>
+        Roles
       </a>
     </li>
   </ul>

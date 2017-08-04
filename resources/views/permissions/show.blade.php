@@ -35,8 +35,7 @@
 	</div>
 	
 	<div class="table-responsive  col-sm-6 col-md-6">
-		
-	    <table class="table table-striped">
+		<table class="table table-striped">
 	        <tr>
 	          	<td>Name</td>
 	          	<td>{{ $permission->name }}</td>

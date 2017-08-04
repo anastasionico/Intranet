@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Role;
+use App\Permission;
 
 class RoleController extends Controller
 {
@@ -20,37 +21,40 @@ class RoleController extends Controller
 	
 	public function create()
 	{
-		return view('/roles/create');
+	   	$permissions = Permission::orderby('name')->get();
+        return view('/roles/create', compact('permissions'));
 	}
 
 	public function store(Request $request)
     {
-    	
     	$this->validate(request(),[
     		'name' => 'required|unique:roles,name',
     		'description' => 'required',
 		]);
 		$slug = str_replace(' ', "-", $request->name);
 		
-		Role::create([
+		$newRole = Role::create([
 			'name' => request('name'),
 			'slug' => $slug,
 			'description' => request('description'),
 		]);
-
-		return redirect('roles');
+        
+        $newRole->permissions()->sync(array_values($request->permissions));
+		
+        return redirect('roles');
     }
 
     public function show($id)
     {
     	$role = Role::find($id);
-    	return view('roles/show', compact('role'));
+        return view('roles/show', compact('role'));
     }
 
     public function edit($id)
     {
     	$role = Role::find($id);
-    	return view('roles/edit', compact('role'));
+        $permissions = Permission::orderby('name')->get();
+    	return view('roles/edit', compact('role', 'permissions'));
     }
 
     public function update(Request $request, $id)

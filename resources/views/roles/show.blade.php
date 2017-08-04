@@ -33,9 +33,7 @@
 			Role Details
 		</h2>
 	</div>
-	
-	<div class="table-responsive  col-sm-6 col-md-6">
-		
+	<div class="col-sm-12 col-md-9">
 	    <table class="table table-striped">
 	        <tr>
 	          	<td>Name</td>
@@ -49,11 +47,6 @@
 	          	<td>Description</td>
 	          	<td>{{ $role->description }}</td>
 	        </tr>
-	        
-	    </table>
-	</div>    
-	<div class="table-responsive  col-sm-6 col-md-6">
-		 <table class="table table-striped">
 	        <tr>
 	          	<td>Role Created</td>
 	          	<td>{{ $role->created_at }}</td>
@@ -66,6 +59,15 @@
           		<td>Id</td>
 	          	<td>{{ $role->id }}</td>
 	        </tr>
+	    </table>
+	</div>    
+	<div class="col-sm-12 col-md-3">
+		<table class="table table-striped">
+		    @foreach($role->permissions as $permission)
+	        	<tr>
+		          	<td>{{ $permission->name }}</td>
+		        </tr>
+	        @endforeach
 	    </table>
 	</div>
 	<div class="text-right col-sm-12 col-md-12">

@@ -19,6 +19,9 @@ class UpdateUsersTable extends Migration
             $t->dropColumn('holiday_manager');
             $t->integer('level')->unsigned()->default(0);
             $t->boolean('on_holiday')->default(0);
+            
+            $t->dropColumn('job_title');
+            $t->integer('job_id')->unsigned();
         });
     }
 
@@ -33,6 +36,9 @@ class UpdateUsersTable extends Migration
             $t->renameColumn('manager_id', 'expenses_auth_id');            
             $t->integer('holiday_manager');
             $t->dropColumn('level','on_holiday');
+
+            $t->integer('job_title');
+            $t->dropColumn('job_id');
         });
     }
 }

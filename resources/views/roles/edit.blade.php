@@ -4,10 +4,9 @@
 @endsection
 
 @section('sectionTable')
-	<div class="table-responsive p-2">
-
-		<h1 class="sub-header">Edit Role</h1>
-		<div class="col-md-3">
+	<div class="p-2">
+		<h1 class="sub-header">Edit {{ $role->name }}s Role</h1>
+		<div class="col-sm-12 col-md-9">
 			@include('layouts/errors')
 			<form action="/roles/update/{{ $role->id }}" method="post" enctype="multipart/form-data">
 		    	{{ csrf_field() }}
@@ -24,7 +23,21 @@
 		    	</div>
 		    </form>
 	    </div>
-	    <div class="col-md-9">
+	    <div class="col-md-3">
+	    	<h3>Currently permissions granted for {{ $role->name }}s</h3>
+    		@foreach($role->permissions as $permissionUser)
+    			<div class="checkbox">
+					<label><input type="checkbox" value="{{$permissionUser->id}}" name="permissions[]" checked>{{$permissionUser->slug}}</label>
+				</div>		
+			@endforeach	
+
+			<h3>Total permissions</h3>
+    		@foreach($permissions as $permission)
+    			<div class="checkbox">
+					<label><input type="checkbox" value="{{$permission->id}}" name="permissions[]">{{$permission->slug}}</label>
+				</div>		
+			@endforeach	
+
 	    </div>
-	</div>    
+   	</div>    
 @endsection
