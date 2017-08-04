@@ -16,7 +16,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'img','name','surname',
-            'job_title','email','password',
+            'role_id','email','password',
             'username',
             'birthdate','department_id','expenses_mileage_rate','manager_id','holiday_total','holiday_taken','level','on_holiday'
     ];
@@ -33,6 +33,10 @@ class User extends Authenticatable
     //All the fields present on the array $dates array will be automatically accessible in the views with Carbon 
     protected $dates = ['created_at', 'updated_at', 'last_login', 'birthdate'];
     
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
     
     public function department()
     {
@@ -67,7 +71,7 @@ class User extends Authenticatable
         //edit all the attribyte of the record with the requested one
         $user->name = $request->input('name');
         $user->surname = $request->input('surname');
-        $user->job_title = $request->input('job_title');
+        $user->role_id = $request->input('role_id');
         $user->level = $request->input('job_level');
         $user->email = $request->input('email');
         $user->username = $request->input('username');

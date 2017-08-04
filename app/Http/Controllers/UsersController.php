@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Department;
+use App\Role;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -33,9 +34,10 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $users = User::all();
-        $departments = Department::all();
-        return view('/users/create' , compact('departments','users'));
+        $users = User::orderby('name')->get();
+        $departments = Department::orderby('name')->get();
+        $roles = Role::orderby('name')->get();
+        return view('/users/create' , compact('departments','users','roles'));
     }
 
     /**
@@ -52,7 +54,7 @@ class UsersController extends Controller
             'img' => 'nullable|image|dimensions:max-width:1024',
             'name' => 'required|alpha',
             'surname' => 'required|alpha',
-            'job_title' => 'required',
+            'role_id' => 'required',
             'job_level' => 'required',
             'email' => 'required|email|unique:users,email',
             'username' => 'required|min:3|alpha_num',
@@ -69,7 +71,7 @@ class UsersController extends Controller
         User::create([
             'name' => request('name'),
             'surname' => request('surname'),
-            'job_title' => request('job_title'),
+            'role_id' => request('role_id'),
             'level' => request('job_level'),
             'email' => request('email'),
             'username' => request('username'),
@@ -98,7 +100,6 @@ class UsersController extends Controller
         $personal_manager_id = $user->manager_id;
         $personal_manager = User::find($personal_manager_id);
         $department = Department::where('id', $user->department_id)->first();
-                
         return view('/users/show', compact('user','department','personal_manager') );
     }
 
@@ -114,10 +115,10 @@ class UsersController extends Controller
         $user = User::find($id);
         $personal_manager_id = $user->manager_id;
         $departments = Department::all();
-
+        $roles = Role::orderby('name')->get();
         $personal_manager = User::find($personal_manager_id);
         
-        return view('users/edit', compact('users', 'user','departments','personal_manager'));
+        return view('users/edit', compact('users', 'user','departments','personal_manager','roles'));
     }
 
     /**
@@ -133,7 +134,7 @@ class UsersController extends Controller
             'img' => 'nullable|image|dimensions:max-width:1024',
             'name' => 'required|alpha',
             'surname' => 'required|alpha',
-            'job_title' => 'required',
+            'role_id' => 'required',
             'job_level' => 'required',
             'email' => 'required|email',
             'username' => 'required|min:3|alpha_num',

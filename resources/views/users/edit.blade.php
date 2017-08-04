@@ -68,8 +68,14 @@
 		    		<input type="number" name="holiday_taken" class="form-control" value="{{ $user->holiday_taken }}" required>
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="job_title">Job Title *</label>
-		    		<input type="text" name="job_title" class="form-control" value="{{ $user->job_title }}" > 
+		    		<label for="role">Role *</label>
+		    		<select name='role_id' class="form-control" required>
+						@foreach($roles as $role)
+							<option value="{{ $role->id }}">
+		    					{{ $role->name }} 
+		    				</option>
+		    			@endforeach
+		    		</select>
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="job_level">Job Level *</label>

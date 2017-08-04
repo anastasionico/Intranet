@@ -28,9 +28,10 @@
 @endsection
 
 @section('sectionTable')
+	
 	<div class="col-sm-12 col-md-12">
 		<h2 class="sub-header">
-			User Details
+			{{ ucfirst($user->name) . ' ' . ucfirst($user->surname) }}
 			@if( $user->on_holiday == 1)
 	      		<span class="btn btn-warning">
 	      			Currently in Holiday
@@ -39,8 +40,8 @@
 		</h2>
 	</div>
 	
-	<div class="table-responsive  col-sm-6 col-md-6">
-		
+	<div class="table-responsive  col-sm-12 col-md-5">
+		<h3>Personal Details</h3>
 	    <table class="table table-striped">
 	        <tr>
 	          	<td>Id</td>
@@ -52,11 +53,11 @@
 	        </tr>
 	        <tr>
 	          	<td>Name</td>
-	          	<td>{{ $user->name }}</td>
+	          	<td>{{ucfirst($user->name)}}</td>
 	        </tr>
 	        <tr>
 	          	<td>Surname</td>
-	          	<td>{{ $user->surname }}</td>
+	          	<td>{{ucfirst($user->surname)}}</td>
 	        </tr>
 	        <tr>
 	          	<td>Email</td>
@@ -96,8 +97,9 @@
 	        </tr>
 	    </table>
 	</div>    
-	<div class="table-responsive  col-sm-6 col-md-6">
-		 <table class="table table-striped">
+	<div class="table-responsive  col-sm-12 col-md-5">
+		<h3>Job Details</h3>
+		<table class="table table-striped">
 	        <tr>
 	          	<td>Department</td>
 	          	<td>{{ $department->name }}</td>
@@ -107,8 +109,12 @@
 	          	<td>{{ $personal_manager->name }} {{ $personal_manager->surname }}</td>
 	        </tr>
 	        <tr>
-	          	<td>Job Title</td>
-	          	<td>{{ $user->job_title }}</td>
+	          	<td>Role Title</td>
+	          	<td>
+	          		<a href="/roles/{{ $user->role->id }}">
+	          			{{ $user->role->name }}
+	          		</a>
+	          	</td>
 	        </tr>
 	        <tr>
 	          	<td>Job Level</td>
@@ -140,6 +146,16 @@
 	        </tr>
 	        
 	    </table>
+	</div>
+	<div class="table-responsive  col-sm-12 col-md-2">
+		<h3>Role Permissions</h3>
+		<table class="table table-striped">
+			@foreach($user->role->permissions as $permission)
+		        	<tr>
+			          	<td>{{ $permission->name }}</td>
+			        </tr>
+	        @endforeach
+        </table>
 	</div>
 	<div class="text-right col-sm-12 col-md-12">
 		<a href="/users/edit/{{ $user->id }}" class="btn btn-primary">

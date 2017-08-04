@@ -30,10 +30,11 @@
 @section('sectionTable')
 	<div class="col-sm-12 col-md-12">
 		<h2 class="sub-header">
-			Role Details
+			{{ $role->name }}
 		</h2>
 	</div>
 	<div class="col-sm-12 col-md-9">
+		<h3>Details</h3>
 	    <table class="table table-striped">
 	        <tr>
 	          	<td>Name</td>
@@ -62,6 +63,7 @@
 	    </table>
 	</div>    
 	<div class="col-sm-12 col-md-3">
+		<h3>Permissions</h3>
 		<table class="table table-striped">
 		    @foreach($role->permissions as $permission)
 	        	<tr>

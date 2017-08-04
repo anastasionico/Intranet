@@ -16,7 +16,7 @@ class UpdateUserTable extends Migration
         Schema::table('users', function(Blueprint $t)
         {
             $t->dropColumn('job_title');
-            $t->integer('job_id')->unsigned();
+            $t->integer('role_id')->unsigned();
         });
     }
 
@@ -29,7 +29,7 @@ class UpdateUserTable extends Migration
     {
         Schema::table('users', function(Blueprint $t){
             $t->integer('job_title');
-            $t->dropColumn('job_id');
+            $t->dropColumn('role_id');
         });
     }
 }
