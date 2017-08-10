@@ -4,11 +4,13 @@ namespace App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
+use App\Role;
 
 class User extends Authenticatable
 {
     use Notifiable;
-    
+    use EntrustUserTrait; // add this trait to your user model
     /**
      * The attributes that are mass assignable.
      *
@@ -67,11 +69,13 @@ class User extends Authenticatable
     {
         //find the user with the selected id
         $user = User::find($id);
-        
+        $roleNew = Role::find($request->input('role_id'));
+      
         //edit all the attribyte of the record with the requested one
         $user->name = $request->input('name');
         $user->surname = $request->input('surname');
-        $user->role_id = $request->input('role_id');
+        $user->detachRole($user->role);
+        $user->attachRole($roleNew->id);
         $user->level = $request->input('job_level');
         $user->email = $request->input('email');
         $user->username = $request->input('username');

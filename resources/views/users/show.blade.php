@@ -160,12 +160,19 @@
         </table>
 	</div>
 	<div class="text-right col-sm-12 col-md-12">
-		<a href="/users/edit/{{ $user->id }}" class="btn btn-primary">
-			Edit
-		</a>
+	 	{{-- @if($user->hasRole('Web developer'))
+	 		i got permission
+	 	@endif --}}
+ 
+		@role(("Web developer"))
+			<a href="/users/edit/{{ $user->id }}" class="btn btn-primary">
+				Edit
+			</a>    
+		@endrole
 		<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
 			Delete
 		</a>
+	
 	</div>
 	
 @endsection

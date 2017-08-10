@@ -7,7 +7,7 @@ use App\User;
 use App\Department;
 use App\Role;
 use Illuminate\Support\Facades\Auth;
-
+// use Zizaco\Entrust\Entrust;
 
 class UsersController extends Controller
 {
