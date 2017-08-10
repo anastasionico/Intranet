@@ -150,11 +150,13 @@
 	<div class="table-responsive  col-sm-12 col-md-2">
 		<h3>Role Permissions</h3>
 		<table class="table table-striped">
-			@foreach($user->role->permissions as $permission)
+			@if($user->role->permissions)
+				@foreach($user->role->permissions as $permission)
 		        	<tr>
 			          	<td>{{ $permission->name }}</td>
 			        </tr>
-	        @endforeach
+		        @endforeach
+	        @endif
         </table>
 	</div>
 	<div class="text-right col-sm-12 col-md-12">

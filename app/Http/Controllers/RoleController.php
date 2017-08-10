@@ -27,7 +27,7 @@ class RoleController extends Controller
 
 	public function store(Request $request)
     {
-    	$this->validate(request(),[
+        $this->validate(request(),[
     		'name' => 'required|unique:roles,name',
     		'description' => 'required',
 		]);
@@ -40,7 +40,7 @@ class RoleController extends Controller
 		]);
         
         $newRole->permissions()->sync(array_values($request->permissions));
-		
+
         return redirect('roles');
     }
 
@@ -54,12 +54,13 @@ class RoleController extends Controller
     {
     	$role = Role::find($id);
         $permissions = Permission::orderby('name')->get();
-    	return view('roles/edit', compact('role', 'permissions'));
+        $permissionsPerRole = $role->permissions->pluck("id")->toArray();
+    	return view('roles/edit', compact('role', 'permissions','permissionsPerRole'));
     }
 
     public function update(Request $request, $id)
     {
-    	$this->validate(request(),[
+        $this->validate(request(),[
     		'name' => 'required',
     		'description' => 'required',
 		]);
@@ -69,7 +70,7 @@ class RoleController extends Controller
 		$role->name = request('name');
 		$role->description = request('description');
 		$role->slug = $slug;
-		
+        $role->permissions()->sync(array_values($request->permissions));
 		$role->save();
 
 		return redirect('/roles');
