@@ -4,9 +4,12 @@
     <div class="row">
         <div class="col-xs-12 col-md-12">
             <h1 class="page-header">Task List</h1>
-            <a href="/tasks/create" class="btn btn-primary">
-                Create new task
-            </a>
+            @permission(('task create'))
+                <a href="/tasks/create" class="btn btn-primary">
+                    Create new task
+                </a>
+            @endpermission
+            
             <i id="bubbleTasksIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>        
         </div>
     </div>
@@ -74,12 +77,16 @@
                                             View
                                         </a>
                                     --}}
-                                    <a href="/tasks/edit/{{ $task->id }}" class="btn btn-info">
-                                        Edit
-                                    </a>
-                                    <a href="/tasks/delete/{{ $task->id }}" class="btn btn-danger">
-                                        Set as Done
-                                    </a>
+                                    @permission(('task update'))
+                                        <a href="/tasks/edit/{{ $task->id }}" class="btn btn-info">
+                                            Edit
+                                        </a>
+                                    @endpermission
+                                    @permission(('task delete'))
+                                        <a href="/tasks/delete/{{ $task->id }}" class="btn btn-danger">
+                                            Set as Done
+                                        </a>
+                                    @endpermission
                                 </td>
                             </tr>
                     @endforeach

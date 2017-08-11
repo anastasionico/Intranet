@@ -167,15 +167,18 @@
 			    	</div>		
 				</form>
 			</div>
-			<div class="text-right form-group col-sm-12 col-md-5" id="partecipantsDiv">
-				<label for="manager">Response</label><br>
-				<a href="/holiday/accept/{{ $holiday->id }}" class="btn btn-success">
-					Accept
-				</a>
-				<a href="/holiday/deny/{{ $holiday->id }}" class="btn btn-danger">
-					Decline
-				</a>
-			</div>
+			@permission(('holiday update'))
+		        <div class="text-right form-group col-sm-12 col-md-5" id="partecipantsDiv">
+					<label for="manager">Response</label><br>
+					<a href="/holiday/accept/{{ $holiday->id }}" class="btn btn-success">
+						Accept
+					</a>
+					<a href="/holiday/deny/{{ $holiday->id }}" class="btn btn-danger">
+						Decline
+					</a>
+				</div>
+	      	@endpermission
+			
 			
 		</div>
 	@endif

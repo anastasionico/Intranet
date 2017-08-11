@@ -3,12 +3,12 @@
 @section('heroDiv')
 	<div class="row">
     <div class="col-xs-12 col-md-12">
-      
       <h1 class="page-header">Holiday</h1>
-
-      <a href="/holiday/create" class="btn btn-primary">
-          Book a Holiday
-      </a>
+      @permission(('holiday create'))
+        <a href="/holiday/create" class="btn btn-primary">
+            Book a Holiday
+        </a>
+      @endpermission
       <i id="bubbleHolidayIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
       <br>
       @foreach (['danger', 'warning', 'success', 'info'] as $msg)
@@ -68,6 +68,7 @@
   <div class="table-responsive p-2">
     <div>
       Legend: 
+
       @foreach($holidayList as $holiday)
         <p style="color:{{ $holiday->options['backgroundColor'] }}">
           {{ $holiday->title }} ( from: {{$holiday->start->format('d-M-y')}} to: {{$holiday->end->format('d-M-y')}} )

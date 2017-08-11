@@ -68,16 +68,22 @@
 				        	@endif	
 				        </td>
 				        <td>
-				        	<a href="/users/{{ $user->id }}" class="btn btn-default">
-				        		View
-				        	</a>
-				        	<a href="/users/edit/{{ $user->id }}" class="btn btn-info">
-				        		Edit
-				        	</a>
-				        	<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
-				        		Delete
-				        	</a>
-				        </td>
+				        	@permission(('user read'))
+								<a href="/users/{{ $user->id }}" class="btn btn-default">
+					        		View
+					        	</a>
+							@endpermission
+				        	@permission(('user update'))
+								<a href="/users/edit/{{ $user->id }}" class="btn btn-info">
+					        		Edit
+					        	</a>
+							@endpermission
+							@permission(('user delete'))
+								<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
+					        		Delete
+					        	</a>
+							@endpermission
+						</td>
 				    </tr>
 		    	@endforeach
 		    	

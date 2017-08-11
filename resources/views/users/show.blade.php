@@ -160,19 +160,16 @@
         </table>
 	</div>
 	<div class="text-right col-sm-12 col-md-12">
-	 	{{-- @if($user->hasRole('Web developer'))
-	 		i got permission
-	 	@endif --}}
- 		{{-- @role(("Web developer"))
-			
-		@endrole --}}
-		<a href="/users/edit/{{ $user->id }}" class="btn btn-primary">
-				Edit
-			</a>    
-		<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
-			Delete
-		</a>
-	
+	 	@permission(('user update'))
+			<a href="/users/edit/{{ $user->id }}" class="btn btn-info">
+        		Edit
+        	</a>
+		@endpermission
+		@permission(('user delete'))
+			<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
+        		Delete
+        	</a>
+		@endpermission
 	</div>
 	
 @endsection

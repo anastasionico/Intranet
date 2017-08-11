@@ -57,12 +57,16 @@
 	          	<td>{{ $department->cost_center_last }}</td>
 	        </tr>
 	    </table>
-	    <a href="/departments/edit/{{ $department->id }}" class="btn btn-primary">
-    		Edit
-    	</a>
-    	<a href="/departments/delete/{{ $department->id }}" class="btn btn-danger">
-    		Delete
-    	</a>
+	    @permission(('department update'))
+			<a href="/departments/edit/{{ $department->id }}" class="btn btn-info">
+        		Edit
+        	</a>
+		@endpermission
+		@permission(('department delete'))
+			<a href="/departments/delete/{{ $department->id }}" class="btn btn-danger">
+        		Delete
+        	</a>
+		@endpermission
 	</div>   
 @endsection
 

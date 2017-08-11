@@ -4,9 +4,11 @@
 	<div class="row">
         <div class="col-xs-12 col-md-12">
             <h1 class="page-header">Permissions List</h1>
-            <a href="/permissions/create" class="btn btn-primary">
-                Create new set of Permissions
-            </a>        
+            @permission(('permission create'))
+				<a href="/permissions/create" class="btn btn-primary">
+	                Create new set of Permissions
+	            </a>        	
+			@endpermission
         </div>
     </div>
 	
@@ -36,16 +38,22 @@
 				        <td>{{ $permission->name }}</td>
 				        <td>{{ $description }}</td>
 				        <td>
-				        	<a href="/permissions/{{ $permission->id }}" class="btn btn-default">
-				        		View
-				        	</a>
-				        	<a href="/permissions/edit/{{ $permission->id }}" class="btn btn-info">
-				        		Edit
-				        	</a>
-				        	<a href="/permissions/delete/{{ $permission->id }}" class="btn btn-danger">
-				        		Delete
-				        	</a>
-				        </td>
+				        	@permission(('permission read'))
+								<a href="/permissions/{{ $permission->id }}" class="btn btn-default">
+					        		View
+					        	</a>
+							@endpermission
+				        	@permission(('permission update'))
+								<a href="/permissions/edit/{{ $permission->id }}" class="btn btn-info">
+					        		Edit
+					        	</a>
+							@endpermission
+							@permission(('permission delete'))
+								<a href="/permissions/delete/{{ $permission->id }}" class="btn btn-danger">
+					        		Delete
+					        	</a>
+							@endpermission
+						</td>
 				    </tr>
 		    	@endforeach
 

@@ -35,7 +35,7 @@ class PermissionController extends Controller
 
 		if($request->create){
 			$slug = str_replace(' ', "-", request('name')) . '-create';
-			$name = request('name') . '-create';
+			$name = request('name') . ' create';
 			Permission::create([
 				'name' => $name,
 				'slug' => $slug,
@@ -44,7 +44,7 @@ class PermissionController extends Controller
 		}
 		if($request->update){
 			$slug = str_replace(' ', "-", request('name')) . '-update';
-			$name = request('name') . '-update';
+			$name = request('name') . ' update';
 			Permission::create([
 				'name' => $name,
 				'slug' => $slug,
@@ -53,7 +53,7 @@ class PermissionController extends Controller
 		}
 		if($request->read){
 			$slug = str_replace(' ', "-", request('name')) . '-read';
-			$name = request('name') . '-read';
+			$name = request('name') . ' read';
 			Permission::create([
 				'name' => $name,
 				'slug' => $slug,
@@ -62,7 +62,7 @@ class PermissionController extends Controller
 		}
 		if($request->delete){
 			$slug = str_replace(' ', "-", request('name')) . '-delete';
-			$name = request('name') . '-delete';
+			$name = request('name') . ' delete';
 			Permission::create([
 				'name' => $name,
 				'slug' => $slug,

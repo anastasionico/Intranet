@@ -4,9 +4,11 @@
 	<div class="row">
     <div class="col-xs-12 col-md-12">
       <h1 class="page-header">Calendar</h1>
-      <a href="/calendar/create" class="btn btn-primary">
-          Create new event
-      </a>
+      @permission(('calendar create'))
+        <a href="/calendar/create" class="btn btn-primary">
+            Create new event
+        </a>
+      @endpermission
       <i id="bubbleCalendarIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
     </div>
   </div>

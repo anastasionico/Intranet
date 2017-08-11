@@ -73,12 +73,16 @@
 	    </table>
 	</div>
 	<div class="text-right col-sm-12 col-md-12">
-		<a href="/roles/edit/{{ $role->id }}" class="btn btn-primary">
-			Edit
-		</a>
-		<a href="/roles/delete/{{ $role->id }}" class="btn btn-danger">
-			Delete
-		</a>
+		@permission(('role update'))
+			<a href="/roles/edit/{{ $role->id }}" class="btn btn-info">
+        		Edit
+        	</a>
+		@endpermission
+		@permission(('role delete'))
+			<a href="/roles/delete/{{ $role->id }}" class="btn btn-danger">
+        		Delete
+        	</a>
+		@endpermission
 	</div>
 	
 @endsection

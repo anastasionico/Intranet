@@ -77,12 +77,16 @@
           		<td>{{ $site->lng }}</td>
 	        </tr>
 	    </table>
-	    <a href="/sites/edit/{{ $site->id }}" class="btn btn-primary">
-    		Edit
-    	</a>
-    	<a href="/sites/delete/{{ $site->id }}" class="btn btn-danger">
-    		Delete
-    	</a>
+	    @permission(('site update'))
+			<a href="/sites/edit/{{ $site->id }}" class="btn btn-info">
+	    		Edit
+	    	</a>
+		@endpermission
+		@permission(('site delete'))
+			<a href="/sites/delete/{{ $site->id }}" class="btn btn-danger">
+	    		Delete
+	    	</a>
+		@endpermission
 	</div>   
 @endsection
 

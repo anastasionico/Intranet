@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Role;
 use App\Permission;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -48,7 +49,13 @@ class RoleController extends Controller
 
     public function show($id)
     {
-    	$role = Role::find($id);
+    	// $auth = Auth::user();
+        // dd($auth->can('roles-update'));  
+        // dd($auth->hasRole('Web developer'));  
+        
+        
+       
+        $role = Role::find($id);
         return view('roles/show', compact('role'));
     }
 
@@ -62,6 +69,7 @@ class RoleController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         $this->validate(request(),[
     		'name' => 'required',
     		'description' => 'required',

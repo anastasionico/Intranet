@@ -15,12 +15,14 @@
         <span class="sr-only">(current)</span>
       </a>
     </li>
-    <li>
+    @permission(('user create'))
+      <li>
       <a href="/users/create">
         <i class="fa fa-user-plus" aria-hidden="true"></i> 
         Add
       </a>
     </li>
+    @endpermission
   </ul>
   <ul class="nav nav-sidebar">  
     <li>

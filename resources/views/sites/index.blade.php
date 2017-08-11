@@ -4,11 +4,12 @@
 	<div class="row">
         <div class="col-xs-12 col-md-12">
             <h1 class="page-header">Sites List</h1>
-            <a href="/sites/create" class="btn btn-primary">
-                Insert new site
-            </a>        
+            @permission(('site create'))
+				<a href="/sites/create" class="btn btn-primary">
+	                Insert new site
+	            </a>        
+			@endpermission
         </div>
-        
     </div>
 	{{--
 	<div class="row placeholders">
@@ -60,16 +61,22 @@
 			          		</a> 
 			        	</td>
 				        <td>
-				        	<a href="/sites/{{ $site->id }}" class="btn btn-default">
-				        		View
-				        	</a>
-				        	<a href="/sites/edit/{{ $site->id }}" class="btn btn-info">
-				        		Edit
-				        	</a>
-				        	<a href="/sites/delete/{{ $site->id }}" class="btn btn-danger">
-				        		Delete
-				        	</a>
-				        </td>
+				        	@permission(('site read'))
+								<a href="/sites/{{ $site->id }}" class="btn btn-default">
+					        		View
+					        	</a>
+							@endpermission
+							@permission(('site update'))
+								<a href="/sites/edit/{{ $site->id }}" class="btn btn-info">
+					        		Edit
+					        	</a>
+							@endpermission
+							@permission(('site delete'))
+								<a href="/sites/delete/{{ $site->id }}" class="btn btn-danger">
+					        		Delete
+					        	</a>
+							@endpermission
+						</td>
 				    </tr>
 		    	@endforeach
         	</tbody>

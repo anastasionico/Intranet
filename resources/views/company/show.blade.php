@@ -53,11 +53,15 @@
 	          	</td>
 	        </tr>
 	    </table>
-	    <a href="/company/edit/{{ $company->id }}" class="btn btn-primary">
-    		Edit
-    	</a>
-    	<a href="/company/delete/{{ $company->id }}" class="btn btn-danger">
-    		Delete
-    	</a>
-	</div>    
+	    @permission(('company update'))
+			<a href="/company/edit/{{ $company->id }}" class="btn btn-info">
+        		Edit
+        	</a>
+		@endpermission
+		@permission(('company delete'))
+			<a href="/company/delete/{{ $company->id }}" class="btn btn-danger">
+        		Delete
+        	</a>
+		@endpermission
+    </div>    
 @endsection

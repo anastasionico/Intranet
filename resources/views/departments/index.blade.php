@@ -4,11 +4,12 @@
 	<div class="row">
         <div class="col-xs-12 col-md-12">
             <h1 class="page-header">Department List</h1>
-            <a href="/departments/create" class="btn btn-primary">
-                Insert new department
-            </a>        
+            @permission(('department create'))
+				<a href="/departments/create" class="btn btn-primary">
+	                Insert new department
+	            </a>        
+			@endpermission
         </div>
-        
     </div>
 	{{--
 	<div class="row placeholders">
@@ -55,16 +56,22 @@
 				        <td>{{ $department->site->name }}</td>
 				        <td>{{ $department->manager->name }}</td>
 				        <td>
-				        	<a href="/departments/{{ $department->id }}" class="btn btn-default">
-				        		View
-				        	</a>
-				        	<a href="/departments/edit/{{ $department->id }}" class="btn btn-info">
-				        		Edit
-				        	</a>
-				        	<a href="/departments/delete/{{ $department->id }}" class="btn btn-danger">
-				        		Delete
-				        	</a>
-				        </td>
+				        	@permission(('department read'))
+								<a href="/departments/{{ $department->id }}" class="btn btn-default">
+					        		View
+					        	</a>
+							@endpermission
+							@permission(('department update'))
+								<a href="/departments/edit/{{ $department->id }}" class="btn btn-info">
+					        		Edit
+					        	</a>
+							@endpermission
+							@permission(('department delete'))
+								<a href="/departments/delete/{{ $department->id }}" class="btn btn-danger">
+					        		Delete
+					        	</a>
+							@endpermission
+						</td>
 				    </tr>
 		    	@endforeach
         	</tbody>
