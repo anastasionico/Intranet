@@ -39,8 +39,10 @@ class RoleController extends Controller
 			'description' => request('description'),
 		]);
         
-        $newRole->permissions()->sync(array_values($request->permissions));
 
+        foreach ($request->permissions as $permission) {
+            $newRole->attachPermission($permission);
+        }
         return redirect('roles');
     }
 
@@ -79,8 +81,11 @@ class RoleController extends Controller
     public function destroy($id)
     {
     	$role = Role::find($id);
-        $role->delete();
-
+        // $role->user()->sync([]); 
+        foreach ($role->permissions as $permission) {
+            $role->detachPermission($permission['id']);
+        }
+        $role->forceDelete(); 
         return redirect('/roles');
     }
 }

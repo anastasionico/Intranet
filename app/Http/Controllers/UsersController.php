@@ -7,10 +7,11 @@ use App\User;
 use App\Department;
 use App\Role;
 use Illuminate\Support\Facades\Auth;
-// use Zizaco\Entrust\Entrust;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class UsersController extends Controller
 {
+    use EntrustUserTrait; // add this trait to your user model
     public function __construct()
     {
         $this->middleware('auth');
@@ -49,7 +50,6 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         
-        //validion
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',
             'name' => 'required|alpha',
@@ -67,8 +67,7 @@ class UsersController extends Controller
             'holiday_taken' => 'required|integer',
         ]);
         
-        //store
-        User::create([
+        $newUser = User::create([
             'name' => request('name'),
             'surname' => request('surname'),
             'role_id' => request('role_id'),
@@ -83,6 +82,7 @@ class UsersController extends Controller
             'holiday_total' => request('holiday_total'),
             'holiday_taken' => request('holiday_taken'),
         ]);
+        $newUser->roles()->attach(request('role_id'));
         
         //redirect to home page   
         return redirect('/users');
@@ -97,6 +97,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        // dd($user->can('user-update'));
         $personal_manager_id = $user->manager_id;
         $personal_manager = User::find($personal_manager_id);
         $department = Department::where('id', $user->department_id)->first();

@@ -67,15 +67,15 @@ class User extends Authenticatable
     
     public static function updateUser( $request, $id)
     {
+        
         //find the user with the selected id
         $user = User::find($id);
         $roleNew = Role::find($request->input('role_id'));
-      
+
         //edit all the attribyte of the record with the requested one
         $user->name = $request->input('name');
         $user->surname = $request->input('surname');
-        $user->detachRole($user->role);
-        $user->attachRole($roleNew->id);
+        $user->role_id = $request->input('role_id');
         $user->level = $request->input('job_level');
         $user->email = $request->input('email');
         $user->username = $request->input('username');
@@ -85,8 +85,12 @@ class User extends Authenticatable
         $user->manager_id = $request->input('personal_manager');
         $user->holiday_total = $request->input('holiday_total');
         $user->holiday_taken = $request->input('holiday_taken');
+        //the following are command for Entrust
         
-        //save
+        $role = $user->roles()->where("user_id", $user->id)->first();
+        $user->roles()->detach($role);
+        $user->attachRole($roleNew->id);
+        
         $user->save();
         
         return $user = User::find($id);

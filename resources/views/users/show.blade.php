@@ -163,12 +163,12 @@
 	 	{{-- @if($user->hasRole('Web developer'))
 	 		i got permission
 	 	@endif --}}
- 
-		@role(("Web developer"))
-			<a href="/users/edit/{{ $user->id }}" class="btn btn-primary">
+ 		{{-- @role(("Web developer"))
+			
+		@endrole --}}
+		<a href="/users/edit/{{ $user->id }}" class="btn btn-primary">
 				Edit
 			</a>    
-		@endrole
 		<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
 			Delete
 		</a>
