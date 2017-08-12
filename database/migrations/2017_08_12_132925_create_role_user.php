@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateUserTable extends Migration
+class CreateRoleUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class UpdateUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $t)
-        {
-            $t->dropColumn('job_title');
-            $t->integer('role_id')->unsigned();
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->integer('role_id');
+            $table->integer('user_id');
         });
     }
 
@@ -27,9 +26,6 @@ class UpdateUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function(Blueprint $t){
-            $t->integer('job_title');
-            $t->dropColumn('role_id');
-        });
+        Schema::dropIfExists('role_user');
     }
 }

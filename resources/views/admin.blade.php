@@ -259,17 +259,21 @@
       data.addColumn('string', 'Name');
       data.addColumn('string', 'Manager');
       
-      [{v:'Mike', f:'Mike<div style="color:red; font-style:italic">President</div>'},'', 'The President'],
+      // [{v:'Mike', f:'Mike<div style="color:red; font-style:italic">President</div>'},'', 'The President'],
 
 
 
       data.addRows([
         <?php
           foreach ($OrgChart as $OrgChartValue) {
-            $OrgChartValue['manager']= ($OrgChartValue['manager'] == $OrgChartValue['fullname'])? '' : $OrgChartValue['manager'] ;
-        ?>
-            [ {v:"<?= $OrgChartValue['fullname'] ?>", f:"<?= $OrgChartValue['fullname'] ." ".$OrgChartValue['title'] ?>" }, "<?= $OrgChartValue['manager'] ?>" ],
-        <?php
+            
+            // if(isset($OrgChartValue['manager'])){
+
+              $OrgChartValue['manager']= ($OrgChartValue['manager'] == $OrgChartValue['fullname'])? '' : $OrgChartValue['manager'] ;
+          ?>
+              [ {v:"<?= $OrgChartValue['fullname'] ?>", f:"<?= $OrgChartValue['fullname'] ." ".$OrgChartValue['title'] ?>" }, "<?= $OrgChartValue['manager'] ?>" ],
+          <?php
+
           }
         ?>
       ]);

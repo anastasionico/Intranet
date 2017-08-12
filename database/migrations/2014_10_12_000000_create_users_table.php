@@ -23,15 +23,16 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->date('birthdate')->nullable();
+            $table->integer('role_id')->unsigned();
             $table->integer('department_id')->unsigned()->default(0);
             $table->string('email')->unique();
-            $table->string('job_title')->nullable();
-            $table->integer('expenses_auth_id')->nullable();
+            $table->integer('manager_id')->nullable();
             $table->integer('expenses_mileage_rate')->nullable();
-            $table->integer('holiday_manager')->nullable();
             $table->integer('holiday_total')->nullable();
+            $table->boolean('on_holiday')->default(0);
             $table->integer('holiday_taken')->nullable();
             $table->integer('holiday_outstanding')->nullable();
+            $table->integer('level')->unsigned()->default(0);
             $table->rememberToken();
         });
     }

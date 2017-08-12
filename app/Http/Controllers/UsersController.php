@@ -14,7 +14,7 @@ class UsersController extends Controller
     use EntrustUserTrait; // add this trait to your user model
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('store');
     }
 
     /**
@@ -49,7 +49,6 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',
             'name' => 'required|alpha',
@@ -85,7 +84,7 @@ class UsersController extends Controller
         $newUser->roles()->attach(request('role_id'));
         
         //redirect to home page   
-        return redirect('/users');
+        return redirect('home');
     }
 
     /**

@@ -37,11 +37,15 @@ input.empty {
     outline: none;
     box-shadow: none;
 }
+
 .panel{
 	color : $secondary;
 }
 .panel-body {
  	color : $secondary;
+}
+.panel-auth .panel-body{
+  color : $primary;
 }
 .welcome-page input{
     background-color: transparent;

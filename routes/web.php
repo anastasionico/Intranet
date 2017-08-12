@@ -37,19 +37,23 @@ Route::get('/admin', function () {
 		$taskCount[] = $task->count;
     };
     $i=1;
+    
+    $OrgChart = null;
+    $OrgChartmanager = null;
+
     foreach ($users as $OrgChartUser) {
     	$OrgChart[$i]['fullname'] = $OrgChartUser->name . " " . $OrgChartUser->surname;
     	$OrgChart[$i]['title'] = $OrgChartUser->job_title;
     	$OrgChartmanager = \App\User::select('name', 'surname')
-        	->where('id', '=', $OrgChartUser->manager_id)->first()->toArray();
-        $OrgChartmanager = implode(' ', $OrgChartmanager);
-        
-		$OrgChart[$i]['manager'] = $OrgChartmanager;
+    		->where('id', '=', $OrgChartUser->manager_id)->first()->toArray();	
+		$OrgChartmanager = implode(' ', $OrgChartmanager);
+        $OrgChart[$i]['manager'] = $OrgChartmanager;
+		
     	$i++;
     };
     
     return view('admin', compact('users', 'user', 'manager','tasksUser', 'tasksUserDone', 'taskDate','taskCount', 'OrgChart'));
-})->middleware('auth');
+})->middleware('auth')->name('dashboard');
 
 Auth::routes();
 
