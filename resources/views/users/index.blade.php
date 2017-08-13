@@ -68,10 +68,10 @@
 				        	@endif	
 				        </td>
 				        <td>
-				        	@permission(('user read'))
+							@permission(('user read'))
 								<a href="/users/{{ $user->id }}" class="btn btn-default">
 					        		View
-					        	</a>
+					        	</a>		
 							@endpermission
 				        	@permission(('user update'))
 								<a href="/users/edit/{{ $user->id }}" class="btn btn-info">
