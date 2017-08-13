@@ -167,10 +167,12 @@ class UsersController extends Controller
         return redirect('/users');
     }
 
-    public function editPassword(){
+    public function editPassword()
+    {
         return view('users.updatepassword');
     }
-    public function updatePassword(request $request){
+    public function updatePassword(request $request)
+    {
         $this->validate(request(),[
             "oldPassword" => 'required',
             "password" => 'required|confirmed',
