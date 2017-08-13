@@ -1,6 +1,7 @@
 @extends('layouts/master')
 
 @section('heroDiv')
+
 	<div class="row">
     <div class="col-xs-12 col-md-12">
     	<h1 class="page-header p-2">Welcome {{ Auth::user()->name }}</h1>
@@ -250,6 +251,7 @@
 	        chart4.draw(data, options);
       	}
   </script>
+
   <script type="text/javascript">
     google.charts.load('current', {packages:["orgchart"]});
     google.charts.setOnLoadCallback(drawChart);

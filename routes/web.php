@@ -42,6 +42,7 @@ Route::get('/admin', function () {
     $OrgChartmanager = null;
 
     foreach ($users as $OrgChartUser) {
+    	
     	$OrgChart[$i]['fullname'] = $OrgChartUser->name . " " . $OrgChartUser->surname;
     	$OrgChart[$i]['title'] = $OrgChartUser->job_title;
     	$OrgChartmanager = \App\User::select('name', 'surname')
@@ -59,10 +60,15 @@ Auth::routes();
 
 Route::get('/home', 'UsersController@index')->name('home');
 
+Route::get('/guestregistration', function(){
+	return view('users.guestregistration');
+});
+
 Route::prefix('/users')->group(function() 
 {
 	Route::get('', 'UsersController@index');
 	Route::get('/create', 'UsersController@create');
+
 	Route::get('/{id}', 'UsersController@show')->where('id','[0-9]+'); //the where() cointraints the {id} to be an integer.
 	Route::get('/edit/{id}', 'UsersController@edit');
 	Route::post('/update/{id}', 'UsersController@update');
