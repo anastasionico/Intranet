@@ -11,11 +11,8 @@ class PermissionRolesSeeder extends Seeder
      */
     public function run()
     {
-
-	    factory(App\Role::class, 2)->create()->each(function($r) {
-	    	// $r->permissions()->save(factory(App\Permission::class)->make());
+        factory(App\Role::class, 2)->create()->each(function($r) {
 	    	$r->permissions()->attach(factory(App\Permission::class, 2)->create());
 		});
-
     }
 }
