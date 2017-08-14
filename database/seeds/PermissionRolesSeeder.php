@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use Illuminate\Database\Seeder;
 
@@ -12,7 +12,7 @@ class PermissionRolesSeeder extends Seeder
     public function run()
     {
 
-	    factory(App\Role::class, 5)->create()->each(function($r) {
+	    factory(App\Role::class, 2)->create()->each(function($r) {
 	    	// $r->permissions()->save(factory(App\Permission::class)->make());
 	    	$r->permissions()->attach(factory(App\Permission::class, 2)->create());
 		});

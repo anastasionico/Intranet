@@ -11,6 +11,7 @@ use App\User;
 use App\Department;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\NewHolidayRequest;
+use Illuminate\Support\Facades\DB;
 
 
 class HolidayController extends Controller
@@ -22,9 +23,20 @@ class HolidayController extends Controller
     
     public function index()
     {
+        
         $holidayList = [];
         $user = User::find(Auth::user()->id);
         $holidays = Holiday::all();
+        
+
+        $holidays = DB::table('holidays')
+            ->join('users', 'holidays.user_id', '=', 'users.id')
+            ->join('departments', 'users.department_id', '=', 'departments.id')
+            ->select('holidays.id', 'holidays.start', 'holidays.end', 'holidays.user_id', 'holidays.returning_day', 'holidays.approved', 'holidays.approved_by')
+            ->where('departments.id', $user->department_id)
+            ->get();
+
+
         $users = User::all();
 
         foreach ($holidays as $holiday) {
@@ -160,6 +172,68 @@ class HolidayController extends Controller
         $holiday->save();
         \Session::flash('alert-success', 'This holiday has been delegated'); 
         return redirect('/holiday');   
+    }
+
+    public function dept($department_id)
+    {
+        
+        $holidayList = [];
+        $user = User::find(Auth::user()->id);
+        $holidays = Holiday::all();
+        
+
+        $holidays = DB::table('holidays')
+            ->join('users', 'holidays.user_id', '=', 'users.id')
+            ->join('departments', 'users.department_id', '=', 'departments.id')
+            ->select('holidays.id', 'holidays.start', 'holidays.end', 'holidays.user_id', 'holidays.returning_day', 'holidays.approved', 'holidays.approved_by')
+            ->where('departments.id', $department_id)
+            ->get();
+
+
+        $users = User::all();
+
+        foreach ($holidays as $holiday) {
+            $currentEvent = Holiday::find($holiday->id);
+            $start=date_create($holiday->start);
+            $formatstart = date_format($start,"Y-m-d");
+            $end=date_create($holiday->end);
+            $formatend = date_format($end,"Y-m-d");
+            $holiday_user = User::find($holiday->user_id);
+            unset($random_dechex);
+            for ($i=0; $i <= 2; $i++) { 
+                $random_dechex[] = str_pad( dechex( mt_rand( 50, 205 ) ), 2, '0', STR_PAD_LEFT);
+            }
+            $random_color = "#". implode('', $random_dechex);
+            $holiday_color[$holiday->user_id] = $random_color;
+            $holidayList[] = \Calendar::event(
+                "$holiday_user->name $holiday_user->surname", // $holiday->title, //event title
+                1, // $holiday->allDay, //full day event?
+                $start, //start time (you can also use Carbon instead of DateTime)
+                $end, //end time (you can also use Carbon instead of DateTime)
+                $holiday->id, //optionally, you can specify an event ID
+                [
+                    'url' => '/holiday/'.$holiday->id,
+                    'user_id' => $holiday_user->id,
+                    'backgroundColor' => $holiday_color[$holiday->user_id],
+                    'approved' => $holiday->approved,
+                    'approved_by' => $holiday->approved_by,
+                ]
+            );
+        }
+
+        $calendar = \Calendar::addEvents($holidayList);     
+        $calendar = \Calendar::setCallbacks([
+            'eventRender' => "function(event, element) {
+                if(event.approved == 0){
+                    element.addClass('holidayNotConfirmed');    
+                }
+            }",
+            'eventClick' => 'function() {
+                showModal();
+            }'
+        ]);
+
+        return view('/holiday/index', compact('calendar','holidayList','users'));
     }
 }
 

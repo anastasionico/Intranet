@@ -138,7 +138,7 @@ Route::prefix('/holiday')->group(function()
 	Route::get('/accept/{id}' , 'HolidayController@accept');
 	Route::get('/deny/{id}' , 'HolidayController@deny');
 	Route::post('/delegate' , 'HolidayController@delegate');
-
+	Route::get('/dept/{id}' , 'HolidayController@dept');
 });
 
 Route::prefix('/roles')->group(function()

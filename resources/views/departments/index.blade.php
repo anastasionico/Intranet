@@ -71,6 +71,11 @@
 					        		Delete
 					        	</a>
 							@endpermission
+							@permission(('department-holiday-read'))
+								<a href="/holiday/dept/{{ $department->id }}" class="btn btn-info">
+					        		Holiday
+					        	</a>
+							@endpermission
 						</td>
 				    </tr>
 		    	@endforeach
