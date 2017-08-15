@@ -150,10 +150,8 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
     {
         $user = User::find(Auth::user()->id);
         return  $countTodayEvent = $user->events()
-            ->where([
-                ['events.start', '<=', \DB::raw('now()')],
-                ['events.end', '>=', \DB::raw('now()')],
-            ])
+            ->where('events.start', '<=', 'Carbon::now()')
+            ->where('events.end', '>=', 'Carbon::now()')
             ->count();
     }
 }

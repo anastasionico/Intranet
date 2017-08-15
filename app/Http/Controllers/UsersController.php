@@ -14,7 +14,7 @@ class UsersController extends Controller
     use EntrustUserTrait; // add this trait to your user model
     public function __construct()
     {
-        $this->middleware('auth')->except('store');
+        $this->middleware('auth');
     }
 
     /**
