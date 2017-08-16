@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if (app()->environment() === 'testing') throw $exception;
+        if (app()->environment() === 'testing') throw $exception; //This line resolves a bug that occurs using PHPUnit
         return parent::render($request, $exception);
     }
 

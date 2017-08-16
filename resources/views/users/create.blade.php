@@ -50,8 +50,8 @@
 		    		</select>
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="personal_manager">Personal Manager *</label>
-		    		<select name="personal_manager"  class="form-control" required>
+		    		<label for="manager_id">Personal Manager *</label>
+		    		<select name="manager_id"  class="form-control" required>
 		    			@foreach($users as $user)
 							<option value="{{ $user->id }}">
 		    					{{ $user->name }} {{ $user->surname }}
@@ -78,8 +78,8 @@
 		    		</select>
 		    	</div>
 		    	<div class="form-group">
-		    		<label for="job_level">Job Level *</label>
-		    		<input type="number" name="job_level" class="form-control" min="1" value="1">
+		    		<label for="level">Job Level *</label>
+		    		<input type="number" name="level" class="form-control" min="1" value="1">
 		    		<small>1 entry, 2 senior, 3 manager</small>
 		    	</div>
 		    	<div class="form-group">

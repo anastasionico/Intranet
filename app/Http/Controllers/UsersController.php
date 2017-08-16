@@ -49,41 +49,42 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate(request(),[
-            'img' => 'nullable|image|dimensions:max-width:1024',
-            'name' => 'required|alpha',
-            'surname' => 'required|alpha',
-            'role_id' => 'required',
-            'job_level' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'username' => 'required|min:3|alpha_num',
-            'password' => 'required|confirmed',
-            'birthdate' => 'nullable|date|before:yesterday',
-            'department_id' => 'required|integer',
-            'personal_manager' => 'required|integer',
-            'expenses_mileage_rate' => 'nullable',
-            'holiday_total' => 'required|integer',
-            'holiday_taken' => 'required|integer',
-        ]);
+        // dd($request->all());
+
+        // $this->validate(request(),[
+        //     'img' => 'nullable|image|dimensions:max-width:1024',
+        //     'name' => 'required',
+        //     'surname' => 'required|alpha',
+        //     'role_id' => 'required|integer',
+        //     'level' => 'required|integer',
+        //     'username' => 'required|min:3',
+        //     'birthdate' => 'nullable|date|before:yesterday',
+        //     'department_id' => 'required|integer',
+        //     'manager_id' => 'required|integer',
+        //     'expenses_mileage_rate' => 'nullable',
+        //     'holiday_total' => 'required|integer',
+        //     'holiday_taken' => 'required|integer',
+        //     'email' => 'required|email|unique:users,email',
+        //     'password' => 'required|confirmed',
+        // ]);
         
         $newUser = User::create([
             'name' => request('name'),
             'surname' => request('surname'),
             'role_id' => request('role_id'),
-            'level' => request('job_level'),
+            'level' => request('level'),
             'email' => request('email'),
             'username' => request('username'),
             'password' => bcrypt(request('password')),
             'birthdate' => request('birthdate'),
             'department_id' => request('department_id'),
-            'manager_id' => request('personal_manager'),
+            'manager_id' => request('manager_id'),
             'expenses_mileage_rate' => request('expenses_mileage_rate'),
             'holiday_total' => request('holiday_total'),
             'holiday_taken' => request('holiday_taken'),
         ]);
         $newUser->roles()->attach(request('role_id'));
-        
-        //redirect to home page   
+
         return redirect('home');
     }
 
@@ -97,10 +98,9 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         // dd($user->can('user-update'));
-        $personal_manager_id = $user->manager_id;
-        $personal_manager = User::find($personal_manager_id);
+        $manager = User::find($user->manager_id);
         $department = Department::where('id', $user->department_id)->first();
-        return view('/users/show', compact('user','department','personal_manager') );
+        return view('/users/show', compact('user','department','manager') );
     }
 
     /**
@@ -113,12 +113,11 @@ class UsersController extends Controller
     {
         $users = User::all();
         $user = User::find($id);
-        $personal_manager_id = $user->manager_id;
         $departments = Department::all();
         $roles = Role::orderby('name')->get();
-        $personal_manager = User::find($personal_manager_id);
+        $manager = User::find($user->manager_id);
         
-        return view('users/edit', compact('users', 'user','departments','personal_manager','roles'));
+        return view('users/edit', compact('users', 'user','departments','manager','roles'));
     }
 
     /**
@@ -135,12 +134,12 @@ class UsersController extends Controller
             'name' => 'required|alpha',
             'surname' => 'required|alpha',
             'role_id' => 'required',
-            'job_level' => 'required',
+            'level' => 'required',
             'email' => 'required|email',
             'username' => 'required|min:3|alpha_num',
             'birthdate' => 'nullable|date|before:yesterday',
             'department_id' => 'required|integer',
-            'personal_manager' => 'required|integer',
+            'manager_id' => 'required|integer',
             'expenses_mileage_rate' => 'nullable',
             'holiday_total' => 'required|integer',
             'holiday_taken' => 'required|integer',

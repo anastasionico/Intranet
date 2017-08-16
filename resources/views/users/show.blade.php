@@ -106,7 +106,7 @@
 	        </tr>
 	        <tr>
 	          	<td>Personal Manager</td>
-	          	<td>{{ $personal_manager->name }} {{ $personal_manager->surname }}</td>
+	          	<td>{{ $manager->name }} {{ $manager->surname }}</td>
 	        </tr>
 	        <tr>
 	          	<td>Role Title</td>
