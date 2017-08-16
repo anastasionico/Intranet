@@ -16,7 +16,14 @@ class CreateUserTest extends TestCase
      * @return void
      */
     
-    
+    /** @test */
+    public function an_unauthenticated_user_cannot_see_the_create_user_page()
+    {
+    	$this->withExceptionHandling()
+    		->get('/users/create')
+    		->assertRedirect('/login');
+    }
+
     /** @test */
     public function an_unauthenticated_user_cannot_create_new_user()
 	{
