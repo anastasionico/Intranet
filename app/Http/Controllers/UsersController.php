@@ -49,24 +49,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
-        // $this->validate(request(),[
-        //     'img' => 'nullable|image|dimensions:max-width:1024',
-        //     'name' => 'required',
-        //     'surname' => 'required|alpha',
-        //     'role_id' => 'required|integer',
-        //     'level' => 'required|integer',
-        //     'username' => 'required|min:3',
-        //     'birthdate' => 'nullable|date|before:yesterday',
-        //     'department_id' => 'required|integer',
-        //     'manager_id' => 'required|integer',
-        //     'expenses_mileage_rate' => 'nullable',
-        //     'holiday_total' => 'required|integer',
-        //     'holiday_taken' => 'required|integer',
-        //     'email' => 'required|email|unique:users,email',
-        //     'password' => 'required|confirmed',
-        // ]);
+        // dd($request->all());    
+        $this->validate(request(),[
+            'name' => 'required',
+            'surname' => 'required',
+            'role_id' => 'required|exists:roles,id',
+            'level' => 'required',
+            'email' => 'required',
+            'username' => 'required',
+            'department_id' => 'required|exists:departments,id',
+            'manager_id' => 'required|exists:users,id',
+            'expenses_mileage_rate' => 'required',
+            'holiday_total' => 'required',
+            'holiday_taken' => 'required',
+        ]);
         
         $newUser = User::create([
             'name' => request('name'),
@@ -85,7 +81,7 @@ class UsersController extends Controller
         ]);
         $newUser->roles()->attach(request('role_id'));
 
-        return redirect('home');
+        return redirect('/users/' . $newUser->id );
     }
 
     /**
