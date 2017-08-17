@@ -125,11 +125,14 @@ class UserCreateTest extends TestCase
 	// FIX THIS METHOD AND ENABLE THE VALIDATION FOR PASSWORDS
     public function store($override)
     {
+    	//create an authenticated user and add and, since we aspect and exception to make the test pass we add the withExceptHandling() to the test
     	$this->withExceptionHandling()
     		->be( factory('App\User')->create() );
 
+    	//create a user using factory and put a field as null
     	$newUser = factory('App\User')->make($override);
 
+    	//go to the store method in the controller and send the request in the form of array
     	return $this->post('/users', $newUser->toArray());
     }
 }

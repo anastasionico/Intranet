@@ -42,7 +42,6 @@ class UsersSeeTest extends TestCase
 	public function an_authenticated_user_can_see_other_users_detail_page()
 	{
 		$this->be($user = factory('App\User')->create());
-		// dd($user->all());		
 		$this->get('/users/'. $user->id)
 			->assertSee($user->name);
 	}

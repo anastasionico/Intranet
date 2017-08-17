@@ -49,22 +49,25 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());    
+        
         $this->validate(request(),[
             'name' => 'required',
             'surname' => 'required',
-            'role_id' => 'required|exists:roles,id',
             'level' => 'required',
             'email' => 'required',
             'username' => 'required',
+            'role_id' => 'required|exists:roles,id',
             'department_id' => 'required|exists:departments,id',
             'manager_id' => 'required|exists:users,id',
             'expenses_mileage_rate' => 'required',
+            'birthdate' => 'nullable|date|before:yesterday',
             'holiday_total' => 'required',
             'holiday_taken' => 'required',
+
         ]);
         
         $newUser = User::create([
+            'img' => 'nullable|image|dimensions:max-width:1024',
             'name' => request('name'),
             'surname' => request('surname'),
             'role_id' => request('role_id'),
@@ -125,20 +128,22 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',
-            'name' => 'required|alpha',
-            'surname' => 'required|alpha',
-            'role_id' => 'required',
+            'name' => 'required',
+            'surname' => 'required',
+            'role_id' => 'required|exists:roles,id',
+            'department_id' => 'required|exists:departments,id',
             'level' => 'required',
-            'email' => 'required|email',
-            'username' => 'required|min:3|alpha_num',
+            'email' => 'required',
+            'username' => 'required',
             'birthdate' => 'nullable|date|before:yesterday',
             'department_id' => 'required|integer',
-            'manager_id' => 'required|integer',
-            'expenses_mileage_rate' => 'nullable',
-            'holiday_total' => 'required|integer',
-            'holiday_taken' => 'required|integer',
+            'manager_id' => 'required|exists:users,id',
+            'expenses_mileage_rate' => 'required',
+            'holiday_total' => 'required',
+            'holiday_taken' => 'required',
         ]);
         
         //UPDATE
