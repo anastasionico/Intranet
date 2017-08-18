@@ -76,7 +76,7 @@ class User extends Authenticatable
         $user->name = $request->input('name');
         $user->surname = $request->input('surname');
         $user->role_id = $request->input('role_id');
-        $user->level = $request->input('job_level');
+        $user->level = $request->input('level');
         $user->email = $request->input('email');
         $user->username = $request->input('username');
         $user->birthdate = $request->input('birthdate');

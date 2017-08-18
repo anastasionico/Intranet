@@ -38,24 +38,13 @@ class UserEditTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_edit_a_user()
     {
-    // FIX HERE
-
-       // given an authenticate user
-        // $this->be($user = factory('App\User')->create());
+        $this->be($user = factory('App\User')->create());
         
-        // when the auth user add a new user
-        // $newUser = factory('App\User')->make();
-        // $this->post('/users', $newUser->toArray());
-        
-        //and edit his name
-        // $newUserEdit = $newUser->toArray();
-        // $newUserEdit['name'] = "Aaron";
-        
+        $newUser = factory('App\User')->create();
+            
+        $newUser->name = 'Aaron';
+        $this->post('/users/update/'.$newUser->id, $newUser->toArray());
 
-        // $this->post('/users/update/2', $newUserEdit);
-
-        //then i need to see the new data changed into the database thus, 
-        // $this->get('/users/2')
-        //     ->assertSee($newUserEdit->name);
+        $this->assertEquals($newUser->name, 'Aaron');
     }
 }

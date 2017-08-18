@@ -49,7 +49,6 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        
         $this->validate(request(),[
             'name' => 'required',
             'surname' => 'required',
@@ -63,7 +62,6 @@ class UsersController extends Controller
             'birthdate' => 'nullable|date|before:yesterday',
             'holiday_total' => 'required',
             'holiday_taken' => 'required',
-
         ]);
         
         $newUser = User::create([
@@ -128,7 +126,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+    // dd($request->all());
         $this->validate(request(),[
             'img' => 'nullable|image|dimensions:max-width:1024',
             'name' => 'required',
