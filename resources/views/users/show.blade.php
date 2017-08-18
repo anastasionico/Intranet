@@ -150,7 +150,7 @@
 	<div class="table-responsive  col-sm-12 col-md-2">
 		<h3>Role Permissions</h3>
 		<table class="table table-striped">
-			@if($user->role->permissions)
+			@if(!empty($user->role->permissions))
 				@foreach($user->role->permissions as $permission)
 		        	<tr>
 			          	<td>{{ $permission->name }}</td>
@@ -166,9 +166,11 @@
         	</a>
 		@endpermission
 		@permission(('user delete'))
-			<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
-        		Delete
-        	</a>
+			@if($user->id != Auth::user()->id)
+				<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
+	        		Delete
+	        	</a>
+	        @endif
 		@endpermission
 	</div>
 	

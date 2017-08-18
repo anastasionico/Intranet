@@ -79,9 +79,11 @@
 					        	</a>
 							@endpermission
 							@permission(('user delete'))
-								<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
-					        		Delete
-					        	</a>
+								@if($user->id != Auth::user()->id)
+									<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
+						        		Delete
+						        	</a>
+						        @endif
 							@endpermission
 						</td>
 				    </tr>

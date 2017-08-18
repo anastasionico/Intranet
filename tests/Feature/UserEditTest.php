@@ -47,4 +47,7 @@ class UserEditTest extends TestCase
 
         $this->assertEquals($newUser->name, 'Aaron');
     }
+
+    //test all the required field of the edit page
+
 }

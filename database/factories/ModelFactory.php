@@ -17,7 +17,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
     return [
         'username' => $faker->userName,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'password' => $password ?: $password = bcrypt('changeme'),
         'name' => $faker->name,
         'surname' => $faker->lastName,
         'birthdate' => $faker->date($format = 'Y-m-d', $max = '-18 years'),

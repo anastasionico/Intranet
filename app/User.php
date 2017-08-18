@@ -82,7 +82,7 @@ class User extends Authenticatable
         $user->birthdate = $request->input('birthdate');
         $user->department_id = $request->input('department_id');
         $user->expenses_mileage_rate = $request->input('expenses_mileage_rate');
-        $user->manager_id = $request->input('personal_manager');
+        $user->manager_id = $request->input('manager_id');
         $user->holiday_total = $request->input('holiday_total');
         $user->holiday_taken = $request->input('holiday_taken');
         //the following are command for Entrust
