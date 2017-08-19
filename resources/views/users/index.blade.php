@@ -85,7 +85,7 @@
 						        	</a>
 						        @endif
 							@endpermission
-						</td>
+						}</td>
 				    </tr>
 		    	@endforeach
 		    	
