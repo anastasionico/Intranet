@@ -7,21 +7,11 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UsersSeeTest extends TestCase
+class UsersReadTest extends TestCase
 {
     use DatabaseMigrations;
 	
-	/**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        $this->assertTrue(true);
-    }
-    
-    /** @test */
+	/** @test */
     public function an_unauthenticated_user_cannot_see_users_list()
     {
     	$this->expectException('Illuminate\Auth\AuthenticationException');

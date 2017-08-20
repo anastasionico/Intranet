@@ -155,7 +155,7 @@ Route::prefix('/roles')->group(function()
 Route::prefix('/permissions')->group(function(){
 	Route::get('/','PermissionController@index');
 	Route::get('/create','PermissionController@create');
-	Route::post('/store','PermissionController@store');
+	Route::post('','PermissionController@store');
 	Route::get('/delete/{id}', 'PermissionController@destroy');
 	Route::get('/{id}', 'PermissionController@show');
 	Route::get('/edit/{id}', 'PermissionController@edit');

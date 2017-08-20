@@ -9,7 +9,7 @@
 		<h1 class="sub-header">Create Permission</h1>
 		<div class="col-md-9">
 			@include('layouts/errors')
-			<form action="/permissions/store" method="post">
+			<form action="/permissions" method="post">
 		    	{{ csrf_field() }}
 				<div class="form-group">
 		    		<label for="name">Name *</label>
