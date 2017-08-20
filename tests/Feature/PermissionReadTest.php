@@ -12,7 +12,7 @@ class PermissionReadTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function an_unauthenticated_user_cannot_see_all_test_second()
+    public function an_unauthenticated_user_cannot_see_all_permissions()
     {
     	$this->expectException('Illuminate\Auth\AuthenticationException');
     	
@@ -24,7 +24,7 @@ class PermissionReadTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticate_user_can_see_all_test()
+    public function an_authenticate_user_can_see_all_permissions()
     {
     	$this->be(factory('App\User')->create());
     	$newPermission = factory('App\Permission')->create();

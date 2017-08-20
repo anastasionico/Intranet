@@ -94,16 +94,16 @@ class PermissionController extends Controller
 	}
 	public function update(Request $request, $id)
 	{
-		// dd($request->all());
+		
 		$this->validate(request(),[
     		'name' => 'required',
     		'description' => 'required',
 		]);
 
-		$name = $slug = str_replace(' ', "-", request('name'));
+		$slug = str_replace(' ', "-", request('name'));
 
 		$permission = Permission::find($id);
-		$permission->name = $name;
+		$permission->name = request('name');
 		$permission->slug = $slug;
 		$permission->description = request('description');
 		$permission->save();
