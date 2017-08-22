@@ -1,4 +1,14 @@
   <ul class="nav nav-sidebar">
+    <li class="text-center">
+        {{ date('d m Y') }} 
+    </li>
+    <li class="text-center">
+      <a href="#">
+        <h2 style="margin:0;">
+          {{ date('h:i') }}
+        </h2>
+      </a>  
+    </li>
     <li class="active">
       <a href="/admin">
         <i class="fa fa-dashboard" aria-hidden="true"></i> 

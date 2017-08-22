@@ -18,7 +18,7 @@
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="description">Description</label>
-		    		<textarea name='description' class="form-control" placeholder="inser a description"></textarea>
+		    		<textarea name='description' class="form-control" placeholder="insert a description"></textarea>
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="priority">Priority</label>

@@ -4,7 +4,15 @@
 	<div class="row">
     
     <div class="col-xs-12 col-md-12">
-      <h1 class="page-header">Holiday</h1>
+      <h1 class="page-header">
+        Holiday
+        @if(isset($department))
+          {{$department->name}} Department
+        @endif
+      </h1>
+      
+     
+      
       @permission(('holiday create'))
         <a href="/holiday/create" class="btn btn-primary">
             Book a Holiday

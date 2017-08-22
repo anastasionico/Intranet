@@ -93,7 +93,7 @@ class HolidayController extends Controller
     
     public function store(Request $request)
     {
-        
+
         //validation
         $this->validate(request(),[
             'user_id' => 'required|exists:users,id',
@@ -121,7 +121,8 @@ class HolidayController extends Controller
             'approved_by' => request('manager')
         ]);
         
-
+        
+        
         // GET THE DATA OF THE MAILSERVER TO PUT INTO THE .ENV AND COMPLETE THIS BELOW
         // $managerEmail = User::select('email')
         //                 ->where('id', '=', "$request->manager")
@@ -151,8 +152,10 @@ class HolidayController extends Controller
         $holiday = Holiday::find($id);
         $holiday->approved = 1;
         $holiday->save();
+
+        // need to edit the holiday taken day from the users table
+
         \Session::flash('alert-success', 'You have accepted the holiday request'); 
-        // $request->session()->flash('alert-success', '');
         return redirect('/holiday');
     }
 
@@ -161,6 +164,7 @@ class HolidayController extends Controller
         $holiday = Holiday::find($id);
         $holiday->approved = 2;
         $holiday->save();
+
         \Session::flash('alert-danger', 'This holiday request has been declined'); 
         return redirect('/holiday');
     }
@@ -176,11 +180,10 @@ class HolidayController extends Controller
 
     public function dept($department_id)
     {
-        
         $holidayList = [];
         $user = User::find(Auth::user()->id);
         $holidays = Holiday::all();
-        
+        $department = Department::find($department_id);
 
         $holidays = DB::table('holidays')
             ->join('users', 'holidays.user_id', '=', 'users.id')
@@ -233,7 +236,7 @@ class HolidayController extends Controller
             }'
         ]);
 
-        return view('/holiday/index', compact('calendar','holidayList','users'));
+        return view('/holiday/index', compact('calendar','holidayList','users','department'));
     }
 }
 

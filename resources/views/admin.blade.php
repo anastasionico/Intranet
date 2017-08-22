@@ -10,7 +10,7 @@
         <div class="col-sm-6">
             <div class="panel-default panel panelHolidayOutstanding" id="panelHolidayOutstanding">
               <div class="panel-heading">
-                <a href="/holiday">Total amount of vacation days {{ date('Y')}} </a>
+                <a href="/holiday">Total amount of holiday days {{ date('Y')}} </a>
               </div>
               <div class="panel-body">
                 <div class="loader"></div>
