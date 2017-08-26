@@ -34,12 +34,23 @@ class UserCreateTest extends TestCase
 		
 		// when the auth user add a new user
 		$newUser = factory('App\User')->make();
+        
 		$response = $this->post('/users', $newUser->toArray());
 
 		// then after the script passed by the post users page need to redirect me to the user location and show the new user name
 		$this->get($response->headers->get('location'))
 			->assertSee($newUser->name);
 	}
+
+    /** @test */
+    public function a_created_user_has_an_existing_role()
+    {
+        $this->be($user = factory('App\User')->create());
+        
+        $newUser = factory('App\User')->make();
+        
+        $this->assertEquals($newUser->role_id , $newUser->role->id);
+    }
 
 	/** @test */
     public function an_unauthenticated_user_cannot_see_the_create_user_page()
