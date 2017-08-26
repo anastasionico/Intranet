@@ -40,8 +40,6 @@ class PermissionReadTest extends TestCase
 		$this->be($user = factory('App\User')->create());
 		$permissionNew = factory('App\Permission')->create();
 
-		//when he click inside the permissions/id page
-		//then he has to bee able to see the name of the page
 		$this->get("/permissions/$permissionNew->id")
 			->assertSee("$permissionNew->name");
 	}

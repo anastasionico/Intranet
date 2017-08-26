@@ -30,8 +30,6 @@ class PermissionUpdateTest extends TestCase
     	$permission = factory('App\Permission')->create(['name' => 'money create']);
     	$permission->name = 'money delete';
 
-		//	when he send a request to the update page
-		//	then he need to be able to see the new date in the database
 		$this->post("/permissions/update/" . $permission->id, $permission->toArray());
 		$this->assertDatabaseHas('permissions',[
 				'name' => 'money delete'
