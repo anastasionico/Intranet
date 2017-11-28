@@ -21,6 +21,8 @@ class CreateDepartmentsTable extends Migration
             $table->integer('site_id')->unsigned();
             $table->integer('manager_id')->unsigned();
             //$table->foreign('site_id')->references('id')->on('sites');
+
+            
         });
     }
 

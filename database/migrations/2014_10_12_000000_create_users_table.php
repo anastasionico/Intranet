@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->date('birthdate')->nullable();
-            $table->integer('role_id')->unsigned();
+            $table->integer('role_id')->unsigned()->default(0);;
             $table->integer('department_id')->unsigned()->default(0);
             $table->string('email')->unique();
             $table->integer('manager_id')->nullable();
@@ -31,9 +31,11 @@ class CreateUsersTable extends Migration
             $table->integer('holiday_total')->nullable();
             $table->boolean('on_holiday')->default(0);
             $table->integer('holiday_taken')->nullable();
-            $table->integer('holiday_outstanding')->nullable();
+            $table->integer('holiday_outstanding')->nullable()->default(0);
             $table->integer('level')->unsigned()->default(0);
             $table->rememberToken();
+
+            
         });
     }
 
@@ -45,5 +47,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+
     }
 }

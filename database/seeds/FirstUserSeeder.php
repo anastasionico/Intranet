@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use Illuminate\Database\Seeder;
 
@@ -45,16 +45,18 @@ class FirstUserSeeder extends Seeder
 					'name' => $perm,
 				]));
 			}
-	    	
-		});
+	    });
+
 		factory(App\Department::class)->create([
 			'id' => 1,
 			'site_id' => 1,
 		]);
+
 		factory(App\Site::class)->create([
 			'id' => 1,
 			'company_id' => 1,
 		]);
+        
 		factory(App\Company::class)->create([
 			'id' => 1,
 		]);

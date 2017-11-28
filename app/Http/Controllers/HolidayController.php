@@ -93,7 +93,6 @@ class HolidayController extends Controller
     
     public function store(Request $request)
     {
-
         //validation
         $this->validate(request(),[
             'user_id' => 'required|exists:users,id',
@@ -106,22 +105,29 @@ class HolidayController extends Controller
             'dateReturning' => 'required|date|after:dateStart',
             'totalDayRequested' => 'required|integer|min:1',
             'totalDayRemaining' => 'required|integer|min:0',
-            'manager' => 'required|integer'
+            'manager' => 'required|integer',
+            'behalf' => 'nullable|integer'
         ]);
         
+        // select who is going to book the holiday depending of the behalf variable, if behalf is 0 the applicant and the user id are the same 
+        if($request->behalf != '0'){
+            $behalf = $request->behalf;
+        }else{
+            $behalf = $request->user_id;
+        }
+        
         //add user details
-        $user=User::where('id',$request->user_id)->first();
+        $user=User::where('id', $behalf)->first();
                 
         //save
         Holiday::create([
-            'user_id' => request('user_id'),
+            'user_id' => $behalf,
             'start' => request('dateStart'),
             'end' => request('dateEnd'),
             'returning_day' => request('dateReturning'),
-            'approved_by' => request('manager')
+            'approved_by' => request('manager'),
+            'applicant_id' => request('user_id')
         ]);
-        
-        
         
         // GET THE DATA OF THE MAILSERVER TO PUT INTO THE .ENV AND COMPLETE THIS BELOW
         // $managerEmail = User::select('email')

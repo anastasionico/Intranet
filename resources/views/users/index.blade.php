@@ -2,6 +2,15 @@
 
 @section('heroDiv')
 	<h1 class="page-header p-2">Users List</h1>
+	@foreach (['danger', 'warning', 'success', 'info'] as $msg)
+        @if(Session::has('alert-' . $msg))
+          <br><br>
+          <div class="alert alert-{{ $msg }}">
+            {{ Session::get('alert-' . $msg) }} 
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </div>  
+        @endif
+      @endforeach
 	{{-- <div class="row placeholders">
         <div class="col-xs-6 col-sm-3 placeholder">
           	<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">

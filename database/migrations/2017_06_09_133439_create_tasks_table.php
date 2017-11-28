@@ -21,6 +21,7 @@ class CreateTasksTable extends Migration
             $table->integer('done')->default(0);
             $table->integer('user_id');
             $table->timestamps();
+
         });
     }
 

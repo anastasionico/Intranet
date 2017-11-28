@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Holiday extends Model implements \MaddHatter\LaravelFullcalendar\Event
 {
-    protected $fillable = ['user_id', 'start', 'end', 'returning_day','approved_by'];
+    protected $guarded = [];
     protected $dates = ['created_at', 'updated_at', 'start', 'end', 'returning_day'];
 
     public function users()

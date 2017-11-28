@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   @include('layouts/head')
-  <body>
+  <body onload="startTime()">
     <?php
       date_default_timezone_set("Europe/London");
     ?>

@@ -10,7 +10,6 @@
 @endsection
 
 @section('sectionTable')
-	
 	<div class="table-responsive p-2">
 		@include('layouts/errors')
 		<form action="/calendar/store" method="post" enctype="multipart/form-data">

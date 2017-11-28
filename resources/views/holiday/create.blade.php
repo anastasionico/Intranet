@@ -16,6 +16,7 @@
 @endsection
 
 @section('sectionTable')
+
 	<?php 
 		$holiday_total = $user->holiday_total;
 		$holiday_taken = $user->holiday_taken; 
@@ -25,6 +26,7 @@
 	<div class="table-responsive p-2">
 		@include('layouts/errors')
 		<form action="/holiday/store" method="post" enctype="multipart/form-data">
+			
 			<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 			<input type="hidden" name="holiday_total" value="{{$holiday_total}}">
 			<input type="hidden" name="holiday_taken" value="{{$holiday_taken}}">
@@ -81,19 +83,16 @@
 					<select class="js-example-basic-single form-control" name='manager'>
 						@foreach($users as $user => $data)
 							{{-- If the looped user id not the personal manager and is not the current user show the names on the select-option --}}
-							@if($data['id'] != $manager->id && $data['id'] != Auth::user()->id)
-								@if($data['on_holiday'] == 1)
-									<option value="{{$data['id']}}">
-										{{$data['name']}} {{$data['surname']}} 
+							@if($data['id'] != $manager->id && $data['id'] != Auth::user()->id && $data['level'] > Auth::user()->level )
+								<option value="{{$data['id']}}">
+									{{$data['name']}} {{$data['surname']}} 
+									@if($data['on_holiday'] == 1)
 										<span class="btn btn-info">ON HOLIDAY</span>
-									</option>
-								@else
-									<option value="{{$data['id']}}">
-										{{$data['name']}} {{$data['surname']}} 
-									</option>
-								@endif
+									@endif	
+								</option>
 							@endif
 					  	@endforeach
+
 					  	{{-- If the manager is not in holiday show him as selected option --}}
 					  	@if($manager->on_holiday == 0)
 					  		<option value="{{ $manager->id}}" selected>
@@ -105,6 +104,19 @@
 								<span class="btn btn-info">ON HOLIDAY</span>
 							</option>
 						@endif
+					</select>
+				</div>
+				<div class="form-group" id="partecipantsDiv">
+					<label for="manager">Book on behalf of</label>
+					<select class="js-example-basic-single form-control" name='behalf' onChange="activeBehalf()" id='behalfSelect' >
+						<option value="0">Myself</option>
+						@foreach($users as $userCompany)
+							@if($userCompany['id'] != Auth::user()->id && $userCompany['id'] != $manager->id && $userCompany['level'] <= Auth::user()->level )
+								<option value="{{$userCompany['id']}}">
+									{{$userCompany['name']}} {{$userCompany['surname']}} 
+								</option>
+							@endif	
+						@endforeach
 					</select>
 				</div>
 			</div>
@@ -233,9 +245,17 @@
 			    dayRemaining_warning.className = " danger isActive";
 				dateEnd.className = ' form-control warning';
 			}
-			
-			
 		}
+		function activeBehalf(){
+			var behalfSelect = document.querySelector('#behalfSelect');
+			var confirmationBehalf = confirm("You are booking the holiday on behalf of someont else, Are you sure?");
+			if (confirmationBehalf !== true) {
+			    behalfSelect.value = null;
+			}
+		}
+		
+
+
 	</script>
 	<script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});

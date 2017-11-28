@@ -4,9 +4,7 @@
     </li>
     <li class="text-center">
       <a href="#">
-        <h2 style="margin:0;">
-          {{ date('h:i') }}
-        </h2>
+        <h3 id="realTime"></h3>
       </a>  
     </li>
     <li class="active">

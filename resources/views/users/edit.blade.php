@@ -79,8 +79,11 @@
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="level">Job Level *</label>
-		    		<input type="number" name="level" class="form-control" min="1" value="{{ $user->level }}">
-		    		<small>1 entry, 2 senior, 3 manager</small>
+		    		<select name="level"  class="form-control">
+		    			<option value="1" selected >Entry</option>
+		    			<option value="2">Senior </option>
+		    			<option value="2">Manager</option>
+		    		</select>
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="birthdate">Birth Date</label>

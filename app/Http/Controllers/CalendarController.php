@@ -21,9 +21,9 @@ class CalendarController extends Controller
     {
         //instanziate the events array and find all the event of the logged user
         $events = [];
+        $users = User::all();
         $user = User::find(Auth::user()->id);
         $event = $user->events()->get();
-
         foreach ($event as $eve) {
             $currentEvent = EventModel::find($eve->id);
             $userPerEvent = $currentEvent->users()->get(); 
@@ -51,16 +51,19 @@ class CalendarController extends Controller
             );
             unset($partecipants);
         }
-        
         $calendar = \Calendar::addEvents($events);     
         $calendar = \Calendar::setCallbacks([
-            'eventRender' => "function(event, element) {
-                element.attr('title', event.partecipants);
-            }",
-
+            'eventRender' => 'function(event, element) {
+                element.attr("title", event.partecipants);
+                element.click(function() {
+                    var eventId = event.id;
+                    deleteEvent(eventId);
+                });
+            }',
+            
         ]);
-
-        return view('/calendar/index', compact('calendar'));
+        return view('/calendar/index', compact('calendar', 'users', 'user'));
+        
     }
     
     public function create()
@@ -128,6 +131,62 @@ class CalendarController extends Controller
     	return redirect('/calendar');
     }
 
+    public function show($id)
+    {
+        //instanziate the events array and find all the event of the logged user
+        $events = [];
+        $users = User::all();
+        $user = User::find($id);
+        $event = $user->events()->get();
+
+        foreach ($event as $eve) {
+            $currentEvent = EventModel::find($eve->id);
+            $userPerEvent = $currentEvent->users()->get(); 
+            foreach ($userPerEvent as $use_eve) {
+                // echo $use_eve->name. "<br>";
+                $partecipants[] = $use_eve->name;
+
+            };
+            $start=date_create($eve->start);
+            $formatstart = date_format($start,"Y-m-d");
+            $end=date_create($eve->end);
+            $formatend = date_format($end,"Y-m-d");
+            $events[] = \Calendar::event(
+                $eve->title, //event title
+                $eve->allDay, //full day event?
+                $start, //start time (you can also use Carbon instead of DateTime)
+                $end, //end time (you can also use Carbon instead of DateTime)
+                $eve->id, //optionally, you can specify an event ID
+                [
+                    'textColor' => $eve->textColor,
+                    'url' => $eve->url,
+                    'backgroundColor' => $eve->backgroundColor,
+                    'partecipants' => $partecipants
+                ]
+            );
+            unset($partecipants);
+        }
+        
+        $calendar = \Calendar::addEvents($events);     
+        $calendar = \Calendar::setCallbacks([
+            'eventRender' => 'function(event, element) {
+                element.attr("title", event.partecipants);
+                element.click(function() {
+                    var eventId = event.id;
+                    deleteEvent(eventId);
+                });
+            }',
+            
+        ]);
+        return view('/calendar/index', compact('calendar', 'users', 'user'));
+    }
+
+    public function destroy($id){
+        $event = EventModel::findOrFail($id);
+        $event->delete();
+        
+        return redirect('/calendar');
+    }
     public function search(Request $request)
     {
         //this method search the user in the field select2 in the page calendar/create

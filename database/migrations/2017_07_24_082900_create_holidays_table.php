@@ -22,6 +22,8 @@ class CreateHolidaysTable extends Migration
             $table->timestamp('returning_day')->nullable();
             $table->boolean('approved')->default(0);
             $table->integer('approved_by')->nullable();
+            $table->integer('applicant_id')->unsigned();
+           
         });
     }
 

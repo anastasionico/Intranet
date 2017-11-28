@@ -97,7 +97,8 @@ class UsersController extends Controller
         // dd($user->can('user-update'));
         $manager = User::find($user->manager_id);
         $department = Department::where('id', $user->department_id)->first();
-        return view('/users/show', compact('user','department','manager') );
+        $subOrdinates = User::where('manager_id', $id)->get();
+        return view('/users/show', compact('user', 'department', 'manager', 'subOrdinates') );
     }
 
     /**
@@ -160,10 +161,14 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        if($user->id != Auth::user()->id){
-            $user->delete();    
-        }
+        $isManager = User::where('manager_id', $id)->get();
         
+        if(count($isManager) === 0 && $user->id != Auth::user()->id){
+            $user->delete();  
+            \Request::session()->flash('alert-success', 'The user has been deleted');
+        }else{
+            \Request::session()->flash('alert-danger', 'Sorry This user is a manager, delete all the relationship with the subordinate and retry');
+        }
         return redirect('/users');
     }
 

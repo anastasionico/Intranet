@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
@@ -56,7 +56,7 @@ Route::get('/admin', function () {
     return view('admin', compact('users', 'user', 'manager','tasksUser', 'tasksUserDone', 'taskDate','taskCount', 'OrgChart'));
 })->middleware('auth')->name('dashboard');
 
-Auth::routes();
+
 
 Route::get('/home', 'UsersController@index')->name('home');
 
@@ -127,6 +127,8 @@ Route::prefix('/calendar')->group(function()
 	Route::get('/create', 'CalendarController@create');
 	Route::post('/store' , 'CalendarController@store');
 	Route::get('/search' , 'CalendarController@search');
+	Route::get('/show/{id}' , 'CalendarController@show');
+	Route::get('/delete/{id}' , 'CalendarController@destroy');
 });
 
 Route::prefix('/holiday')->group(function()

@@ -28,7 +28,6 @@
 @endsection
 
 @section('sectionTable')
-	
 	<div class="col-sm-12 col-md-12">
 		<h2 class="sub-header">
 			{{ ucfirst($user->name) . ' ' . ucfirst($user->surname) }}
@@ -106,7 +105,12 @@
 	        </tr>
 	        <tr>
 	          	<td>Personal Manager</td>
-	          	<td>{{ $manager->name }} {{ $manager->surname }}</td>
+	          	<td>
+	          		<a href="/users/{{$manager->id}}">
+	          			{{ ucfirst($manager->name) }} {{ ucfirst($manager->surname) }}
+	          		</a>
+	          	</td>
+	          	
 	        </tr>
 	        <tr>
 	          	<td>Role Title</td>
@@ -144,8 +148,18 @@
 	          	<td>Holiday Available</td>
 	          	<td>{{ ($user->holiday_total + $user->holiday_outstanding) - $user->holiday_taken }}</td>
 	        </tr>
-	        
-	    </table>
+        </table>
+        <h4>Subordinates</h4>
+        @foreach($subOrdinates as $subOrdinate)
+        	@if($subOrdinate->id != $user->id )
+	        	<a href="/users/{{$subOrdinate->id}}">
+	        		{{ ucfirst($subOrdinate->name) }}
+	        		{{ ucfirst($subOrdinate->surname) }}
+	        	</a>,
+        	@endif
+        	
+        @endforeach
+
 	</div>
 	<div class="table-responsive  col-sm-12 col-md-2">
 		<h3>Role Permissions</h3>

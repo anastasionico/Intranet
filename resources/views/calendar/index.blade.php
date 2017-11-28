@@ -3,12 +3,23 @@
 @section('heroDiv')
 	<div class="row">
     <div class="col-xs-12 col-md-12">
-      <h1 class="page-header">Calendar</h1>
+      <h1 class="page-header">{{ ucfirst($user->name) }} {{ ucfirst($user->surname) }}'s Calendar</h1>
+      
       @permission(('calendar create'))
         <a href="/calendar/create" class="btn btn-primary">
             Create new event
         </a>
       @endpermission
+
+      <div class="form-group" style="margin-top:2em;width: 300px;">
+          <select  onchange="location = this.value;" class="form-control">
+            <option value="" selected>Choose other user's calendar</option>
+            @foreach($users as $user)
+              <option value="/calendar/show/{{ $user->id}}"> {{ ucfirst($user->name) }} {{ ucfirst($user->surname) }}</option>
+            @endforeach
+          </select>  
+      </div>
+      
       <i id="bubbleCalendarIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
     </div>
   </div>
@@ -42,6 +53,7 @@
 @endsection
 
 @section('sectionTable')
+
   <div class="table-responsive p-2">
     <div>
       Legend: 
@@ -56,5 +68,13 @@
     {!! $calendar->script() !!} 
   </div>    
   
+  <script type="text/javascript">
+    function deleteEvent(id) {
+      var confirmation = confirm("Do you want to delete this event?");
+      if (confirmation === true) {
+        window.location.replace("/calendar/delete/" + id);
+      } 
+    }
+  </script>
 @endsection
 

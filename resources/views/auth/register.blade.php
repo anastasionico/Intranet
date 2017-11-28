@@ -93,12 +93,15 @@
                             <div class="col-md-6">
                                 <select name='department_id' class="form-control" required>
                                     <option value="0">Not Defined</option>
-                                    @foreach($departments as $department)
-                                        <option value="{{ $department->id }}">
-                                            {{ $department->name }} 
-                                            | Manager: {{ $department->manager->name }} {{ $department->manager->surname }}
-                                        </option>
-                                    @endforeach
+                                    @if(isset($departments))
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->id }}">
+                                                {{ $department->name }} 
+                                                | Manager: {{ $department->manager->name }} {{ $department->manager->surname }}
+                                            </option>
+                                        @endforeach
+                                    @endif
+                                    
                                 </select>
                             </div>
                         </div>
@@ -108,11 +111,13 @@
                             <div class="col-md-6">
                                 <select name="personal_manager"  class="form-control" required>
                                     <option value="1">Not Defined</option>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}">
-                                            {{ $user->name }} {{ $user->surname }}
-                                        </option>
-                                    @endforeach
+                                    @if(isset($users))
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">
+                                                {{ $user->name }} {{ $user->surname }}
+                                            </option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
