@@ -26,7 +26,7 @@
 			    		<option value="leisure">Leisure</option>
 			    		<option value="conference">Conference</option>
 			    		<option value="appointment">Appointment</option>
-			    		<option value="holiday">Holiday</option>
+			    		<option value="training">Training</option>
 			    	</select>
 		    	</div>
 		    	<div class="form-group">

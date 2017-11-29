@@ -4,7 +4,7 @@
 
 	<div class="row">
     <div class="col-xs-12 col-md-12">
-    	<h1 class="page-header p-2">Welcome {{ Auth::user()->name }}</h1>
+    	<h1 class="page-header p-2">Hi {{ ucfirst(Auth::user()->name) }}</h1>
       <i id="bubbleAdminIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>        
     	<div class="row adminPage">
         <div class="col-sm-6">

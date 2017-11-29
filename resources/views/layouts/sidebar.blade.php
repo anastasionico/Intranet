@@ -78,7 +78,7 @@
     <li>
       <a href="/calendar">
         <i class="fa fa-calendar" aria-hidden="true"></i>
-        Calendar
+        My Agenda
       </a>
     </li>
     <li>

@@ -128,6 +128,7 @@ Route::prefix('/calendar')->group(function()
 	Route::post('/store' , 'CalendarController@store');
 	Route::get('/search' , 'CalendarController@search');
 	Route::get('/show/{id}' , 'CalendarController@show');
+	Route::get('/department/{id}' , 'CalendarController@department');
 	Route::get('/delete/{id}' , 'CalendarController@destroy');
 });
 

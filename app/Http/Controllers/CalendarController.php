@@ -8,6 +8,7 @@ use MaddHatter\LaravelFullcalendar\Event;
 use Carbon\Carbon;
 use App\EventModel;
 use App\User;
+use App\Department;
 use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
@@ -24,6 +25,8 @@ class CalendarController extends Controller
         $users = User::all();
         $user = User::find(Auth::user()->id);
         $event = $user->events()->get();
+        $departments = Department::all();
+
         foreach ($event as $eve) {
             $currentEvent = EventModel::find($eve->id);
             $userPerEvent = $currentEvent->users()->get(); 
@@ -62,39 +65,39 @@ class CalendarController extends Controller
             }',
             
         ]);
-        return view('/calendar/index', compact('calendar', 'users', 'user'));
+        return view('/calendar/index', compact('calendar', 'users', 'user', 'departments'));
         
     }
     
     public function create()
     {
-    	$users = User::all();
+        $users = User::all();
         return view('/calendar/create', compact('users'));
     }
 
     public function store(Request $request)
     {
-    	//validation
-    	$this->validate(request(),[
-    		'title' => 'required',
-    		'allDay' => 'nullable',
-    		'dateStart' => 'required',
-    		'dateEnd' => 'nullable',
-    		'url' => 'nullable|url',
-    		'eventType' => 'required',
+        //validation
+        $this->validate(request(),[
+            'title' => 'required',
+            'allDay' => 'nullable',
+            'dateStart' => 'required',
+            'dateEnd' => 'nullable',
+            'url' => 'nullable|url',
+            'eventType' => 'required',
             'recurring' => 'required'
-		]);
+        ]);
         //set specific data
-    	if(request('allDay') == 'on' ){
-    		$allDay = true;	
-    		$dateStart = request('dateStart');
-    		$dateEnd = request('dateStart');
-    	}else{
-    		$allDay = false;	
-    		$dateStart = request('dateStart');
-    		$dateEnd = request('dateEnd');
-    	}
-    	switch (request('eventType')) {
+        if(request('allDay') == 'on' ){
+            $allDay = true; 
+            $dateStart = request('dateStart');
+            $dateEnd = request('dateStart');
+        }else{
+            $allDay = false;    
+            $dateStart = request('dateStart');
+            $dateEnd = request('dateEnd');
+        }
+        switch (request('eventType')) {
             case 'meeting':
                 $backgroundColor = '#29d251';
                 $textColor = '#eee';
@@ -128,7 +131,7 @@ class CalendarController extends Controller
         
         EventModel::addEvent(request('title'),$allDay,$dateStart,$dateEnd, $id = null, $options, $partecipants);
         //redirect
-    	return redirect('/calendar');
+        return redirect('/calendar');
     }
 
     public function show($id)
@@ -138,7 +141,7 @@ class CalendarController extends Controller
         $users = User::all();
         $user = User::find($id);
         $event = $user->events()->get();
-
+        $departments = Department::all();
         foreach ($event as $eve) {
             $currentEvent = EventModel::find($eve->id);
             $userPerEvent = $currentEvent->users()->get(); 
@@ -178,7 +181,7 @@ class CalendarController extends Controller
             }',
             
         ]);
-        return view('/calendar/index', compact('calendar', 'users', 'user'));
+        return view('/calendar/index', compact('calendar', 'users', 'user', 'departments'));
     }
 
     public function destroy($id){
@@ -187,6 +190,60 @@ class CalendarController extends Controller
         
         return redirect('/calendar');
     }
+
+    public function department($id)
+    {
+        //instanziate the events array and find all the event of the logged user
+        $events = [];
+        $users = User::where('department_id',$id)->get();
+        $departments = Department::all();
+        $department = Department::find($id);
+
+        foreach ($users as $user) {
+            $event = $user->events()->get();
+            foreach ($event as $eve) {
+                $currentEvent = EventModel::find($eve->id);
+                $userPerEvent = $currentEvent->users()->get(); 
+                foreach ($userPerEvent as $use_eve) {
+                    // echo $use_eve->name. "<br>";
+                    $partecipants[] = $use_eve->name;
+                };
+                $start=date_create($eve->start);
+                $formatstart = date_format($start,"Y-m-d");
+                $end=date_create($eve->end);
+                $formatend = date_format($end,"Y-m-d");
+                $events[] = \Calendar::event(
+                    $eve->title, //event title
+                    $eve->allDay, //full day event?
+                    $start, //start time (you can also use Carbon instead of DateTime)
+                    $end, //end time (you can also use Carbon instead of DateTime)
+                    $eve->id, //optionally, you can specify an event ID
+                    [
+                        'textColor' => $eve->textColor,
+                        'url' => $eve->url,
+                        'backgroundColor' => $eve->backgroundColor,
+                        'partecipants' => $partecipants
+                    ]
+                );
+                unset($partecipants);
+            }   
+        }
+
+        $calendar = \Calendar::addEvents($events);     
+        $calendar = \Calendar::setCallbacks([
+            'eventRender' => 'function(event, element) {
+                element.attr("title", event.partecipants);
+                element.click(function() {
+                    var eventId = event.id;
+                    deleteEvent(eventId);
+                });
+            }',
+            
+        ]);
+        return view('/calendar/index', compact('calendar', 'users', 'user', 'department', 'departments'));
+        
+    }
+
     public function search(Request $request)
     {
         //this method search the user in the field select2 in the page calendar/create
