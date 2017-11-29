@@ -201,6 +201,7 @@ class CalendarController extends Controller
 
         foreach ($users as $user) {
             $event = $user->events()->get();
+
             foreach ($event as $eve) {
                 $currentEvent = EventModel::find($eve->id);
                 $userPerEvent = $currentEvent->users()->get(); 
@@ -212,7 +213,7 @@ class CalendarController extends Controller
                 $formatstart = date_format($start,"Y-m-d");
                 $end=date_create($eve->end);
                 $formatend = date_format($end,"Y-m-d");
-                $events[] = \Calendar::event(
+                $events[$eve->id] = \Calendar::event(
                     $eve->title, //event title
                     $eve->allDay, //full day event?
                     $start, //start time (you can also use Carbon instead of DateTime)
@@ -228,7 +229,7 @@ class CalendarController extends Controller
                 unset($partecipants);
             }   
         }
-
+        
         $calendar = \Calendar::addEvents($events);     
         $calendar = \Calendar::setCallbacks([
             'eventRender' => 'function(event, element) {

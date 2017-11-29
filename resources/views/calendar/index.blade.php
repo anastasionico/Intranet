@@ -1,4 +1,3 @@
-
 @extends('layouts/master')
 
 @section('heroDiv')
@@ -38,7 +37,7 @@
       <i id="bubbleCalendarIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
     </div>
   </div>
-
+  
 
     
 	{{--
