@@ -266,6 +266,14 @@
 				totalDayRequestedSmall = document.querySelector('#totalDayRequestedSmall');
 				totalDayRequestedSmall.innerHTML = "<i class='fa fa-exclamation-triangle' aria-hidden='true'></i> " + BankHolidayAmount + " Bank Holiday between the dates, it has been automatically removed from the day requested amount";
 			}
+
+
+			if( timeDiff === 0 ){
+				totalDayRequested.value = 0.5;
+				totalDayRequestedSmall = document.querySelector('#totalDayRequestedSmall');
+				totalDayRequestedSmall.innerHTML = "<i class='fa fa-exclamation-triangle' aria-hidden='true'></i> When booking only half a day this field shows 0.5";	
+				console.log(totalDayRequested.value);
+			}
 			setTotalDayRemaining()
 		}
 

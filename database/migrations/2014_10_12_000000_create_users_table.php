@@ -30,8 +30,8 @@ class CreateUsersTable extends Migration
             $table->integer('expenses_mileage_rate')->nullable();
             $table->integer('holiday_total')->nullable();
             $table->boolean('on_holiday')->default(0);
-            $table->integer('holiday_taken')->nullable();
-            $table->integer('holiday_outstanding')->nullable()->default(0);
+            $table->float('holiday_taken', 8, 1)->nullable();
+            $table->float('holiday_outstanding', 8, 1)->nullable()->default(0);
             $table->integer('level')->unsigned()->default(0);
             $table->rememberToken();
 

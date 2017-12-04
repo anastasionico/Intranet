@@ -23,7 +23,8 @@ class CreateHolidaysTable extends Migration
             $table->boolean('approved')->default(0);
             $table->integer('approved_by')->nullable();
             $table->integer('applicant_id')->unsigned();
-           
+            $table->integer('holiday_total')->nullable();
+            $table->float('total_day_requested', 8, 1)->nullable();
         });
     }
 

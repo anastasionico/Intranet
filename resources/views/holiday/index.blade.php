@@ -81,14 +81,20 @@
   <div class="table-responsive p-2">
     <div>
       Legend: 
-
       @foreach($holidayList as $holiday)
+
         <p style="color:{{ $holiday->options['backgroundColor'] }}">
           {{ $holiday->title }} ( from: {{$holiday->start->format('d-M-y')}} to: {{$holiday->end->format('d-M-y')}} )
           @if( $holiday->options['approved'] == 0 && $holiday->options['approved_by'] == Auth::user()->id)
             <a href="/holiday/{{ $holiday->id }}" class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff; ">
               Need Approval
             </a>
+          @endif
+          @if( $holiday->options['halfDay'] == 0.5)
+            <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff;" >
+            Half Day
+            </span>
+            
           @endif
         </p>
       @endforeach

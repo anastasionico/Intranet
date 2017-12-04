@@ -32,7 +32,7 @@ class HolidayController extends Controller
         $holidays = DB::table('holidays')
             ->join('users', 'holidays.user_id', '=', 'users.id')
             ->join('departments', 'users.department_id', '=', 'departments.id')
-            ->select('holidays.id', 'holidays.start', 'holidays.end', 'holidays.user_id', 'holidays.returning_day', 'holidays.approved', 'holidays.approved_by')
+            ->select('holidays.id', 'holidays.start', 'holidays.end', 'holidays.user_id', 'holidays.returning_day', 'holidays.approved', 'holidays.approved_by', 'holidays.total_day_requested')
             ->where('departments.id', $user->department_id)
             ->where('users.id', $user->id)
             ->get();
@@ -66,16 +66,20 @@ class HolidayController extends Controller
                     'backgroundColor' => $holiday_color[$holiday->user_id],
                     'approved' => $holiday->approved,
                     'approved_by' => $holiday->approved_by,
+                    'halfDay' => $holiday->total_day_requested,
                 ]
             );
         }
-
+        
         $calendar = \Calendar::addEvents($holidayList);     
         $calendar = \Calendar::setCallbacks([
             'eventRender' => "function(event, element) {
             	if(event.approved == 0){
                     element.addClass('holidayNotConfirmed');	
             	}
+                if(event.halfDay == 0.5){
+                    element.addClass('holidayhalfDay');    
+                }
             }",
             'eventClick' => 'function() {
                 showModal();
@@ -99,18 +103,17 @@ class HolidayController extends Controller
     
     public function store(Request $request)
     {
-        //validation
         $this->validate(request(),[
             'user_id' => 'required|exists:users,id',
-            'holiday_total' => 'required|integer',
-            'holiday_taken' => 'required||integer|max:'.$request->holiday_total,
-            'holiday_available' => 'required|integer|min:1',
+            'holiday_total' => 'required',
+            'holiday_taken' => 'required|max:'.$request->holiday_total,
+            'holiday_available' => 'required|min:0.5',
             'holiday_outstanding' => 'required|integer',
-            'dateStart' => 'required|date|after:today',
-            'dateEnd' => 'required|date|after:dateStart',
-            'dateReturning' => 'required|date|after:dateStart',
-            'totalDayRequested' => 'required|integer|min:1',
-            'totalDayRemaining' => 'required|integer|min:0',
+            'dateStart' => 'required|date|after:yesterday',
+            'dateEnd' => 'required|date',
+            'dateReturning' => 'required|date',
+            'totalDayRequested' => 'required|min:0.5',
+            'totalDayRemaining' => 'required|min:0',
             'manager' => 'required|integer',
             'behalf' => 'nullable|integer'
         ]);
@@ -132,7 +135,8 @@ class HolidayController extends Controller
             'end' => request('dateEnd'),
             'returning_day' => request('dateReturning'),
             'approved_by' => request('manager'),
-            'applicant_id' => request('user_id')
+            'applicant_id' => request('user_id'),
+            'total_day_requested' => request('totalDayRequested'),
         ]);
         
         // GET THE DATA OF THE MAILSERVER TO PUT INTO THE .ENV AND COMPLETE THIS BELOW
@@ -165,7 +169,15 @@ class HolidayController extends Controller
         $holiday->approved = 1;
         $holiday->save();
 
-        // need to edit the holiday taken day from the users table
+        $user = User::find($holiday->user_id);
+        $user->holiday_taken = $user->holiday_taken + $holiday->total_day_requested;
+        $user->save();
+        // given an user and the holiday he booked
+        // when an holiday is accepted
+        // then his holiday taken has to decrese
+        // $user->holiday_taken = user->holiday_taken = $holiday->total_day_requested
+
+
 
         \Session::flash('alert-success', 'You have accepted the holiday request'); 
         return redirect('/holiday');
@@ -201,7 +213,7 @@ class HolidayController extends Controller
         $holidays = DB::table('holidays')
             ->join('users', 'holidays.user_id', '=', 'users.id')
             ->join('departments', 'users.department_id', '=', 'departments.id')
-            ->select('holidays.id', 'holidays.start', 'holidays.end', 'holidays.user_id', 'holidays.returning_day', 'holidays.approved', 'holidays.approved_by')
+            ->select('holidays.id', 'holidays.start', 'holidays.end', 'holidays.user_id', 'holidays.returning_day', 'holidays.approved', 'holidays.approved_by','holidays.total_day_requested')
             ->where('departments.id', $department_id)
             ->get();
 
@@ -233,6 +245,7 @@ class HolidayController extends Controller
                     'backgroundColor' => $holiday_color[$holiday->user_id],
                     'approved' => $holiday->approved,
                     'approved_by' => $holiday->approved_by,
+                    'halfDay' => $holiday->total_day_requested,
                 ]
             );
         }
@@ -242,6 +255,9 @@ class HolidayController extends Controller
             'eventRender' => "function(event, element) {
                 if(event.approved == 0){
                     element.addClass('holidayNotConfirmed');    
+                }
+                if(event.halfDay == 0.5){
+                    element.addClass('holidayhalfDay');    
                 }
             }",
             'eventClick' => 'function() {
