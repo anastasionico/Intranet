@@ -77,22 +77,27 @@ class HolidayController extends Controller
             }",
             'eventClick' => 'function() {
                 showModal();
+            }',
+            'dayClick' => 'function(date, jsEvent, view) {
+                var dateStart = date.format("YYYY-MM-DD");
+                window.location = "/holiday/create/" + dateStart;                         
             }'
         ]);
 
         return view('/holiday/index', compact('calendar','holidayList','users'));
     }
 
-    public function create()
+    public function create($dateStart = null)
     {
         $users = User::all();
         $user = User::find(Auth::user()->id);
         $manager = User::find($user->manager_id);
-        return view('/holiday/create', compact('user','users','manager'));
+        return view('/holiday/create', compact('user', 'users', 'manager', 'dateStart'));
     }
     
     public function store(Request $request)
     {
+        dd($request->all());
         //validation
         $this->validate(request(),[
             'user_id' => 'required|exists:users,id',

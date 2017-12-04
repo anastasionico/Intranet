@@ -75,9 +75,6 @@ class CalendarController extends Controller
     
     public function create($dateStart = null)
     {
-        // when the user click on a box
-        // the route will redirect him to the create page using a dateStart as a parameter
-        // this datestart will appear as a value in the calendare create page
         $users = User::all();
         return view('/calendar/create', compact('users', 'dateStart'));
     }

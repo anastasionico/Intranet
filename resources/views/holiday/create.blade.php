@@ -2,9 +2,18 @@
 @extends('layouts/master')
 
 @section('heroDiv')
+@php
+  	$dateStart = $dateStart ?? null;
+@endphp
 <div class="row">
     <div class="col-xs-12 col-md-12">
-      <h1 class="page-header">Book a Holiday</h1>
+      <h1 class="page-header">Book a Holiday
+      		@if($dateStart !== null)
+     			<span style="font-size: 0.5em;">
+     				starting on the {{ $dateStart }}  
+     			</span>
+     	 	@endif
+      </h1>
       <i id="bubbleHolidayCreate" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
     </div>
     <div class="row placeholders">
@@ -41,7 +50,8 @@
 			    		<span onclick="setNextWeek()" class="btn btn-info btn-sm">Next Week</span>
 			    		<span onclick="setNextMonth()" class="btn btn-info btn-sm">Next Month</span>	
 	    			</span>
-		    		<input type="date" name="dateStart" class="form-control" id="dateStart" required="">
+		    		<input type="date" name="dateStart" class="form-control" id="dateStart" required="" value="{{ $dateStart }}">
+
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="dateStart">Which day does the holiday finish? *</label>

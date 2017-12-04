@@ -8,17 +8,12 @@
 <div class="row">
     <div class="col-xs-12 col-md-12">
      	<h1 class="page-header">Create a new event
-     		
      		@if($dateStart !== null)
      			<span style="font-size: 0.5em;">
      				on the {{ $dateStart }}  
      			</span>
      	 	@endif
      	</h1>
-    	
-    
-
-
       	<i id="bubbleCalendarCreate" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
     </div>
 @endsection

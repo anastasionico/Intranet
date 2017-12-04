@@ -14,7 +14,9 @@
   	content: "Indicate the last date of the event, In case of repeated events each event will have the same duration";
 }
 #bubbleHolidayIndex:hover:after{
-  	content: "Use the arrows to scroll through the months. The \000021  symbols indicate pending requests";
+  	content: "Use the arrows to scroll through the months. 
+    The \000021  symbols indicate pending requests.
+    Click on a box to create a new request starting that day";
 }
 #bubbleHolidayCreate:hover:after{
   	content: "Use the left side to add the holiday request details and the right side to indicate who have to receive the request";

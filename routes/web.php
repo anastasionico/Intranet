@@ -137,6 +137,7 @@ Route::prefix('/holiday')->group(function()
 {
 	Route::get('', 'HolidayController@index');
 	Route::get('/create', 'HolidayController@create');
+	Route::get('/create/{date}', 'HolidayController@create');
 	Route::post('/store', 'HolidayController@store');
 	Route::get('/{id}' , 'HolidayController@show');
 	Route::get('/accept/{id}' , 'HolidayController@accept');
