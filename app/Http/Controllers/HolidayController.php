@@ -34,10 +34,12 @@ class HolidayController extends Controller
             ->join('departments', 'users.department_id', '=', 'departments.id')
             ->select('holidays.id', 'holidays.start', 'holidays.end', 'holidays.user_id', 'holidays.returning_day', 'holidays.approved', 'holidays.approved_by')
             ->where('departments.id', $user->department_id)
+            ->where('users.id', $user->id)
             ->get();
 
 
         $users = User::all();
+        $departments = Department::all();
 
         foreach ($holidays as $holiday) {
             $currentEvent = Holiday::find($holiday->id);
@@ -84,7 +86,7 @@ class HolidayController extends Controller
             }'
         ]);
 
-        return view('/holiday/index', compact('calendar','holidayList','users'));
+        return view('/holiday/index', compact('calendar','holidayList','users', 'departments'));
     }
 
     public function create($dateStart = null)
@@ -97,7 +99,6 @@ class HolidayController extends Controller
     
     public function store(Request $request)
     {
-        dd($request->all());
         //validation
         $this->validate(request(),[
             'user_id' => 'required|exists:users,id',
@@ -195,6 +196,7 @@ class HolidayController extends Controller
         $user = User::find(Auth::user()->id);
         $holidays = Holiday::all();
         $department = Department::find($department_id);
+        $departments = Department::all();
 
         $holidays = DB::table('holidays')
             ->join('users', 'holidays.user_id', '=', 'users.id')
@@ -247,7 +249,7 @@ class HolidayController extends Controller
             }'
         ]);
 
-        return view('/holiday/index', compact('calendar','holidayList','users','department'));
+        return view('/holiday/index', compact('calendar','holidayList','users','department','departments'));
     }
 }
 

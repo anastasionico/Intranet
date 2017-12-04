@@ -74,6 +74,7 @@
 		    	</div>
 				<div class="form-group">
 		    		<label for="totalDayRequested">Total Day requested</label>
+		    		<small id='totalDayRequestedSmall' class="warning"></small>
 		    		<input type="number" name="totalDayRequested" class="form-control" id="totalDayRequested" readonly="">
 		    	</div>
 		    	<div class="form-group">
@@ -158,6 +159,7 @@
 		var totalDayRemaining = document.getElementById('totalDayRemaining');
 		document.getElementById("totalDayRequested").addEventListener("change", setTotalDayRemaining);
 		var maxDate = 2117 + "-" + 12 + "-" + 31;
+		
 
 		document.getElementById("dateEnd").addEventListener("change", function(){
 			var day = new Date(dateEnd.value);
@@ -202,6 +204,7 @@
 			dateEnd.value = dd;
 			
 			checkWeekday( dd, day);
+
 			setTotalDayRequested();
 		}
 
@@ -218,8 +221,9 @@
 
 		function checkWeekday(dd, day){
 			var dayOfWeek = day.getDay()
-			
+		
 			if(dayOfWeek != 0 && dayOfWeek != 6){
+
 				dateReturning.value = dr = dd;		
 			}else{
 				while(day.getDay() == 0 || day.getDay() == 6){
@@ -229,14 +233,39 @@
 				}	
 			}
 		}
+		function checkBankHoliday() {
 
+			var dateFrom = dateStart.value;
+			var dateTo = dateEnd.value;
+			var BankHolidayAmount = 0;
+			// THIS VARIABLE BELOW HAS TO BE RENEWED EVERY YEAR
+			dateCheck = ["2018-01-01", "2018-03-30", "2018-04-02", "2018-05-07", "2018-05-28", "2018-08-27", "2018-12-25", "2018-12-26",];
+			dateCheckLenght = dateCheck.length;
+				
+				
+			for (i = 0; i < dateCheckLenght; i++) {
+				if(dateCheck[i] >= dateFrom && dateCheck[i] <= dateTo){
+					// console.log(dateCheck[i] + ' I am in the middle');
+					BankHolidayAmount++;
+				}
+			}
+			return BankHolidayAmount;
+			
+		}
 		
 		function setTotalDayRequested(){
 			var date1 = new Date(dateStart.value);
 			var date2 = new Date(dateEnd.value);
 			var timeDiff = Math.abs(date2.getTime() - date1.getTime());
 			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-			totalDayRequested.value = diffDays;
+			//get the total amount of bank Holiday between the two dates and subtract them to the total day requested
+			var BankHolidayAmount = checkBankHoliday();
+			totalDayRequested.value = diffDays - BankHolidayAmount;
+			
+			if(BankHolidayAmount > 0){
+				totalDayRequestedSmall = document.querySelector('#totalDayRequestedSmall');
+				totalDayRequestedSmall.innerHTML = "<i class='fa fa-exclamation-triangle' aria-hidden='true'></i> " + BankHolidayAmount + " Bank Holiday between the dates, it has been automatically removed from the day requested amount";
+			}
 			setTotalDayRemaining()
 		}
 

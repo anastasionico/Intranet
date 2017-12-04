@@ -18,6 +18,14 @@
             Book a Holiday
         </a>
       @endpermission
+      <div class="form-group" style="margin-top:2em;width: 300px;">
+          <select  onchange="location = this.value;" class="form-control">
+            <option value="" selected>Choose whole department's plan</option>
+            @foreach($departments as $department)
+              <option value="/holiday/dept/{{ $department->id}}"> {{ ucfirst($department->name) }}</option>
+            @endforeach
+          </select>  
+      </div>
       <i id="bubbleHolidayIndex" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
       <br>
       @foreach (['danger', 'warning', 'success', 'info'] as $msg)
