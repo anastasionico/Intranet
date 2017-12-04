@@ -125,6 +125,7 @@ Route::prefix('/calendar')->group(function()
 { 
 	Route::get('', 'CalendarController@index');
 	Route::get('/create', 'CalendarController@create');
+	Route::get('/create/{date}', 'CalendarController@create');
 	Route::post('/store' , 'CalendarController@store');
 	Route::get('/search' , 'CalendarController@search');
 	Route::get('/show/{id}' , 'CalendarController@show');

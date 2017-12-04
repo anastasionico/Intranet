@@ -2,10 +2,24 @@
 @extends('layouts/master')
 
 @section('heroDiv')
+@php
+  	$dateStart = $dateStart ?? null;
+@endphp
 <div class="row">
     <div class="col-xs-12 col-md-12">
-      <h1 class="page-header">Create a new event</h1>
-      <i id="bubbleCalendarCreate" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
+     	<h1 class="page-header">Create a new event
+     		
+     		@if($dateStart !== null)
+     			<span style="font-size: 0.5em;">
+     				on the {{ $dateStart }}  
+     			</span>
+     	 	@endif
+     	</h1>
+    	
+    
+
+
+      	<i id="bubbleCalendarCreate" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
     </div>
 @endsection
 
@@ -44,6 +58,7 @@
 						<option value="P1Y">Annually</option>
 					</select>
 				</div>
+				
 		    	<div class="form-group">
 		    		<label for="dateStart">Which day is the event start? *</label>
 		    			<span style="float: right;">
@@ -51,7 +66,7 @@
 				    		<span onclick="setNextWeek()" class="btn btn-info btn-sm">Next Week</span>
 				    		<span onclick="setNextMonth()" class="btn btn-info btn-sm">Next Month</span>	
 		    			</span>
-		    		<input type="date" name="dateStart" class="form-control" id="dateStart" required="">
+		    		<input type="date" name="dateStart" class="form-control" id="dateStart" required="" value="{{ $dateStart }}">
 		    	</div>
 
 		    	<div class="form-group">

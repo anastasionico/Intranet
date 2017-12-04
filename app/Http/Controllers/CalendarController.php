@@ -63,20 +63,28 @@ class CalendarController extends Controller
                     deleteEvent(eventId);
                 });
             }',
-            
+            'dayClick' => 'function(date, jsEvent, view) {
+                var dateStart = date.format("YYYY-MM-DD");
+                window.location = "/calendar/create/" + dateStart;                         
+            }'
         ]);
+ 
         return view('/calendar/index', compact('calendar', 'users', 'user', 'departments'));
         
     }
     
-    public function create()
+    public function create($dateStart = null)
     {
+        // when the user click on a box
+        // the route will redirect him to the create page using a dateStart as a parameter
+        // this datestart will appear as a value in the calendare create page
         $users = User::all();
-        return view('/calendar/create', compact('users'));
+        return view('/calendar/create', compact('users', 'dateStart'));
     }
 
     public function store(Request $request)
     {
+        dd($request->all());
         //validation
         $this->validate(request(),[
             'title' => 'required',
@@ -179,6 +187,10 @@ class CalendarController extends Controller
                     deleteEvent(eventId);
                 });
             }',
+            'dayClick' => 'function(date, jsEvent, view) {
+                var dateStart = date.format("YYYY-MM-DD");
+                window.location = "/calendar/create/" + dateStart;                         
+            }'
             
         ]);
         return view('/calendar/index', compact('calendar', 'users', 'user', 'departments'));
@@ -239,6 +251,10 @@ class CalendarController extends Controller
                     deleteEvent(eventId);
                 });
             }',
+            'dayClick' => 'function(date, jsEvent, view) {
+                var dateStart = date.format("YYYY-MM-DD");
+                window.location = "/calendar/create/" + dateStart;                         
+            }'
             
         ]);
         return view('/calendar/index', compact('calendar', 'users', 'user', 'department', 'departments'));

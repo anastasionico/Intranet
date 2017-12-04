@@ -4,7 +4,8 @@
 #bubbleCalendarIndex:hover:after{
 	content: "Use the arrows to scroll through the months.
 	Bring the cursor over the events to show the participants.
-	Click on the event to delete it";
+	Click on the event to delete it.
+  Click on a box to create a new event that day";
 }
 #bubbleCalendarCreate:hover:after{
   	content: "Use the left side to add the event details and the right side to add the participants";
