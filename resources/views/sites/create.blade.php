@@ -42,9 +42,19 @@
 	    	<div class="form-group">
 	    		<label for="manufacturer">Manufacturer</label>
 	    		<select name='manufacturer' class="form-control">
-	    			<option value="1">Undefined</option>
-	    			<option value="2">Mercedes</option>
-	    			<option value="3">FIAT</option>
+	    			<option value="Undefined">Undefined</option>
+	    			<option value="DAF">DAF</option>
+	    			<option value="FIAT">FIAT</option>
+	    			<option value="FORD">FORD</option>
+	    			<option value="ISUZU">ISUZU</option>
+	    			<option value="Iveco">Iveco</option>
+	    			<option value="LDV">LDV</option>
+	    			<option value="MAN">MAN</option>
+	    			<option value="Mercedes-Benz">Mercedes-Benz</option>
+	    			<option value="Nissan">Nissan</option>
+	    			<option value="Ranault">Ranault</option>
+	    			<option value="TRP">TRP</option>
+	    			<option value="Volkswagen">Volkswagen</option>
 	    		</select>
 	    	</div>
 	    	<div class="form-group">

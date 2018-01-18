@@ -122,7 +122,24 @@
 	        </tr>
 	        <tr>
 	          	<td>Job Level</td>
-	          	<td>{{ $user->level }}</td>
+	          	<td>
+		          	@php
+						switch ($user->level) {
+						case 1:
+						    echo "Entry";
+						    break;
+						case 2:
+							echo "Supervisor";
+						    break;
+					    case 3:
+							echo "Manager";
+						    break;
+					    case 4:
+							echo "Admin";
+						    break;
+						}
+					@endphp
+	          	</td>
 	        </tr>
 	        <tr>
 	          	<td>Expenses Manager</td>

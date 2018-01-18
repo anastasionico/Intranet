@@ -82,7 +82,7 @@
 		    		<select name="level"  class="form-control">
 		    			<option value="1" selected >Entry</option>
 		    			<option value="2">Senior </option>
-		    			<option value="2">Manager</option>
+		    			<option value="3">Manager</option>
 		    		</select>
 		    	</div>
 		    	<div class="form-group">

@@ -32,7 +32,7 @@ class SitesController extends Controller
 			'phone' => 'required|numeric',
 			'company' => 'required',
 			'cost_center_first' => 'required',
-			'manufacturer' => 'numeric',
+			'manufacturer' => 'string',
 			'lat' => 'numeric|nullable',
 			'lng' => 'numeric|nullable'
 		]);
@@ -72,9 +72,9 @@ class SitesController extends Controller
 			'phone' => 'required|numeric',
 			'company' => 'required',
 			'cost_center_first' => 'required',
-			'manufacturer' => 'numeric',
-			'lat' => 'numeric',
-			'lng' => 'numeric'
+			'manufacturer' => 'string',
+			'lat' => 'nullable|numeric',
+			'lng' => 'nullable|numeric'
 		]);
 
 		$site = Site::find($id);

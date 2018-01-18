@@ -10,7 +10,12 @@
         <div class="col-sm-6">
             <div class="panel-default panel panelHolidayOutstanding" id="panelHolidayOutstanding">
               <div class="panel-heading">
-                <a href="/holiday">Total amount of holiday days {{ date('Y')}} </a>
+                <a href="/holiday">
+                  Total amount of holiday days {{ date('Y')}} 
+                  <a href="#" data-toggle="tooltip" title="This chart shows how many holidays you are eligible for this year">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  </a>
+                </a>
               </div>
               <div class="panel-body">
                 <div class="loader"></div>
@@ -21,7 +26,11 @@
         <div class="col-sm-6">
           <div class="panel-default panel panelHolidayTotal">
             <div class="panel-heading">
-              <a href="/holiday">Holiday Summary {{ date('Y')}}</a>
+              <a href="/holiday">Holiday Summary {{ date('Y')}}
+                <a href="#" data-toggle="tooltip" title="This chart shows the status of your holidays this year">
+                  <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </a>
+              </a>
             </div>
     				<div class="panel-body">
               <div class="loader"></div>
@@ -33,6 +42,9 @@
           <div class="panel-default panel panelTask">
             <div class="panel-heading">
               <a href="/tasks">Tasks Summary</a>
+              <a href="#" data-toggle="tooltip" title="This chart shows the status of your tasks">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+              </a>
             </div>
             <div class="panel-body">
               <div class="loader"></div>
@@ -176,8 +188,11 @@
   <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
-        var task_total = {{ $tasksUser }};
+        var task_completed = {{ $tasksUserDone }};
         var task_remaining = {{ $tasksUser }} - {{ $tasksUserDone }} ;
+        
+          
+
         function drawChart() {
             var options = {
             	pieHole: 0.9,
@@ -210,7 +225,7 @@
             
             var data = google.visualization.arrayToDataTable([
                 ['Holiday', 'unit'],
-                ['Task Amount',  task_total],
+                ['Task Completed',  task_completed],
                 ["Task Remaining", task_remaining],
             ]);
             

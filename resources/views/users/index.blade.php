@@ -43,6 +43,7 @@
 		          	<th>Name</th>
 		          	<th>Surname</th>
 		          	<th>Email</th>
+		          	<th>Role</th>
 		          	<th>Details</th>
 		          	<th>Action</th>
 		        </tr>
@@ -51,8 +52,9 @@
 	      		@foreach($users as $user)
 					<tr>
 				        <td>{{ $user->name }}</td>
-				        <td>{{ $user->surname }}</td>
+				        <td style="text-align:left;">{{ $user->surname }}</td>
 				        <td>{{ $user->email }}</td>
+				        <td>{{ $user->role->name }}</td>
 				        <td>
 				        	<span class="label label-info">
 					        	@php

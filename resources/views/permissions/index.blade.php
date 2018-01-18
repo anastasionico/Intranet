@@ -24,8 +24,7 @@
 		          	<th>Action</th>
 		        </tr>
 	      	</thead>
-			{{-- {{dd($permissions)}} --}}
-	      	<tbody>
+			<tbody>
 	      		@foreach($permissions as $permission)
 	      			@php
 	      				if(strlen($permission->description) > 25)

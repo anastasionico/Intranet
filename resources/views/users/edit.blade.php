@@ -4,6 +4,7 @@
 @endsection
 
 @section('sectionTable')
+
 	<div class="table-responsive p-2">
 
 		<h1 class="sub-header">Edit user</h1>
@@ -37,6 +38,14 @@
 		    		<input type="text" name="username" class="form-control" placeholder="Min 4 characters"  value="{{ $user->username }}" required>
 		    	</div>
 		    	<div class="form-group">
+		    		<label for="level">Job Level *</label>
+		    		<select name="level"  class="form-control">
+		    			<option value="1" {{($user->level == 1)? 'selected': ''}}>Entry</option>
+		    			<option value="2" {{($user->level == 2)? 'selected': ''}}>Senior </option>
+		    			<option value="3" {{($user->level == 3)? 'selected': ''}}>Manager</option>
+		    		</select>
+		    	</div>
+		    	<div class="form-group">
 		    		<label for="department_id">Department *</label>
 		    		<select name="department_id"  class="form-control" required>
 		    			<option value="{{ $user->department->id }}">{{ $user->department->name }} | Current</option>
@@ -48,17 +57,7 @@
 		    			@endforeach
 					</select>
 		    	</div>
-		    	<div class="form-group">
-		    		<label for="manager_id">Personal Manager *</label> 
-		    		<select name="manager_id"  class="form-control" required>
-		    			<option value="{{$manager->id}}">{{$manager->name}} {{$manager->surname}} | Current</option>
-		    			@foreach($users as $user)
-							<option value="{{ $user->id }}">
-		    					{{ $user->name }} {{ $user->surname }} 
-		    				</option>
-		    			@endforeach
-					</select>
-		    	</div>
+		    	
 		    	<div class="form-group">
 		    		<label for="holiday_total">Total days holiday (per year) *</label>
 		    		<input type="number" name="holiday_total" class="form-control" min="23" value="{{ $user->holiday_total }}"  required>
@@ -67,24 +66,18 @@
 		    		<label for="holiday_taken">Already taken days holiday (current year) *</label>
 		    		<input type="number" name="holiday_taken" class="form-control" value="{{ $user->holiday_taken }}" required>
 		    	</div>
+		    	
 		    	<div class="form-group">
 		    		<label for="role">Role *</label>
 		    		<select name='role_id' class="form-control" required>
 						@foreach($roles as $role)
-							<option value="{{ $role->id }}">
+							<option value="{{ $role->id }}" {{ ($user->role->id == $role->id)? 'selected': ''}}>
 		    					{{ $role->name }} 
 		    				</option>
 		    			@endforeach
 		    		</select>
 		    	</div>
-		    	<div class="form-group">
-		    		<label for="level">Job Level *</label>
-		    		<select name="level"  class="form-control">
-		    			<option value="1" selected >Entry</option>
-		    			<option value="2">Senior </option>
-		    			<option value="2">Manager</option>
-		    		</select>
-		    	</div>
+
 		    	<div class="form-group">
 		    		<label for="birthdate">Birth Date</label>
 		    			@if(is_null($user->birthdate))
@@ -97,6 +90,17 @@
 		    	<div class="form-group">
 		    		<label for="expenses_mileage_rate">Expenses Mileage Rate </label>
 		    		<input type="number" name="expenses_mileage_rate" class="form-control" placeholder="20"  value="{{ $user->expenses_mileage_rate }}">
+		    	</div>
+		    	<div class="form-group">
+		    		<label for="manager_id">Personal Manager *</label> 
+		    		<select name="manager_id"  class="form-control" required>
+		    			<option value="{{$manager->id}}">{{$manager->name}} {{$manager->surname}} | Current</option>
+		    			@foreach($users as $user)
+							<option value="{{ $user->id }}">
+		    					{{ $user->name }} {{ $user->surname }} 
+		    				</option>
+		    			@endforeach
+					</select>
 		    	</div>
 		    	<div class="form-group">
 		    		<input type="submit" value="submit" class="btn btn-default">

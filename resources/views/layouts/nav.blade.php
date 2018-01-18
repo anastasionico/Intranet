@@ -17,9 +17,9 @@
       </span>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <form class="navbar-form navbar-right">
+          {{-- <form class="navbar-form navbar-right">
             <input type="text" class="form-control empty" placeholder="&#xF002; Search...">
-          </form>
+          </form> --}}
         </li>
         @if($countPendingHolidayRequest > 0)
           <li style="position: relative;">
@@ -63,8 +63,11 @@
           </li>
         @endif
         <li>
+          <a href="#">{{ Auth::user()->name }}</a>
+          
+        </li>
+        <li>
           <a href="/users/editpassword">
-            {{ Auth::user()->name }}&nbsp;
             <i class="fa fa-cog" aria-hidden="true"></i>
           </a>
         </li>

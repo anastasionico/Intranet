@@ -5,7 +5,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Imperial Commercials Intranet</title>
+    <title>Imperial Commercials Holiday Planner</title>
 
 
 
@@ -45,7 +45,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="{{{ asset('img/favicon.png') }}}">
+    <link rel="shortcut icon" href="/img/favicon.png">
     <?php
       date_default_timezone_set("Europe/London");
     ?>
