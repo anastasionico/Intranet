@@ -5,7 +5,7 @@
       <span class="nav-brand">
         <a class="" href="/home">
           <img class="" src="/img/logo.png">
-          Intranet
+          Holiday Planner
           <sup>
             <small class="danger">BETA</small>
           </sup> 
