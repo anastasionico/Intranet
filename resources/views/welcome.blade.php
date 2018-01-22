@@ -144,9 +144,9 @@
                                                     Login
                                                 </button>
 
-                                                <a class="btn btn-default" href="{{ route('password.request') }}">
+                                                {{-- <a class="btn btn-default" href="{{ route('password.request') }}">
                                                     Forgot Your Password?
-                                                </a>
+                                                </a> --}}
                                             </div>
                                         </div>
                                     </form>
@@ -158,7 +158,6 @@
                             <a href="https://www.sbcommercials.co.uk/">SB Commercials</a>
                             <a href="http://www.orwelltruckandvan.co.uk/">Orwell</a>
                             <a href="http://www.ttequip.co.uk/">TruckTrailerEquip</a>
-                            
                         </div>
                     </div>
                 </div>

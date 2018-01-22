@@ -90,6 +90,11 @@
               Need Approval
             </a>
           @endif
+          @if( $holiday->options['approved'] == 2)
+            <a href="/holiday/{{ $holiday->id }}" class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#aaa;opacity: 0.5 ">
+              Denied
+            </a>
+          @endif
           @if( $holiday->options['halfDay'] == 0.5)
             <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff;" >
             Half Day

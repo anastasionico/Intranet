@@ -132,8 +132,8 @@
             
             var data = google.visualization.arrayToDataTable([
                 ['Holiday', 'unit'],
-                ['Days Taken',  holiday_taken],
-                ['Days Available', holiday_available],
+                ['Days Taken: {{ $holiday_taken }}',  holiday_taken],
+                ['Days Available: {{ $holiday_available }}', holiday_available],
             ]);
             
             var chart = new google.visualization.PieChart(document.getElementById('HolidayTotalPie'));
@@ -177,8 +177,8 @@
             
             var data = google.visualization.arrayToDataTable([
                 ['Holiday', 'unit'],
-                ['Total Days',  holiday_total],
-                ["Outstanding Previous Year", holiday_outstanding],
+                ["Total holidays {{ date('Y')}}: {{ $holiday_total }}",  holiday_total],
+                ["Outstanding days {{ date('Y')-1}}: {{ $holiday_outstanding }}", holiday_outstanding],
             ]);
             
             var chart2 = new google.visualization.PieChart(document.getElementById('HolidayOutstandingPie'));
@@ -190,9 +190,7 @@
         google.charts.setOnLoadCallback(drawChart);
         var task_completed = {{ $tasksUserDone }};
         var task_remaining = {{ $tasksUser }} - {{ $tasksUserDone }} ;
-        
-          
-
+       
         function drawChart() {
             var options = {
             	pieHole: 0.9,
@@ -225,8 +223,8 @@
             
             var data = google.visualization.arrayToDataTable([
                 ['Holiday', 'unit'],
-                ['Task Completed',  task_completed],
-                ["Task Remaining", task_remaining],
+                ['Task Completed: {{ $tasksUserDone }}',  task_completed],
+                ["Task Remaining: {{ $tasksUser - $tasksUserDone }}", task_remaining],
             ]);
             
             var chart3 = new google.visualization.PieChart(document.getElementById('TaskPie'));
@@ -266,7 +264,6 @@
 	        chart4.draw(data, options);
       	}
   </script>
-
   <script type="text/javascript">
     google.charts.load('current', {packages:["orgchart"]});
     google.charts.setOnLoadCallback(drawChart);

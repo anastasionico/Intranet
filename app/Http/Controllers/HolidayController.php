@@ -80,6 +80,9 @@ class HolidayController extends Controller
                 if(event.halfDay == 0.5){
                     element.addClass('holidayhalfDay');    
                 }
+                if(event.halfDay == 2){
+                    element.addClass('holidayDenied');    
+                }
             }",
             'eventClick' => 'function() {
                 showModal();
