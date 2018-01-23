@@ -34,7 +34,8 @@
 	?>
 	<div class="table-responsive p-2">
 		@include('layouts/errors')
-		<form action="/holiday/store" method="post" enctype="multipart/form-data">
+		
+		<form action="/holiday/update/{{$holiday->id}}" method="post">
 			
 			<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 			<input type="hidden" name="holiday_total" value="{{$holiday_total}}">
@@ -50,7 +51,7 @@
 			    		<span onclick="setNextWeek()" class="btn btn-info btn-sm">Next Week</span>
 			    		<span onclick="setNextMonth()" class="btn btn-info btn-sm">Next Month</span>	
 	    			</span>
-		    		<input type="date" name="dateStart" class="form-control" id="dateStart" required="" value="{{ $dateStart }}">
+	    			<input type="date" value="{{date_format($holiday->start, 'Y-m-d')}}"  name="dateStart" class="form-control" id="dateStart" required="">
 
 		    	</div>
 		    	<div class="form-group">
@@ -65,17 +66,17 @@
 	    				<span onclick="setOneWeek()" class="btn btn-info btn-sm">In One Week</span>
 			    		<span onclick="setTwoWeeks()" class="btn btn-info btn-sm">In Two Weeks</span>
 			    	</span>
-		    		<input type="date" name="dateEnd" class="form-control" id="dateEnd" required="">
+			    	<input type="date" value="{{date_format($holiday->end, 'Y-m-d')}}"  name="dateEnd" class="form-control" id="dateEnd" required="">
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="dateReturning">Day returning *</label>
 		    		<i id="bubbleHolidayDayReturning" class="fa fa-info-circle Bubble" aria-hidden="true"></i>
-		    		<input type="date" name="dateReturning" class="form-control" id="dateReturning" required="">
+		    		<input type="date" value="{{date_format($holiday->returning_day, 'Y-m-d')}}"  name="dateReturning" class="form-control" id="dateReturning" required="">
 		    	</div>
 				<div class="form-group">
 		    		<label for="totalDayRequested">Total Day requested</label>
 		    		<small id='totalDayRequestedSmall' class="warning"></small>
-		    		<input type="number" name="totalDayRequested" class="form-control" id="totalDayRequested" readonly="">
+		    		<input type="number" name="totalDayRequested" class="form-control" id="totalDayRequested" readonly="" value="{{$holiday->total_day_requested}}" >
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="totalDayRemaining">Day remaining after this request (this year)</label>
@@ -85,7 +86,7 @@
 		    				If you remain with less than 0 days the request will not be accepted.
 	    				</small>
 		    		</span>
-		    		<input type="number" name="totalDayRemaining" class="form-control" id="totalDayRemaining" readonly="">
+		    		<input type="number" name="totalDayRemaining" class="form-control" id="totalDayRemaining" readonly="" value="{{$holiday_available}}">
 		    	</div>
 		    </div>    
 		    <div class="col-md-3">

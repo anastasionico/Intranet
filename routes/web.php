@@ -144,6 +144,9 @@ Route::prefix('/holiday')->group(function()
 	Route::get('/deny/{id}' , 'HolidayController@deny');
 	Route::post('/delegate' , 'HolidayController@delegate');
 	Route::get('/dept/{id}' , 'HolidayController@dept');
+	Route::get('/edit/{id}', 'HolidayController@edit');
+	Route::Post('/update/{id}' , 'HolidayController@update');
+	Route::get('/delete/{id}', 'HolidayController@destroy');
 });
 
 Route::prefix('/roles')->group(function()

@@ -156,14 +156,13 @@ class HolidayController extends Controller
     {
         $users = User::all();
         $holiday = Holiday::find($id);
-        $totalDayRequested = $holiday->start->diff($holiday->end);
         $user = User::find($holiday->user_id);
 
         $manager = User::find($user->manager_id);
         $department = Department::where('id', $user->department_id)->first();
-        $totalDayRemaining = (($user->holiday_total + $user->outstanding) - $user->holiday_taken) - $totalDayRequested->d; 
+        $totalDayRemaining = (($user->holiday_total + $user->outstanding) - $user->holiday_taken) - $holiday->total_day_requested; 
 
-        return view('holiday.show', compact('users', 'user', 'holiday', 'totalDayRequested', 'totalDayRemaining', 'manager', 'department'));
+        return view('holiday.show', compact('users', 'user', 'holiday', 'totalDayRemaining', 'manager', 'department'));
     }
 
     public function accept($id)
@@ -269,6 +268,71 @@ class HolidayController extends Controller
         ]);
 
         return view('/holiday/index', compact('calendar','holidayList','users','department','departments'));
+    }
+
+    public function edit($id)
+    {
+        $holiday = Holiday::find($id);
+        // dd($holiday);
+        $users = User::all();
+        $user = User::find(Auth::user()->id);
+        $manager = User::find($user->manager_id);
+        return view('/holiday/edit', compact('user', 'users', 'manager', 'holiday'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate(request(),[
+            'user_id' => 'required|exists:users,id',
+            'holiday_total' => 'required',
+            'holiday_taken' => 'required|max:'.$request->holiday_total,
+            'holiday_available' => 'required|min:0.5',
+            'holiday_outstanding' => 'required|integer',
+            'dateStart' => 'required|date|after:yesterday',
+            'dateEnd' => 'required|date',
+            'dateReturning' => 'required|date',
+            'totalDayRequested' => 'required|min:0.5',
+            'totalDayRemaining' => 'required|min:0',
+            'manager' => 'required|integer',
+            'behalf' => 'nullable|integer'
+        ]);
+        
+        // select who is going to book the holiday depending of the behalf variable, if behalf is 0 the applicant and the user id are the same 
+        if($request->behalf != '0'){
+            $behalf = $request->behalf;
+        }else{
+            $behalf = $request->user_id;
+        }
+        
+        //add user details
+        $user=User::where('id', $behalf)->first();
+                
+        //save
+        $holiday = Holiday::find($id);
+        $holiday->user_id = request('user_id');
+        $holiday->start = request('dateStart');
+        $holiday->end = request('dateEnd');
+        $holiday->returning_day = request('dateReturning');
+        $holiday->approved_by = request('manager');
+        $holiday->applicant_id = request('user_id');
+        $holiday->total_day_requested = request('totalDayRequested');
+        $holiday->approved_by = request('manager');
+        $holiday->save();
+            
+        // GET THE DATA OF THE MAILSERVER TO PUT INTO THE .ENV AND COMPLETE THIS BELOW
+        // $managerEmail = User::select('email')
+        //                 ->where('id', '=', "$request->manager")
+        //                 ->first();
+        // \Mail::to($managerEmail->email)->send(new NewHolidayRequest); 
+        $request->session()->flash('alert-success', 'The request was successfully sent.');
+        return redirect('/holiday');
+    }
+    public function destroy(Request $request, $id)
+    {
+        $holiday = Holiday::find($id);
+        $holiday->forceDelete(); 
+        $request->session()->flash('alert-success', 'The request has been deleted.');
+        return redirect('/holiday');
     }
 }
 

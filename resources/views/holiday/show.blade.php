@@ -98,7 +98,7 @@
 	        </tr>
 	        <tr>
 	          	<td>Total Days Requested</td>
-	          	<td>{{ $totalDayRequested->d }}</td>
+	          	<td>{{$holiday->total_day_requested}}</td>
 	        </tr>
 	        <tr>
 	          	<td>Holiday Total Days (per year)</td>
@@ -121,6 +121,17 @@
 	          	<td>{{ $totalDayRemaining }}</td>
 	        </tr>
 	    </table>
+	    @if($holiday->approved == 0 && Auth::user()->id == $holiday->user_id)
+	      	<a href="/holiday/edit/{{ $holiday->id }}" class="btn btn-success">
+				Edit
+			</a>
+		@endif
+		@if(Auth::user()->id == $holiday->user_id)
+	      	<a href="/holiday/delete/{{ $holiday->id }}" class="btn btn-danger">
+				Delete
+			</a>
+		@endif
+	
 	</div>
 	<div class="col-sm-12 col-md-2">
 		<div id="HolidayOutstandingPie" style="width: 100%; height: auto;display: inline-block;padding: 0"></div>
@@ -178,10 +189,9 @@
 					</a>
 				</div>
 	      	@endpermission
-			
-			
-		</div>
+	    </div>
 	@endif
+
 	<script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
