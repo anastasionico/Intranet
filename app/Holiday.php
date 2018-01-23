@@ -71,13 +71,13 @@ class Holiday extends Model implements \MaddHatter\LaravelFullcalendar\Event
         $user = User::find(Auth::user()->id);
         return  $countPendingHoliday = Holiday::where('user_id', Auth::user()->id)
                                 ->where('approved', 0)
-                                ->count();
+                                ->get();
     }
     public static function countPendingHolidayRequest()
     {
         $user = User::find(Auth::user()->id);
         return  $countPendingHoliday = Holiday::where('approved_by', Auth::user()->id)
                                 ->where('approved', 0)
-                                ->count();
+                                ->get();
     }
 }

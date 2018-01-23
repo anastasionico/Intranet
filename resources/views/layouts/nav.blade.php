@@ -21,25 +21,50 @@
             <input type="text" class="form-control empty" placeholder="&#xF002; Search...">
           </form> --}}
         </li>
-        @if($countPendingHolidayRequest > 0)
+        @if(count($countPendingHolidayRequest) > 0)
           <li style="position: relative;">
-            <a href="/holiday">
+            <a href="#">
               <i class="fa fa-spinner fa-pulse fa-fw"></i>
                 <span class="sr-only"></span>
                 <span class="notification-circle">
-                    {{ $countPendingHolidayRequest }}
+                    {{ count($countPendingHolidayRequest) }}
                 </span>
             </a>
+            <div style="position: absolute;top:50;left:-100%;width: 400px;z-index: 50; ">
+              <ul>
+                @foreach($countPendingHolidayRequest as $link)
+                  <li style="list-style-type:none;">
+                    <a href="/holiday/{{$link->id}}">
+                      {{ $link->start->toFormattedDateString() }}
+                    </a>
+                  </li>
+                @endforeach
+              </ul>  
+            </div>
           </li>
         @endif
-        @if($countPendingHoliday > 0)
+
+        
+        @if(count($countPendingHoliday) > 0)
           <li style="position: relative;">
-            <a href="/holiday">
+            <a href="#">
               <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                <span class="notification-circle">
-                    {{ $countPendingHoliday }}
-                </span>
+              <span class="notification-circle">
+                  {{ count($countPendingHoliday) }}
+              </span>  
             </a>
+            <div style="position: absolute;top:50;left:-100%;width: 400px;z-index: 50; ">
+              <ul>
+                @foreach($countPendingHoliday as $link)
+                  <li style="list-style-type:none;">
+                    <a href="/holiday/{{$link->id}}">
+                      {{ $link->start->toFormattedDateString() }}
+                    </a>
+                  </li>
+                @endforeach
+              </ul>  
+            </div>
+            
           </li>
         @endif
         @if($countTodayEvent > 0)
