@@ -164,7 +164,7 @@
 		document.getElementById("dateEnd").addEventListener("change", function(){
 			var day = new Date(dateEnd.value);
 			var dd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
-
+			
 			checkWeekday(dd, day);
 			setTotalDayRequested();
 		});
@@ -223,13 +223,13 @@
 			var dayOfWeek = day.getDay()
 		
 			if(dayOfWeek != 0 && dayOfWeek != 6){
-
 				dateReturning.value = dr = dd;		
 			}else{
 				while(day.getDay() == 0 || day.getDay() == 6){
 					day.setDate(day.getDate() + 1);
 					var dr = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
-					dateReturning.value = dr;				
+					dateReturning.value = dr;		
+
 				}	
 			}
 		}
@@ -254,12 +254,36 @@
 		}
 		
 		function setTotalDayRequested(){
-			var date1 = new Date(dateStart.value);
-			var date2 = new Date(dateEnd.value);
-			var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+			var dateS = new Date(dateStart.value);
+			var dateE = new Date(dateEnd.value);
+			var timeDiff = Math.abs(dateE.getTime() - dateS.getTime());
 			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 			//get the total amount of bank Holiday between the two dates and subtract them to the total day requested
+			var weeks = Math.floor(diffDays / 7);
+    		diffDays = diffDays - (weeks * 2);
+			
+			// Handle special cases
+		    var startDay = dateS.getDay();
+		    var endDay = dateE.getDay();
+
+			// Remove weekend not previously removed.   
+		    if (startDay - endDay > 0)         
+		        diffDays = diffDays - 2;      
+		    // Remove start day if span starts on Sunday but ends before Saturday
+		    if (startDay == 0 && endDay != 6)
+		        diffDays = diffDays - 1  
+		    // Remove end day if span ends on Saturday but starts after Sunday
+		    if (endDay == 6 && startDay != 0)
+		        diffDays = diffDays - 1  
+			
+			console.log("s-" + startDay);
+		    console.log("e-" + endDay);
+		    console.log(diffDays);
+
+
+
 			var BankHolidayAmount = checkBankHoliday();
+			
 			totalDayRequested.value = diffDays - BankHolidayAmount;
 			
 			if(BankHolidayAmount > 0){
@@ -272,7 +296,8 @@
 				totalDayRequested.value = 0.5;
 				totalDayRequestedSmall = document.querySelector('#totalDayRequestedSmall');
 				totalDayRequestedSmall.innerHTML = "<i class='fa fa-exclamation-triangle' aria-hidden='true'></i> When booking only half a day this field shows 0.5";	
-				console.log(totalDayRequested.value);
+			}else{
+				totalDayRequestedSmall.innerHTML = "";
 			}
 			setTotalDayRemaining()
 		}
