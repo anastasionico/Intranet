@@ -201,7 +201,7 @@
         function drawChart() {
             var options = {
             	pieHole: 0.9,
-                
+                pieSliceText: 'value',
                 backgroundColor: {
                 	fill:'transparent', 
                 	strokeWidth: 0,
@@ -220,18 +220,18 @@
                 },
 
                 legend:{
-               		position: 'none', 
+               		position: 'bottom', 
                		textStyle: 
                			{color: '#fff', 
-               			fontSize: 16
+               			fontSize: 12
                		}
                	},
             };
             
             var data = google.visualization.arrayToDataTable([
                 ['Holiday', 'unit'],
-                ['Days Taken',  holiday_taken],
-                ['Available', holiday_available],
+                ['Days Taken: {{ $holiday_taken }}',  holiday_taken],
+                ['Days Available: {{ $holiday_available }}', holiday_available],
             ]);
             
             var chart = new google.visualization.PieChart(document.getElementById('HolidayTotalPie'));
@@ -246,7 +246,7 @@
         function drawChart() {
             var options = {
             	pieHole: 0.9,
-                
+                pieSliceText: 'value',
                 backgroundColor: {
                 	fill:'transparent', 
                 	strokeWidth: 0,
@@ -265,18 +265,18 @@
                 },
 
                 legend:{
-               		position: 'none', 
+               		position: 'bottom', 
                		textStyle: 
                			{color: '#fff', 
-               			fontSize: 16
+               			fontSize: 12
                		}
                	},
             };
             
             var data = google.visualization.arrayToDataTable([
                 ['Holiday', 'unit'],
-                ['Total Days',  holiday_total],
-                ["Outstanding Previous Year", holiday_outstanding],
+                ["Total holidays {{ date('Y')}}: {{ $holiday_total }}",  holiday_total],
+                ["Outstanding days {{ date('Y')-1}}: {{ $holiday_outstanding }}", holiday_outstanding],
             ]);
             
             var chart2 = new google.visualization.PieChart(document.getElementById('HolidayOutstandingPie'));

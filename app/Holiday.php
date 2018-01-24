@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class Holiday extends Model implements \MaddHatter\LaravelFullcalendar\Event
@@ -69,13 +70,26 @@ class Holiday extends Model implements \MaddHatter\LaravelFullcalendar\Event
     public static function countPendingHoliday()
     {
         $user = User::find(Auth::user()->id);
-        return  $countPendingHoliday = Holiday::where('user_id', Auth::user()->id)
+        return  $countPendingHoliday = DB::table('holidays')
+                                ->join('users', 'users.id', '=', 'holidays.user_id')
+                                ->where('user_id', Auth::user()->id)
                                 ->where('approved', 0)
+                                ->select('holidays.id', 'holidays.start', 'holidays.end','users.name', 'users.surname')
                                 ->get();
     }
     public static function countPendingHolidayRequest()
     {
         $user = User::find(Auth::user()->id);
+
+        return  $countPendingHoliday = DB::table('holidays')
+                                ->join('users', 'users.id', '=', 'holidays.user_id')
+                                ->where('approved_by', Auth::user()->id)
+                                ->where('approved', 0)
+                                ->select('holidays.id', 'holidays.start', 'holidays.end','users.name', 'users.surname')
+                                ->get();
+
+
+
         return  $countPendingHoliday = Holiday::where('approved_by', Auth::user()->id)
                                 ->where('approved', 0)
                                 ->get();

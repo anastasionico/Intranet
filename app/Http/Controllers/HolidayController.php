@@ -148,7 +148,7 @@ class HolidayController extends Controller
         //                 ->first();
         // \Mail::to($managerEmail->email)->send(new NewHolidayRequest); 
         
-        $request->session()->flash('alert-success', 'The request was successfully sent.');
+        $request->session()->flash('alert-success', "The request was successfully sent. Available days will be updated once the request will be accepted");
         return redirect('/holiday');
     }
 
@@ -330,6 +330,14 @@ class HolidayController extends Controller
     public function destroy(Request $request, $id)
     {
         $holiday = Holiday::find($id);
+        
+        if($holiday->approved === 1){
+            $user = User::where('id', $holiday->user_id)->first();
+            $user->holiday_taken = $user->holiday_taken - $holiday->total_day_requested;
+            $user->save();    
+        }
+        
+        
         $holiday->forceDelete(); 
         $request->session()->flash('alert-success', 'The request has been deleted.');
         return redirect('/holiday');

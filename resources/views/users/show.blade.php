@@ -166,18 +166,35 @@
 	          	<td>{{ ($user->holiday_total + $user->holiday_outstanding) - $user->holiday_taken }}</td>
 	        </tr>
         </table>
-        <h4>Subordinates</h4>
-        @foreach($subOrdinates as $subOrdinate)
-        	@if($subOrdinate->id != $user->id )
-	        	<a href="/users/{{$subOrdinate->id}}">
-	        		{{ ucfirst($subOrdinate->name) }}
-	        		{{ ucfirst($subOrdinate->surname) }}
-	        	</a>,
-        	@endif
-        	
-        @endforeach
-
+        
+        @if(!$subOrdinates->isEmpty())
+        	<h4>Subordinates</h4>
+	        @foreach($subOrdinates as $subOrdinate)
+	        	@if($subOrdinate->id != $user->id )
+		        	<a href="/users/{{$subOrdinate->id}}">
+		        		{{ ucfirst($subOrdinate->name) }}
+		        		{{ ucfirst($subOrdinate->surname) }}
+		        	</a>,
+	        	@endif
+	        @endforeach	
+        @endif
+        
+        <div class="text-right col-sm-12 col-md-12">
+		 	@permission(('user update'))
+				<a href="/users/edit/{{ $user->id }}" class="btn btn-info">
+	        		Edit
+	        	</a>
+			@endpermission
+			@permission(('user delete'))
+				@if($user->id != Auth::user()->id)
+					<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
+		        		Delete
+		        	</a>
+		        @endif
+			@endpermission
+		</div>
 	</div>
+
 	<div class="table-responsive  col-sm-12 col-md-2">
 		<h3>Role Permissions</h3>
 		<table class="table table-striped">
@@ -190,19 +207,6 @@
 	        @endif
         </table>
 	</div>
-	<div class="text-right col-sm-12 col-md-12">
-	 	@permission(('user update'))
-			<a href="/users/edit/{{ $user->id }}" class="btn btn-info">
-        		Edit
-        	</a>
-		@endpermission
-		@permission(('user delete'))
-			@if($user->id != Auth::user()->id)
-				<a href="/users/delete/{{ $user->id }}" class="btn btn-danger">
-	        		Delete
-	        	</a>
-	        @endif
-		@endpermission
-	</div>
+	
 	
 @endsection

@@ -103,22 +103,21 @@
         function drawChart() {
             var options = {
             	pieHole: 0.9,
-                
-                backgroundColor: {
-                	fill:'transparent', 
-                	strokeWidth: 0,
-                },
+              pieSliceText: 'value',  
+              backgroundColor: {
+              	fill:'transparent', 
+              	strokeWidth: 0,
+              },
 				
-                titleTextStyle: { 
-            		color: '#fff',
-				  	fontSize: 20,
-				  	bold: true,
-				},
+              titleTextStyle: { 
+            		fontSize: 20,
+				  	     bold: true,
+				      },
                	
                	pieSliceBorderColor: 'transparent',
                	colors:['#eee','#55a','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
                	pieSliceTextStyle: {
-                	color: '#fff',
+                	color: '#55a',
                 },
 
                 legend:{
@@ -148,7 +147,7 @@
         function drawChart() {
             var options = {
             	pieHole: 0.9,
-                
+              pieSliceText: 'value',  
                 backgroundColor: {
                 	fill:'transparent', 
                 	strokeWidth: 0,
@@ -161,9 +160,9 @@
       				  },
                	
                	pieSliceBorderColor: 'transparent',
-               	colors:['#eee','#55a','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
+               	colors:['#55a','#eee','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
                	pieSliceTextStyle: {
-                	color: '#fff',
+                	color: '#55a',
                 },
 
                 legend:{
@@ -194,7 +193,7 @@
         function drawChart() {
             var options = {
             	pieHole: 0.9,
-                
+              pieSliceText: 'value',  
                 backgroundColor: {
                 	fill:'transparent', 
                 	strokeWidth: 0,
@@ -209,7 +208,7 @@
                	pieSliceBorderColor: 'transparent',
                	colors:['#eee','#55a','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
                	pieSliceTextStyle: {
-                	color: '#fff',
+                	color: '#55a',
                 },
 
                 legend:{

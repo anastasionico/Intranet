@@ -64,7 +64,7 @@
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="holiday_taken">Already taken days holiday (current year) *</label>
-		    		<input type="number" name="holiday_taken" class="form-control" value="{{ $user->holiday_taken }}" required>
+		    		<input type="number" name="holiday_taken" class="form-control" value="{{ $user->holiday_taken }}" required step=0.5>
 		    	</div>
 		    	
 		    	<div class="form-group">

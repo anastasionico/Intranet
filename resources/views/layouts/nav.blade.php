@@ -21,6 +21,7 @@
             <input type="text" class="form-control empty" placeholder="&#xF002; Search...">
           </form> --}}
         </li>
+        {{-- the code below is seen from the manager when needs to verify a pending request --}}
         @if(count($countPendingHolidayRequest) > 0)
           <li style="position: relative;">
             <a href="#">
@@ -30,12 +31,15 @@
                     {{ count($countPendingHolidayRequest) }}
                 </span>
             </a>
-            <div style="position: absolute;top:50;left:-100%;width: 400px;z-index: 50; ">
+            <div style="position: absolute;top:50;left:-150px;width: 400px;z-index: 50; ">
               <ul>
                 @foreach($countPendingHolidayRequest as $link)
                   <li style="list-style-type:none;">
                     <a href="/holiday/{{$link->id}}">
-                      {{ $link->start->toFormattedDateString() }}
+                      {{ $link->name }}
+                      {{ $link->surname }}
+                      {{date('d-M-y', strtotime($link->start))}} to
+                      {{date('d-M-y', strtotime($link->end))}}
                     </a>
                   </li>
                 @endforeach
@@ -43,7 +47,7 @@
             </div>
           </li>
         @endif
-
+        {{-- the code below is seen from the employee while he is waiting for the request to be verified --}}
         
         @if(count($countPendingHoliday) > 0)
           <li style="position: relative;">
@@ -53,12 +57,16 @@
                   {{ count($countPendingHoliday) }}
               </span>  
             </a>
-            <div style="position: absolute;top:50;left:-100%;width: 400px;z-index: 50; ">
+            <div style="position: absolute;top:50;left:-100px;width: 400px;z-index: 50; ">
               <ul>
                 @foreach($countPendingHoliday as $link)
                   <li style="list-style-type:none;">
                     <a href="/holiday/{{$link->id}}">
-                      {{ $link->start->toFormattedDateString() }}
+                      {{ $link->name }}
+                      {{ $link->surname }}
+                      {{date('d-M-y', strtotime($link->start))}} to
+                      {{date('d-M-y', strtotime($link->end))}}
+                      
                     </a>
                   </li>
                 @endforeach

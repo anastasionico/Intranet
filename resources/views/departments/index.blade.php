@@ -54,7 +54,7 @@
 					<tr>
 				        <td>{{ $department->name }}</td>
 				        <td>{{ $department->site->name }}</td>
-				        <td>{{ $department->manager->name }}</td>
+				        <td>{{ $department->manager->name }} {{ $department->manager->surname }}</td>
 				        <td>
 				        	@permission(('department read'))
 								<a href="/departments/{{ $department->id }}" class="btn btn-default">

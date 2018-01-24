@@ -31,12 +31,16 @@
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="priority">Priority</label>
-		    		<input type="number" name="priority" class="form-control" min="1" max="3"  value="{{ $task->priority }}">
-		    		<small>1 hight, 2 medium, 3 low</small>
+		    		<select name="priority" class="form-control">
+		    			<option value="1">Hight</option>
+		    			<option value="2" selected>Medium</option>
+		    			<option value="3">Low</option>
+		    		</select>
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="user_id">User</label>
 		    		<select name="user_id" class="form-control">
+		    			<option value="{{ Auth::user()->id }}" selected>{{ Auth::user()->name }}</option>
 		    			@foreach($users as $user)
 		    				<option value="{{ $user->id }}">{{ $user->name }}</option>
 		    			@endforeach
