@@ -81,31 +81,36 @@
   <div class="table-responsive p-2">
     <div>
       Legend: 
+      
       @foreach($holidayList as $holiday)  
         <br>
-        <a href="/holiday/{{ $holiday->id }}" style="color:{{ $holiday->options['backgroundColor'] }}">
-          {{ $holiday->title }} ( from: {{$holiday->start->format('d-M-y')}} to: {{$holiday->end->format('d-M-y')}} )
-          @if( $holiday->options['approved'] == 0)
-            <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff; ">
-              Need Approval
-            </span>
-          @endif
-          @if( $holiday->options['approved'] == 2)
-            <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#aaa;opacity: 0.5 ">
-              Denied
-            </span>
-          @endif
-          @if( $holiday->options['halfDay'] == 0.5)
-            <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff;" >
-            Half Day
-            </span>
+        @if($holiday->start->format('m') === date('m') || $holiday->end->format('m') === date('m'))
+          <a href="/holiday/{{ $holiday->id }}" style="color:{{ $holiday->options['backgroundColor'] }}">
+          
+            {{ $holiday->title }} {{-- ( from: {{$holiday->start->format('d-M-y')}} to: {{$holiday->end->format('d-M-y')}} ) --}}
+            @if( $holiday->options['approved'] == 0)
+              <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff; ">
+                Need Approval
+              </span>
+            @endif
+            @if( $holiday->options['approved'] == 2)
+              <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#aaa;opacity: 0.5 ">
+                Denied
+              </span>
+            @endif
+            @if( $holiday->options['halfDay'] == 0.5)
+              <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff;" >
+              Half Day
+              </span>
+            @endif
             
-          @endif
-        </a>
-
+          </a>
+        @endif
+        
       @endforeach
+
     </div>  
-    
+    <br>
     {!! $calendar->calendar() !!}
     {!! $calendar->script() !!} 
   </div>    

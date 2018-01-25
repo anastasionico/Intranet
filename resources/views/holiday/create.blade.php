@@ -45,6 +45,7 @@
 				{{ csrf_field() }}
 		    	<div class="form-group">
 		    		<label for="dateStart">Which day does the holiday start? *</label>
+		    		<small id='PreviousYearSmall' class="warning"></small>
 	    			<span style="float: right;">
 	    				<span onclick="setTomorrow()" class="btn btn-info btn-sm">Tomorrow</span>
 			    		<span onclick="setNextWeek()" class="btn btn-info btn-sm">Next Week</span>
@@ -75,6 +76,8 @@
 				<div class="form-group">
 		    		<label for="totalDayRequested">Total Day requested</label>
 		    		<small id='totalDayRequestedSmall' class="warning"></small>
+		    		<small id='totalDayWeekEndSmall' class="warning"></small>
+		    		<small id='totalDayHolidaySmall' class="warning"></small>
 		    		<input type="number" name="totalDayRequested" class="form-control" id="totalDayRequested" readonly="">
 		    	</div>
 		    	<div class="form-group">
@@ -157,9 +160,21 @@
 		var dayRemaining_warning = document.getElementById('dayRemaining_warning');
 		var totalDayRequested = document.getElementById('totalDayRequested');
 		var totalDayRemaining = document.getElementById('totalDayRemaining');
-		document.getElementById("totalDayRequested").addEventListener("change", setTotalDayRemaining);
 		var maxDate = 2117 + "-" + 12 + "-" + 31;
+
+		document.getElementById("totalDayRequested").addEventListener("change", setTotalDayRemaining);
 		
+		dateStart.addEventListener("change", function(){
+			let dateStartYear = dateStart.value.substr(0,4);
+			let currentYear = new Date().getFullYear().toString();
+			
+			if(dateStartYear < currentYear ){
+				PreviousYearSmall = document.querySelector('#PreviousYearSmall');
+				PreviousYearSmall.innerHTML = "<i class='fa fa-exclamation-triangle' aria-hidden='true'></i> You have selected a year before the current one";
+			}else{
+				PreviousYearSmall.innerHTML = "";
+			}
+		});
 
 		document.getElementById("dateEnd").addEventListener("change", function(){
 			var day = new Date(dateEnd.value);
@@ -171,16 +186,15 @@
 		
 		function setTomorrow(){
 			var day = new Date();
-			
 			day.setDate(day.getDate() + 1);
 			var dd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
 			
 			dateStart.value = dd;
+			alertDatePreviousYear();
 		}
 
 		function setNextWeek(){
 			var day = new Date();
-			
 			day.setDate(day.getDate() + 7);
 			var dd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
 			
@@ -189,7 +203,6 @@
 
 		function setNextMonth(){
 			var day = new Date();
-			
 			day.setMonth(day.getMonth()+1);
 			var dd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
 			
@@ -204,7 +217,6 @@
 			dateEnd.value = dd;
 			
 			checkWeekday( dd, day);
-
 			setTotalDayRequested();
 		}
 
@@ -229,38 +241,42 @@
 					day.setDate(day.getDate() + 1);
 					var dr = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
 					dateReturning.value = dr;		
-
 				}	
 			}
 		}
+		
 		function checkBankHoliday() {
-
 			var dateFrom = dateStart.value;
 			var dateTo = dateEnd.value;
 			var BankHolidayAmount = 0;
 			// THIS VARIABLE BELOW HAS TO BE RENEWED EVERY YEAR
 			dateCheck = ["2018-01-01", "2018-03-30", "2018-04-02", "2018-05-07", "2018-05-28", "2018-08-27", "2018-12-25", "2018-12-26",];
 			dateCheckLenght = dateCheck.length;
-				
-				
+		
 			for (i = 0; i < dateCheckLenght; i++) {
 				if(dateCheck[i] >= dateFrom && dateCheck[i] <= dateTo){
 					// console.log(dateCheck[i] + ' I am in the middle');
 					BankHolidayAmount++;
 				}
 			}
+			if(BankHolidayAmount > 0){
+				totalDayHolidaySmall = document.querySelector('#totalDayHolidaySmall');
+				totalDayHolidaySmall.innerHTML = "<i class='fa fa-exclamation-triangle' aria-hidden='true'></i> " + BankHolidayAmount + " Bank Holiday between the dates, it has been automatically removed from the day requested amount";
+			}else{
+				totalDayHolidaySmall.innerHTML = "";
+			}
 			return BankHolidayAmount;
-			
 		}
 		
 		function setTotalDayRequested(){
 			var dateS = new Date(dateStart.value);
 			var dateE = new Date(dateEnd.value);
 			var timeDiff = Math.abs(dateE.getTime() - dateS.getTime());
-			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+			var WeekDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 			//get the total amount of bank Holiday between the two dates and subtract them to the total day requested
-			var weeks = Math.floor(diffDays / 7);
-    		diffDays = diffDays - (weeks * 2);
+			var weeks = Math.floor(WeekDays / 7);
+			
+    		diffDays = WeekDays - (weeks * 2);
 			
 			// Handle special cases
 		    var startDay = dateS.getDay();
@@ -277,14 +293,14 @@
 		        diffDays = diffDays - 1  
 			
 			var BankHolidayAmount = checkBankHoliday();
-			
-			totalDayRequested.value = diffDays - BankHolidayAmount;
-			
-			if(BankHolidayAmount > 0){
-				totalDayRequestedSmall = document.querySelector('#totalDayRequestedSmall');
-				totalDayRequestedSmall.innerHTML = "<i class='fa fa-exclamation-triangle' aria-hidden='true'></i> " + BankHolidayAmount + " Bank Holiday between the dates, it has been automatically removed from the day requested amount";
-			}
 
+			totalDayRequested.value = diffDays - BankHolidayAmount;
+			if(WeekDays - diffDays > 0 ){
+				totalDayWeekEndSmall = document.querySelector('#totalDayWeekEndSmall');
+				totalDayWeekEndSmall.innerHTML = "<i class='fa fa-exclamation-triangle' aria-hidden='true'></i> " + (WeekDays - diffDays) + " Weekend days have been automatically removed.";
+			}else{
+				totalDayWeekEndSmall.innerHTML = "";
+			}
 
 			if( timeDiff === 0 ){
 				totalDayRequested.value = 0.5;
@@ -296,7 +312,6 @@
 			setTotalDayRemaining()
 		}
 
-		
 		function setTotalDayRemaining(){
 			// var holiday_available = {{ $holiday_available }};
 			var totalDayRemainingNum = {{ $holiday_available }} - totalDayRequested.value ;
@@ -319,10 +334,8 @@
 			    behalfSelect.value = null;
 			}
 		}
-		
-
-
 	</script>
+
 	<script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);

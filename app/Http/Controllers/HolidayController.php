@@ -34,10 +34,9 @@ class HolidayController extends Controller
             ->join('departments', 'users.department_id', '=', 'departments.id')
             ->select('holidays.id', 'holidays.start', 'holidays.end', 'holidays.user_id', 'holidays.returning_day', 'holidays.approved', 'holidays.approved_by', 'holidays.total_day_requested')
             ->where('departments.id', $user->department_id)
-            ->where('users.id', $user->id)
             ->get();
 
-
+        
         $users = User::all();
         $departments = Department::all();
 
@@ -112,8 +111,8 @@ class HolidayController extends Controller
             'holiday_taken' => 'required|max:'.$request->holiday_total,
             'holiday_available' => 'required|min:0.5',
             'holiday_outstanding' => 'required|integer',
-            'dateStart' => 'required|date|after:yesterday',
-            'dateEnd' => 'required|date',
+            'dateStart' => 'required|date',
+            'dateEnd' => 'required|date|after_or_equal:dateStart',
             'dateReturning' => 'required|date',
             'totalDayRequested' => 'required|min:0.5',
             'totalDayRemaining' => 'required|min:0',
@@ -172,16 +171,20 @@ class HolidayController extends Controller
         $holiday->save();
 
         $user = User::find($holiday->user_id);
-        $user->holiday_taken = $user->holiday_taken + $holiday->total_day_requested;
-        $user->save();
-        // given an user and the holiday he booked
-        // when an holiday is accepted
-        // then his holiday taken has to decrese
-        // $user->holiday_taken = user->holiday_taken = $holiday->total_day_requested
+        //if the holiday start's year is the same of the currently year do this;
+        if($holiday->start->year == date('Y')){
+            $user->holiday_taken = $user->holiday_taken + $holiday->total_day_requested;
+            $user->save();
+            \Session::flash('alert-success', 'You have accepted the holiday request'); 
+        }else{
+            \Session::flash('alert-success', "You have accepted the holiday request, This will not be added to the holiday taken of $user->name $user->surname"); 
+        }
+        
+        
 
 
 
-        \Session::flash('alert-success', 'You have accepted the holiday request'); 
+        
         return redirect('/holiday');
     }
 
@@ -288,8 +291,8 @@ class HolidayController extends Controller
             'holiday_taken' => 'required|max:'.$request->holiday_total,
             'holiday_available' => 'required|min:0.5',
             'holiday_outstanding' => 'required|integer',
-            'dateStart' => 'required|date|after:yesterday',
-            'dateEnd' => 'required|date',
+            'dateStart' => 'required|date',
+            'dateEnd' => 'required|date|after_or_equal:dateStart',
             'dateReturning' => 'required|date',
             'totalDayRequested' => 'required|min:0.5',
             'totalDayRemaining' => 'required|min:0',
@@ -331,7 +334,7 @@ class HolidayController extends Controller
     {
         $holiday = Holiday::find($id);
         
-        if($holiday->approved === 1){
+        if($holiday->approved === 1 && $holiday->start->year == date('Y')){
             $user = User::where('id', $holiday->user_id)->first();
             $user->holiday_taken = $user->holiday_taken - $holiday->total_day_requested;
             $user->save();    
