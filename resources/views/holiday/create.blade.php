@@ -9,8 +9,13 @@
     <div class="col-xs-12 col-md-12">
       <h1 class="page-header">Book a Holiday
       		@if($dateStart !== null)
-     			<span style="font-size: 0.5em;">
+     			<span style="font-size: 0.4em;">
      				starting on the {{ $dateStart }}  
+     			</span>
+     	 	@endif
+     	 	@if($dateEnd !== null)
+     			<span style="font-size: 0.4em;">
+     				ending on the {{ $dateEnd }}  
      			</span>
      	 	@endif
       </h1>
@@ -66,7 +71,7 @@
 	    				<span onclick="setOneWeek()" class="btn btn-info btn-sm">In One Week</span>
 			    		<span onclick="setTwoWeeks()" class="btn btn-info btn-sm">In Two Weeks</span>
 			    	</span>
-		    		<input type="date" name="dateEnd" class="form-control" id="dateEnd" required="">
+		    		<input type="date" name="dateEnd" class="form-control" id="dateEnd" required="" value="{{ $dateEnd }}">
 		    	</div>
 		    	<div class="form-group">
 		    		<label for="dateReturning">Day returning *</label>

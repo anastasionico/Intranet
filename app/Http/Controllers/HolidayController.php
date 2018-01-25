@@ -89,18 +89,32 @@ class HolidayController extends Controller
             'dayClick' => 'function(date, jsEvent, view) {
                 var dateStart = date.format("YYYY-MM-DD");
                 window.location = "/holiday/create/" + dateStart;                         
-            }'
+            }',
+            'selectable' => 'true',
+            'select' => 'function( start, end ) {
+                var d = new Date(end);
+                var curr_date = "0" + (d.getDate()-1);
+                var curr_date = curr_date.slice(-2);
+                var curr_month = "0" + d.getMonth()+1;
+                var curr_month = curr_month.slice(-2);
+                var curr_year = d.getFullYear();
+                var dateEnd = curr_year + "-" + curr_month + "-" + curr_date;
+
+                var dateStart = start.format("YYYY-MM-DD");
+
+                window.location = "/holiday/create/" + dateStart + "/" + dateEnd;    
+            }',
         ]);
 
         return view('/holiday/index', compact('calendar','holidayList','users', 'departments'));
     }
 
-    public function create($dateStart = null)
+    public function create($dateStart = null, $dateEnd = null)
     {
         $users = User::all();
         $user = User::find(Auth::user()->id);
         $manager = User::find($user->manager_id);
-        return view('/holiday/create', compact('user', 'users', 'manager', 'dateStart'));
+        return view('/holiday/create', compact('user', 'users', 'manager', 'dateStart', 'dateEnd'));
     }
     
     public function store(Request $request)
@@ -179,12 +193,7 @@ class HolidayController extends Controller
         }else{
             \Session::flash('alert-success', "You have accepted the holiday request, This will not be added to the holiday taken of $user->name $user->surname"); 
         }
-        
-        
-
-
-
-        
+         
         return redirect('/holiday');
     }
 
