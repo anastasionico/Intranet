@@ -91,15 +91,14 @@ class HolidayController extends Controller
                 window.location = "/holiday/create/" + dateStart;                         
             }',
             'selectable' => 'true',
-            'select' => 'function( start, end ) {
-                var d = new Date(end);
-                var curr_date = "0" + (d.getDate()-1);
+            'select' => 'function( start, end) {
+                var d = new Date(end - 24 * 3600 * 1000);
+                var curr_date = "0" + (d.getDate());
                 var curr_date = curr_date.slice(-2);
-                var curr_month = "0" + d.getMonth()+1;
+                var curr_month = "0" + (1 + d.getMonth());
                 var curr_month = curr_month.slice(-2);
                 var curr_year = d.getFullYear();
                 var dateEnd = curr_year + "-" + curr_month + "-" + curr_date;
-
                 var dateStart = start.format("YYYY-MM-DD");
 
                 window.location = "/holiday/create/" + dateStart + "/" + dateEnd;    
@@ -339,6 +338,7 @@ class HolidayController extends Controller
         $request->session()->flash('alert-success', 'The request was successfully sent.');
         return redirect('/holiday');
     }
+
     public function destroy(Request $request, $id)
     {
         $holiday = Holiday::find($id);
@@ -353,6 +353,12 @@ class HolidayController extends Controller
         $holiday->forceDelete(); 
         $request->session()->flash('alert-success', 'The request has been deleted.');
         return redirect('/holiday');
+    }
+
+    public function reports()
+    {
+        dd('hhh');
+        
     }
 }
 

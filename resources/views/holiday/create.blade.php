@@ -1,13 +1,14 @@
-
 @extends('layouts/master')
 
 @section('heroDiv')
-@php
-  	$dateStart = $dateStart ?? null;
-@endphp
-<div class="row">
-    <div class="col-xs-12 col-md-12">
-      <h1 class="page-header">Book a Holiday
+	@php
+	  	$dateStart = $dateStart ?? null;
+	@endphp
+
+	<div class="row">
+    	<div class="col-xs-12 col-md-12">
+      		<h1 class="page-header">
+      			Book a Holiday
       		@if($dateStart !== null)
      			<span style="font-size: 0.4em;">
      				starting on the {{ $dateStart }}  
@@ -18,8 +19,8 @@
      				ending on the {{ $dateEnd }}  
      			</span>
      	 	@endif
-      </h1>
-      <i id="bubbleHolidayCreate" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
+      	</h1>
+      	<i id="bubbleHolidayCreate" class="fa fa-info-circle informationBubble" aria-hidden="true"></i>
     </div>
     <div class="row placeholders">
     	<div class="row placeholders">
@@ -30,13 +31,13 @@
 @endsection
 
 @section('sectionTable')
-
 	<?php 
 		$holiday_total = $user->holiday_total;
 		$holiday_taken = $user->holiday_taken; 
 		$holiday_available = $holiday_total - $holiday_taken;
 		$holiday_outstanding = $user->holiday_outstanding; //previous year
 	?>
+
 	<div class="table-responsive p-2">
 		@include('layouts/errors')
 		<form action="/holiday/store" method="post" enctype="multipart/form-data">
@@ -166,7 +167,9 @@
 		var totalDayRequested = document.getElementById('totalDayRequested');
 		var totalDayRemaining = document.getElementById('totalDayRemaining');
 		var maxDate = 2117 + "-" + 12 + "-" + 31;
-
+		
+		setTotalDayRequested();
+				
 		document.getElementById("totalDayRequested").addEventListener("change", setTotalDayRemaining);
 		
 		dateStart.addEventListener("change", function(){
@@ -216,7 +219,7 @@
 
 		function setOneWeek(){
 			var day = new Date(dateStart.value);
-			
+
 			day.setDate(day.getDate() + 7);
 			var dd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
 			dateEnd.value = dd;
@@ -274,10 +277,15 @@
 		}
 		
 		function setTotalDayRequested(){
+
 			var dateS = new Date(dateStart.value);
 			var dateE = new Date(dateEnd.value);
 			var timeDiff = Math.abs(dateE.getTime() - dateS.getTime());
 			var WeekDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+			dateS.setDate(dateS.getDate() + 7);
+			var dd = dateS.getFullYear() + '-' + ("0" + (dateS.getMonth() + 1)).slice(-2) + '-' + ("0" +  dateS.getDate() ).slice(-2);
+			dateEnd.value = dd;
+
 			//get the total amount of bank Holiday between the two dates and subtract them to the total day requested
 			var weeks = Math.floor(WeekDays / 7);
 			
@@ -314,6 +322,7 @@
 			}else{
 				totalDayRequestedSmall.innerHTML = "";
 			}
+			checkWeekday( dd, dateS);
 			setTotalDayRemaining()
 		}
 
@@ -332,6 +341,7 @@
 				dateEnd.className = ' form-control warning';
 			}
 		}
+
 		function activeBehalf(){
 			var behalfSelect = document.querySelector('#behalfSelect');
 			var confirmationBehalf = confirm("You are booking the holiday on behalf of someont else, Are you sure?");
@@ -340,13 +350,11 @@
 			}
 		}
 	</script>
-
 	<script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         var holiday_taken = {{ $holiday_taken }};
         var holiday_available = {{ $holiday_available }};
-        
         function drawChart() {
             var options = {
             	pieHole: 0.9,

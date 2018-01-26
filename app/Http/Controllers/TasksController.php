@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
@@ -15,8 +16,14 @@ class TasksController extends Controller
 
     public function index()
     {
-    	$tasks = Task::where('done', '0')->orderBy('priority', 'asc')->get();
-        $tasksArchived = Task::where('done', '1')->orderBy('updated_at', 'desc')->paginate(5);
+    	$tasks = Task::where('done', '0')
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('priority', 'asc')
+            ->get();
+        $tasksArchived = Task::where('done', '1')
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(5);
         return view('tasks/index', compact(['tasks','tasksArchived','countTask']));
     }
 

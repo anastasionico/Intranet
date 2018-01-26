@@ -1,6 +1,15 @@
 @extends('layouts/master')
 
 @section('heroDiv')
+  <style type="text/css">
+   
+    .fc-row .fc-bgevent-skeleton td, .fc-row .fc-highlight-skeleton .fc-highlight {
+      border-color: transparent;
+      background: #bce8f1;
+      opacity: 0.6;
+    }
+    
+  </style>
 	<div class="row">
     
     <div class="col-xs-12 col-md-12">

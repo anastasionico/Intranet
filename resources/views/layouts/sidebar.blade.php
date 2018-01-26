@@ -87,35 +87,10 @@
         Holiday
       </a>
     </li>
-  </ul>
-  
-  {{-- <ul class="nav nav-sidebar">
     <li>
-      <a href="">
-        <i class="fa fa-calculator" aria-hidden="true"></i>
-        Expense
-      </a>
-    </li>
-    <li>
-      <a href="">
-        <i class="fa fa-random" aria-hidden="true"></i>
-        Claim
+      <a href="/holiday/reports">
+        <i class="fa fa-files-o" aria-hidden="true"></i>
+        Reports
       </a>
     </li>
   </ul>
-  <ul class="nav nav-sidebar">  
-    <li>
-      <a href="">
-        <i class="fa fa-question" aria-hidden="true"></i>
-        Enquiry
-      </a>
-    </li>
-    <li>
-      <a href="">
-        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-        Create 
-      </a>
-    </li>
-  </ul> --}}
-  
-  
