@@ -57,7 +57,8 @@
 			    		<span onclick="setNextWeek()" class="btn btn-info btn-sm">Next Week</span>
 			    		<span onclick="setNextMonth()" class="btn btn-info btn-sm">Next Month</span>	
 	    			</span>
-		    		<input type="date" name="dateStart" class="form-control" id="dateStart" required="" value="{{ $dateStart }}">
+	    			{{ $dateStart }}
+		    		<input type="date" name="dateStart" class="form-control" id="dateStart" value="{{ $dateStart }}">
 
 		    	</div>
 		    	<div class="form-group">
@@ -72,6 +73,7 @@
 	    				<span onclick="setOneWeek()" class="btn btn-info btn-sm">In One Week</span>
 			    		<span onclick="setTwoWeeks()" class="btn btn-info btn-sm">In Two Weeks</span>
 			    	</span>
+			    	{{ $dateEnd }}
 		    		<input type="date" name="dateEnd" class="form-control" id="dateEnd" required="" value="{{ $dateEnd }}">
 		    	</div>
 		    	<div class="form-group">

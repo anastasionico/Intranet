@@ -136,6 +136,7 @@ Route::prefix('/calendar')->group(function()
 Route::prefix('/holiday')->group(function()
 {
 	Route::get('', 'HolidayController@index');
+	Route::get('/reports', 'HolidayController@reports');
 	Route::get('/create', 'HolidayController@create');
 	Route::get('/create/{dateStart}/{dateEnd}', 'HolidayController@create');
 	Route::post('/store', 'HolidayController@store');
@@ -147,7 +148,6 @@ Route::prefix('/holiday')->group(function()
 	Route::get('/edit/{id}', 'HolidayController@edit');
 	Route::Post('/update/{id}' , 'HolidayController@update');
 	Route::get('/delete/{id}', 'HolidayController@destroy');
-	Route::get('/reports', 'HolidayController@reports');
 });
 
 Route::prefix('/roles')->group(function()

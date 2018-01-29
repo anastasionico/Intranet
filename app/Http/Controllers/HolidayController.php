@@ -26,7 +26,7 @@ class HolidayController extends Controller
         
         $holidayList = [];
         $user = User::find(Auth::user()->id);
-        $holidays = Holiday::all();
+        // $holidays = Holiday::all();
         
 
         $holidays = DB::table('holidays')
@@ -113,6 +113,12 @@ class HolidayController extends Controller
         $users = User::all();
         $user = User::find(Auth::user()->id);
         $manager = User::find($user->manager_id);
+
+        // $dateS = new \DateTime($dateStart);
+        // $dateStart = $dateS->format('d/m/Y');
+        // $dateE = new \DateTime($dateEnd);
+        // $dateEnd = $dateE->format('d/m/Y');
+
         return view('/holiday/create', compact('user', 'users', 'manager', 'dateStart', 'dateEnd'));
     }
     
@@ -349,7 +355,6 @@ class HolidayController extends Controller
             $user->save();    
         }
         
-        
         $holiday->forceDelete(); 
         $request->session()->flash('alert-success', 'The request has been deleted.');
         return redirect('/holiday');
@@ -357,8 +362,12 @@ class HolidayController extends Controller
 
     public function reports()
     {
-        dd('hhh');
-        
+        $usersDepartment = DB::table('users')
+            ->where('department_id', Auth::user()->department_id)
+            ->get();
+
+        // dd($usersDepartment);
+        return view('/holiday/reports', compact('usersDepartment'));
     }
 }
 
