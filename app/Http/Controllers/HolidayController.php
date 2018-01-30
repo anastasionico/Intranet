@@ -363,10 +363,11 @@ class HolidayController extends Controller
     public function reports()
     {
         $usersDepartment = DB::table('users')
+            ->join('holidays', 'holidays.user_id', '=', 'users.id')
             ->where('department_id', Auth::user()->department_id)
             ->get();
 
-        // dd($usersDepartment);
+        dd($usersDepartment);
         return view('/holiday/reports', compact('usersDepartment'));
     }
 }
