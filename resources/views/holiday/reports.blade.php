@@ -15,7 +15,7 @@
 
         </div>  
         <div class="table-responsive p-2">
-    		<table class="table table-striped" >
+       	    <table class="table table-striped" >
         		<tr>
                     <th></th>
         			<th>Name</th>
@@ -24,6 +24,7 @@
         			<th>Total Holiday {{ date('Y')}}</th>
         			<th>Holiday Taken</th>
         			<th>Holiday Available</th>
+                    <th></th>
         		</tr>
         			@foreach($holidaysPerUser as $holidayPerUser )
         				@php
@@ -40,7 +41,7 @@
         							break;
         					}
         				@endphp
-        				<tr onclick='showRows({{$holidayPerUser->id}})'>
+        				<tr onclick='showRows({{$holidayPerUser->id}})' style="cursor: pointer;">
     				        <td>
                                 <i class="fa fa-toggle-off user-{{$holidayPerUser->id}}"></i>            
                             </td>
@@ -64,21 +65,26 @@
     	    				<td style="color:{{ $styleColor }}">
     	    					{{$holiday_available }}
         					</td>
-        				</tr>
+                            <td></td>
+                        </tr>
                         <tr class="hidden user-{{$holidayPerUser->id}}"  style="background:#292945">
-                            <th></th>
+                            <th>Request ID</th>
+                            <th>Requested</th>
                             <th>Start</th>
                             <th>End</th>
                             <th>Returning Day</th>
+                            <th>Total Day Requested</th>
                             <th>Approved</th>
                             <th colspan="3"></th>
                         </tr>
                         @foreach($holidayPerUser->holiday as $singleHolidayPerUser )
-                            <tr class="hidden user-{{$holidayPerUser->id}}" style="background:#292945">
-                                <td></td>
+                            <tr class="hidden user-{{$holidayPerUser->id}}" style="background:#292945; cursor: pointer;" onclick='showHoliday({{$singleHolidayPerUser->id}})'>
+                                <td>{{$singleHolidayPerUser->id}}</td>
+                                <td>{{ $singleHolidayPerUser->created_at->diffForHumans() }}</td>
                                 <td>{{$singleHolidayPerUser->start->toFormattedDateString()}}</td>
                                 <td style="text-align: left">{{$singleHolidayPerUser->end->toFormattedDateString()}}</td>
                                 <td>{{$singleHolidayPerUser->returning_day->toFormattedDateString()}}</td>
+                                <td>{{$singleHolidayPerUser->total_day_requested}}</td>
                                 <td>
                                     @if( $singleHolidayPerUser->approved == 0)
                                         <span class="btn btn-warning btn-sm">
@@ -94,8 +100,9 @@
                                         </span>     
                                     @endif
                                 </td>
-                                <td colspan="3"></th>
-                            </tr>
+                                <td colspan="3"></td>
+                            </tr>    
+                            
                         @endforeach
                     @endforeach
         	</table>
@@ -108,7 +115,6 @@
 
         let rows = document.querySelectorAll("tr.user-"+id);
         let toggle = document.querySelector(".fa.user-"+id);
-        console.log(toggle);
         Array.from(rows).forEach(function(row){
             if( row.classList.contains('hidden')){
                 toggle.className = "fa fa-toggle-on user-"+id;
@@ -119,6 +125,13 @@
             }
         });
     }
+    function showHoliday(id){
+        // console.log('https://intranet.dev/holiday/'+id);
+        window.location.href = 'https://intranet.dev/holiday/'+id;
+        end();
+    }
+
+
 </script>
 @endsection
 
