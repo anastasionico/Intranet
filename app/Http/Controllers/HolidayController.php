@@ -362,13 +362,19 @@ class HolidayController extends Controller
 
     public function reports()
     {
-        $usersDepartment = DB::table('users')
-            ->join('holidays', 'holidays.user_id', '=', 'users.id')
-            ->where('department_id', Auth::user()->department_id)
-            ->get();
+        $holidaysPerUser = User::with('holiday')->get();
 
-        dd($usersDepartment);
-        return view('/holiday/reports', compact('usersDepartment'));
+
+
+
+        // $holidaysPerUser = DB::table('users')
+        //     ->join('holidays', 'holidays.user_id', '=', 'users.id')
+        //     ->where('department_id', Auth::user()->department_id)
+        //     // ->groupBy('holidays.user_id')
+        //     ->get();
+
+        // dd($holidaysPerUser);
+        return view('/holiday/reports', compact('holidaysPerUser'));
     }
 }
 

@@ -54,8 +54,7 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
                                         <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
 
@@ -74,8 +73,6 @@
         @yield('content')
     </div>
 
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    
 </body>
 </html>
