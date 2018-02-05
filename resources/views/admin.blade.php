@@ -115,9 +115,9 @@
 				      },
                	
                	pieSliceBorderColor: 'transparent',
-               	colors:['#eee','#55a','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
+               	colors:['#eee','#00ABE6','#004B80','#29d251','#d1bd28','#d32a2a','#d1288c'],
                	pieSliceTextStyle: {
-                	color: '#55a',
+                	color: '#00ABE6',
                 },
 
                 legend:{
@@ -160,9 +160,9 @@
       				  },
                	
                	pieSliceBorderColor: 'transparent',
-               	colors:['#55a','#eee','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
+               	colors:['#00ABE6','#eee','#004B80','#29d251','#d1bd28','#d32a2a','#d1288c'],
                	pieSliceTextStyle: {
-                	color: '#55a',
+                	color: '#00ABE6',
                 },
 
                 legend:{
@@ -206,9 +206,9 @@
 				},
                	
                	pieSliceBorderColor: 'transparent',
-               	colors:['#eee','#55a','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
+               	colors:['#eee','#00ABE6','#004B80','#29d251','#d1bd28','#d32a2a','#d1288c'],
                	pieSliceTextStyle: {
-                	color: '#55a',
+                	color: '#00ABE6',
                 },
 
                 legend:{
@@ -255,7 +255,7 @@
 	      	var chart4 = new google.visualization.AnnotationChart(document.getElementById('TaskPieByTime'));
 
 	        var options = {
-            // colors:["#eee",'#55a','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
+            // colors:["#eee",'#00ABE6','#004B80','#29d251','#d1bd28','#d32a2a','#d1288c'],
 	          displayAnnotations: true,
             displayZoomButtons: false,
 	        };

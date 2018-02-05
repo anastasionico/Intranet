@@ -15,17 +15,18 @@
 
         </div>  
         <div class="table-responsive p-2">
-       	    <table class="table table-striped" >
-        		<tr>
-                    <th></th>
-        			<th>Name</th>
-        			<th>Surname</th>
-        			<th>Holiday Outstanding {{ date('Y')-1 }} </th>
-        			<th>Total Holiday {{ date('Y')}}</th>
-        			<th>Holiday Taken</th>
-        			<th>Holiday Available</th>
-                    <th></th>
-        		</tr>
+       	    <table class="table table-striped">
+                <thead>
+            		<tr>
+                        <th></th>
+            			<th>Name</th>
+            			<th>Surname</th>
+            			<th>Holiday Outstanding {{ date('Y')-1 }} </th>
+            			<th>Total Holiday {{ date('Y')}}</th>
+            			<th>Holiday Taken</th>
+            			<th>Holiday Available</th>
+            		</tr>
+                </thead>
         			@foreach($holidaysPerUser as $holidayPerUser )
         				@php
         					$holiday_available = ($holidayPerUser->holiday_total + $holidayPerUser->holiday_outstanding) - $holidayPerUser->holiday_taken;
@@ -65,17 +66,15 @@
     	    				<td style="color:{{ $styleColor }}">
     	    					{{$holiday_available }}
         					</td>
-                            <td></td>
                         </tr>
                         <tr class="hidden user-{{$holidayPerUser->id}}"  style="background:#292945">
-                            <th>Request ID</th>
+                            <th>ID</th>
                             <th>Requested</th>
                             <th>Start</th>
                             <th>End</th>
                             <th>Returning Day</th>
                             <th>Total Day Requested</th>
                             <th>Approved</th>
-                            <th colspan="3"></th>
                         </tr>
                         @foreach($holidayPerUser->holiday as $singleHolidayPerUser )
                             <tr class="hidden user-{{$holidayPerUser->id}}" style="background:#292945; cursor: pointer;" onclick='showHoliday({{$singleHolidayPerUser->id}})'>
@@ -100,9 +99,7 @@
                                         </span>     
                                     @endif
                                 </td>
-                                <td colspan="3"></td>
                             </tr>    
-                            
                         @endforeach
                     @endforeach
         	</table>
@@ -126,8 +123,7 @@
         });
     }
     function showHoliday(id){
-        // console.log('https://intranet.dev/holiday/'+id);
-        window.location.href = 'https://intranet.dev/holiday/'+id;
+        window.location.href = '/holiday/'+id;
         end();
     }
 

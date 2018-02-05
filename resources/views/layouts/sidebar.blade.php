@@ -87,10 +87,12 @@
         Holiday
       </a>
     </li>
+    @permission(('holiday report read'))
     <li>
       <a href="/holiday/reports">
         <i class="fa fa-files-o" aria-hidden="true"></i>
         Reports
       </a>
     </li>
+    @endpermission
   </ul>

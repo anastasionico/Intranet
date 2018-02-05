@@ -1,13 +1,26 @@
-$primary : #335; //dark blue
+$primary : #eee; //silver mercedes
 $primaryLight : lighten( $primary, 5%);
 $primaryVeryLight : lighten( $primary, 15%);
 $primaryDarken : darken( $primary, 5%);
 $primaryVeryDarken : darken( $primary, 15%);
 
-$secondary : #eee; //silver mercedes
+$secondary : #00ABE6; //dark blue
 $secondaryDarken : darken( $secondary, 10%);
 
-$tertiary : #55a ; //blue clear
+$tertiary : #004B80  ; //blue clear
+
+
+
+// $primary : #335; //dark blue
+// $primaryLight : lighten( $primary, 5%);
+// $primaryVeryLight : lighten( $primary, 15%);
+// $primaryDarken : darken( $primary, 5%);
+// $primaryVeryDarken : darken( $primary, 15%);
+
+// $secondary : #eee; //silver mercedes
+// $secondaryDarken : darken( $secondary, 10%);
+
+// $tertiary : #55a ; //blue clear
 
 $success : #29d251 ; //green
 $info : #287dd1 ; //blue clearer that tertiary

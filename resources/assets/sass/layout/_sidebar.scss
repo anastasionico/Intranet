@@ -14,10 +14,10 @@
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: $primaryDarken;
-    color: $secondary ;
+    background-color: $tertiary;
+    color: $primary ;
     a{
-      color: $secondary ;
+      color: $primary ;
     }
   }
 }
@@ -31,7 +31,7 @@
       padding-right: 20px;
       padding-left: 20px;  
       &:hover{
-        background-color: $primary;
+        background-color: $secondary;
       }  
     }
   }
