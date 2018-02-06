@@ -22,3 +22,9 @@
     background-color: $success;
     border-color: $primary;
 }
+.menuBar{
+    display: inline;width: 100%;
+    @media (min-width: 768px) {
+        display:none;
+    }
+}

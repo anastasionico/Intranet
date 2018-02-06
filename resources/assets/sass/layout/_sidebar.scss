@@ -4,8 +4,15 @@
 
 /* Hide for mobile, show later */
 .sidebar {
-  display: none;
-  
+  overflow: scroll;
+  height:100vh;  
+  .nav > li > a{
+    padding: 2px 15px;
+    @media (min-width: 768px) {
+      padding: 10px 15px;
+    }
+  }
+
 }
 @media (min-width: 768px) {
   .sidebar {
@@ -30,11 +37,9 @@
     & > a{
       padding-right: 20px;
       padding-left: 20px;  
-      
       &:hover:not(#noHover){
         background-color: $secondary;
       }  
-
     }
   }
   & i{

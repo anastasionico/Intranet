@@ -1,7 +1,9 @@
+<button class="btn btn-primary menuBar" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="collapseExample">
+  <i class="fa fa-bars"></i>
+</button>
 <nav class="navbar navbar-inverse"> {{--navbar-fixed-top--}}
-    
   <div class="container-fluid">
-    <div id="navbar" class="navbar-collapse collapse">
+    <div id="navbar" class="navbar-collapse collapse ">
       <span class="nav-brand">
         <a class="" href="/home">
           <img class="" src="/img/logo.png">

@@ -1,10 +1,14 @@
 .navbar-fixed-top {
   border: 0;
 }
+
 .navbar {
-    border-radius: 0;
-    background-color: $tertiary;
+	width:100%;
+	border-radius: 0;
+	border:0;
+    background-color: $primary;
 	color: $secondary;
+	
 	.nav-brand {
 		img{
 			padding: 10px;
@@ -23,6 +27,9 @@
 	.form-control{
 		background-color: $tertiary;
 	}
+    @media (min-width: 768px) {
+	    background-color: $tertiary;
+	}
 }
 .navbar-inverse .navbar-brand {
 	color: $secondary;
@@ -38,6 +45,7 @@
 		line-height: 45px;
 	}
 }
+
 .notification-circle{
 	z-index: 10;
     position: absolute;
