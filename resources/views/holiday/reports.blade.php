@@ -25,6 +25,7 @@
             			<th>Total Holiday {{ date('Y')}}</th>
             			<th>Holiday Taken</th>
             			<th>Holiday Available</th>
+                        <th>Holiday Requested</th>
             		</tr>
                 </thead>
         			@foreach($holidaysPerUser as $holidayPerUser )
@@ -65,26 +66,31 @@
     	    				<td>{{$holidayPerUser->holiday_taken}}</td>
     	    				<td style="color:{{ $styleColor }}">
     	    					{{$holiday_available }}
-        					</td>
+                            </td>
+                            <td>
+                                {{count($holidayPerUser->holiday)}}
+                            </td>
+
                         </tr>
-                        <tr class="hidden user-{{$holidayPerUser->id}}"  style="background:#292945">
-                            <th>ID</th>
-                            <th>Requested</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Returning Day</th>
-                            <th>Total Day Requested</th>
-                            <th>Approved</th>
-                        </tr>
+                        
                         @foreach($holidayPerUser->holiday as $singleHolidayPerUser )
-                            <tr class="hidden user-{{$holidayPerUser->id}}" style="background:#292945; cursor: pointer;" onclick='showHoliday({{$singleHolidayPerUser->id}})'>
+                            <tr class="hidden user-{{$holidayPerUser->id}}"  style="background:#292945">
+                                <th>ID</th>
+                                <th>Requested</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Returning Day</th>
+                                <th>Total Day Requested</th>
+                                <th colspan="2">Approved</th>
+                            </tr>
+                            <tr class="hidden user-{{$holidayPerUser->id}}" style="background:#292945; cursor: pointer;color: #eee" onclick='showHoliday({{$singleHolidayPerUser->id}})'>
                                 <td>{{$singleHolidayPerUser->id}}</td>
                                 <td>{{ $singleHolidayPerUser->created_at->diffForHumans() }}</td>
                                 <td>{{$singleHolidayPerUser->start->toFormattedDateString()}}</td>
                                 <td style="text-align: left">{{$singleHolidayPerUser->end->toFormattedDateString()}}</td>
                                 <td>{{$singleHolidayPerUser->returning_day->toFormattedDateString()}}</td>
                                 <td>{{$singleHolidayPerUser->total_day_requested}}</td>
-                                <td>
+                                <td colspan="2">
                                     @if( $singleHolidayPerUser->approved == 0)
                                         <span class="btn btn-warning btn-sm">
                                             Pending
