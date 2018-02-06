@@ -10,10 +10,10 @@
 		<div class="col-md-9">
 			<form action="/users" method="post" enctype="multipart/form-data">
 		    	{{ csrf_field() }}
-		    	<div class="form-group">
+		    	{{-- <div class="form-group">
 		    		<label for="img">Photo</label>
 		    		<input type="file" name="img">
-		    	</div>
+		    	</div> --}}
 		    	<div class="form-group">
 		    		<label for="name">Name *</label>
 		    		<input type="text" name="name" class="form-control"  required>

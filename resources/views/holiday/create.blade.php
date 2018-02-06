@@ -373,15 +373,16 @@
 				},
                	
                	pieSliceBorderColor: 'transparent',
-               	colors:['#eee','#55a','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
+               	// colors:['#eee','#55a','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
+               	colors:['#00ABE6','#004B80','#eee','#29d251','#d1bd28','#d32a2a','#d1288c'],
                	pieSliceTextStyle: {
-                	color: '#fff',
+                	color: '#00ABE6',
                 },
 
                 legend:{
                		position: 'bottom', 
                		textStyle: 
-               			{color: '#fff', 
+               			{color: '#00ABE6', 
                			fontSize: 12
                		}
                	},
@@ -418,15 +419,15 @@
 				},
                	
                	pieSliceBorderColor: 'transparent',
-               	colors:['#eee','#55a','#287dd1','#29d251','#d1bd28','#d32a2a','#d1288c'],
+               	colors:['#00ABE6','#004B80','#eee','#29d251','#d1bd28','#d32a2a','#d1288c'],
                	pieSliceTextStyle: {
-                	color: '#fff',
+                	color: '#00ABE6',
                 },
 
                 legend:{
                		position: 'bottom', 
                		textStyle: 
-               			{color: '#fff', 
+               			{color: '#00ABE6', 
                			fontSize: 12
                		}
                	},

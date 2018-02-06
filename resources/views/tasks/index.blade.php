@@ -65,7 +65,7 @@
                                     @elseif($task->priority == 2)
                                         <i class="fa fa-thermometer-half" aria-hidden="true"></i>
                                     @elseif($task->priority == 1)
-                                        <i class="fa fa-thermometer-full" aria-hidden="true" style="color:gold;"></i>
+                                        <i class="fa fa-thermometer-full" aria-hidden="true" style="color:#a17f1a;"></i>
                                     @endif
                                 </td>
                                 <td>
@@ -119,7 +119,7 @@
                                     @elseif($taskArchived->priority == 2)
                                         <i class="fa fa-thermometer-half" aria-hidden="true"></i>
                                     @elseif($taskArchived->priority == 1)
-                                        <i class="fa fa-thermometer-full" aria-hidden="true" style="color:gold;"></i>
+                                        <i class="fa fa-thermometer-full" aria-hidden="true" style="color:#a17f1a;"></i>
                                     @endif
                                 </td>
                                 <td colspan="2">

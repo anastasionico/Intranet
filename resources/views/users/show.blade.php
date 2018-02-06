@@ -46,10 +46,10 @@
 	          	<td>Id</td>
 	          	<td>{{ $user->id }}</td>
 	        </tr>
-	        <tr>
+	       {{--  <tr>
 	          	<td>Image</td>
 	          	<td>{{ $user->img }}</td>
-	        </tr>
+	        </tr> --}}
 	        <tr>
 	          	<td>Name</td>
 	          	<td>{{ucfirst($user->name)}}</td>

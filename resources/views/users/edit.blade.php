@@ -12,7 +12,7 @@
 			@include('layouts/errors')
 			<form action="/users/update/{{ $user->id }}" method="post" enctype="multipart/form-data">
 		    	{{ csrf_field() }}
-				<div class="form-group">
+				{{-- <div class="form-group">
 		    		
 		    		<label for="img">Current image Photo</label>
 		    		<img src="">
@@ -20,7 +20,7 @@
 		    	<div class="form-group">
 		    		<label for="img">Update Photo</label>
 		    		<input type="file" name="img">
-		    	</div>
+		    	</div> --}}
 		    	<div class="form-group">
 		    		<label for="name">Name *</label>
 		    		<input type="text" name="name" class="form-control" value="{{ $user->name }}" required>
