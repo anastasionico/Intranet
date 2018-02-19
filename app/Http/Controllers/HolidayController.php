@@ -119,7 +119,7 @@ class HolidayController extends Controller
         // $dateE = new \DateTime($dateEnd);
         // $dateEnd = $dateE->format('d/m/Y');
 
-        return view('/holiday/create', compact('user', 'users', 'manager', 'dateStart', 'dateEnd'));
+        return view('/holiday/createtwo', compact('user', 'users', 'manager', 'dateStart', 'dateEnd'));
     }
     
     public function store(Request $request)

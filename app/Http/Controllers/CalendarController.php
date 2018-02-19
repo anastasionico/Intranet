@@ -81,7 +81,6 @@ class CalendarController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
         //validation
         $this->validate(request(),[
             'title' => 'required',

@@ -47,8 +47,17 @@
 			<input type="hidden" name="holiday_taken" value="{{$holiday_taken}}">
 			<input type="hidden" name="holiday_available" value="{{$holiday_available}}">
 			<input type="hidden" name="holiday_outstanding" value="{{$holiday_outstanding}}">
+
 			<div class="col-md-9">
 				{{ csrf_field() }}
+				<div class="form-group">
+		    		<label for="HalfDay">Half Day</label>
+		    		<div>
+		    			<input type="radio" name="halfDay" value="am" id="halfDayFLL" checked=""> Full days &nbsp;&nbsp;&nbsp;
+		    			<input type="radio" name="halfDay" value="am" id="halfDayAM"> AM &nbsp;&nbsp;&nbsp;
+						<input type="radio" name="halfDay" value="pm" id="halfDayPM"> PM
+		    		</div>
+		    	</div>
 		    	<div class="form-group">
 		    		<label for="dateStart">Which day does the holiday start? *</label>
 		    		<small id='PreviousYearSmall' class="warning"></small>
@@ -69,13 +78,14 @@
 		    				You cannot edit this field if the Full Day option is active.
 	    				</small>
 		    		</span>
-		    		<span style="float: right;">
+		    		{{-- <span style="float: right;">
 	    				<span onclick="setOneWeek()" class="btn btn-info btn-sm">In One Week</span>
 			    		<span onclick="setTwoWeeks()" class="btn btn-info btn-sm">In Two Weeks</span>
-			    	</span>
+			    	</span> --}}
 			    	{{ $dateEnd }}
 		    		<input type="date" name="dateEnd" class="form-control" id="dateEnd" required="" value="{{ $dateEnd }}">
 		    	</div>
+		    	
 		    	<div class="form-group">
 		    		<label for="dateReturning">Day returning *</label>
 		    		<i id="bubbleHolidayDayReturning" class="fa fa-info-circle Bubble" aria-hidden="true"></i>
@@ -168,6 +178,8 @@
 		var dayRemaining_warning = document.getElementById('dayRemaining_warning');
 		var totalDayRequested = document.getElementById('totalDayRequested');
 		var totalDayRemaining = document.getElementById('totalDayRemaining');
+		var halfDayAM = document.getElementById("halfDayAM");
+		var halfDayPM = document.getElementById("halfDayPM");
 		var maxDate = 2117 + "-" + 12 + "-" + 31;
 		
 		document.getElementById("totalDayRequested").addEventListener("change", setTotalDayRemaining);
@@ -190,6 +202,14 @@
 			
 			checkWeekday(dd, day);
 			setTotalDayRequested();
+		});
+		window.addEventListener("load", function(){
+			var day = new Date(dateEnd.value);
+			var dd = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
+			
+			checkWeekday(dd, day);
+			setTotalDayRequested();
+
 		});
 		
 		function setTomorrow(){
@@ -243,14 +263,18 @@
 		function checkWeekday(dd, day){
 
 			var dayOfWeek = day.getDay();
-			
 			if(dayOfWeek != 0 && dayOfWeek != 6){
-				dateReturning.value = dr = dd;		
+				var dayAfter = new Date(dd);
+				dayAfter.setDate(dayAfter.getDate() + 1);
+				var dayAfterFormatted = dayAfter.getFullYear() + '-' + ("0" + (dayAfter.getMonth() + 1)).slice(-2) + '-' + ("0" +  dayAfter.getDate() ).slice(-2);
+				dateReturning.value = dr = dayAfterFormatted;	
 			}else{
 				while(day.getDay() == 0 || day.getDay() == 6){
 					day.setDate(day.getDate() + 1);
+
 					var dr = day.getFullYear() + '-' + ("0" + (day.getMonth() + 1)).slice(-2) + '-' + ("0" +  day.getDate() ).slice(-2);
-					dateReturning.value = dr;		
+					
+					dateReturning.value = dr;	
 				}	
 			}
 		}
@@ -283,6 +307,7 @@
 			var dateE = new Date(dateEnd.value);
 			var timeDiff = Math.abs(dateE.getTime() - dateS.getTime());
 			var WeekDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+			
 			// dateS.setDate(dateS.getDate() + 7);
 			// var dd = dateS.getFullYear() + '-' + ("0" + (dateS.getMonth() + 1)).slice(-2) + '-' + ("0" +  dateS.getDate() ).slice(-2);
 			
@@ -295,9 +320,10 @@
 			// Handle special cases
 		    var startDay = dateS.getDay();
 		    var endDay = dateE.getDay();
-		     // Remove weekend not previously removed.   
+	     	
+	     	// Remove weekend not previously removed.   
 		    if (startDay - endDay > 0)         
-		        diffDays = diffDays - 2;      
+		    	diffDays = diffDays - 2;      
 		    // Remove start day if span starts on Sunday but ends before Saturday
 		    if (startDay == 0 && endDay != 6)
 		        diffDays = diffDays - 1  
@@ -307,7 +333,7 @@
 			
 			var BankHolidayAmount = checkBankHoliday();
 			
-			totalDayRequested.value = diffDays - BankHolidayAmount;
+			totalDayRequested.value = (diffDays + 1)  - BankHolidayAmount;
 			
 			if(WeekDays - diffDays > 0 ){
 				totalDayWeekEndSmall = document.querySelector('#totalDayWeekEndSmall');
@@ -317,13 +343,25 @@
 			}
 			// console.log(timeDiff);
 			if( timeDiff === 0 ){
+				totalDayRequested.value = 1;
+			}
+			
+			if(timeDiff === 0 && halfDayAM.checked){
 				totalDayRequested.value = 0.5;
 				totalDayRequestedSmall = document.querySelector('#totalDayRequestedSmall');
 				totalDayRequestedSmall.innerHTML = "<i class='fa fa-exclamation-triangle' aria-hidden='true'></i> When booking only half a day this field shows 0.5";	
 			}else{
 				totalDayRequestedSmall.innerHTML = "";
 			}
-			// checkWeekday( dd, dateS);
+		
+			if(timeDiff === 0 && halfDayPM.checked){
+				totalDayRequested.value = 0.5;
+				totalDayRequestedSmall = document.querySelector('#totalDayRequestedSmall');
+				totalDayRequestedSmall.innerHTML = "<i class='fa fa-exclamation-triangle' aria-hidden='true'></i> When booking only half a day this field shows 0.5";	
+			}else{
+				totalDayRequestedSmall.innerHTML = "";
+			}
+		
 			setTotalDayRemaining()
 		}
 
