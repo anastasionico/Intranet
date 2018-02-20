@@ -76,12 +76,13 @@ class HolidayController extends Controller
             	if(event.approved == 0){
                     element.addClass('holidayNotConfirmed');	
             	}
+                if(event.approved == 2){
+                    element.addClass('holidayDenied');    
+                }
                 if(event.halfDay == 0.5){
                     element.addClass('holidayhalfDay');    
                 }
-                if(event.halfDay == 2){
-                    element.addClass('holidayDenied');    
-                }
+                
             }",
             'eventClick' => 'function() {
                 showModal();
@@ -275,13 +276,34 @@ class HolidayController extends Controller
                 if(event.approved == 0){
                     element.addClass('holidayNotConfirmed');    
                 }
+                if(event.approved == 2){
+                    element.addClass('holidayDenied');    
+                }
                 if(event.halfDay == 0.5){
                     element.addClass('holidayhalfDay');    
                 }
+                
             }",
             'eventClick' => 'function() {
                 showModal();
-            }'
+            }',
+            'dayClick' => 'function(date, jsEvent, view) {
+                var dateStart = date.format("YYYY-MM-DD");
+                window.location = "/holiday/create/" + dateStart;                         
+            }',
+            'selectable' => 'true',
+            'select' => 'function( start, end) {
+                var d = new Date(end - 24 * 3600 * 1000);
+                var curr_date = "0" + (d.getDate());
+                var curr_date = curr_date.slice(-2);
+                var curr_month = "0" + (1 + d.getMonth());
+                var curr_month = curr_month.slice(-2);
+                var curr_year = d.getFullYear();
+                var dateEnd = curr_year + "-" + curr_month + "-" + curr_date;
+                var dateStart = start.format("YYYY-MM-DD");
+
+                window.location = "/holiday/create/" + dateStart + "/" + dateEnd;    
+            }',
         ]);
 
         return view('/holiday/index', compact('calendar','holidayList','users','department','departments'));
