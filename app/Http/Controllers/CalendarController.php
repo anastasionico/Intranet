@@ -118,7 +118,7 @@ class CalendarController extends Controller
                 $backgroundColor = '#d1bd28';
                 $textColor = '#eee';
                 break;
-            case 'holiday':
+            case 'training':
                 $backgroundColor = '#d1288c';
                 $textColor = '#eee';
                 break;        

@@ -87,10 +87,10 @@
 		    <div class="col-md-3">
 		    	<div class="form-group" id="partecipantsDiv">
 					<label for="partecipants">Partecipants</label>
-					
 					<select class="js-example-basic-multiple form-control" multiple="multiple" name='partecipants[]'>
-						
+						<option value="{{ Auth::user()->id }}" selected>{{ Auth::user()->name }}</option>
 						@foreach($users as $user => $data)
+
 							<option value="{{$data['id']}}">{{$data['name']}} {{$data['surname']}}</option>
 					  	@endforeach
 					</select>
