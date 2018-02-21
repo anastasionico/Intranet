@@ -1,6 +1,54 @@
 @extends('layouts/master')
-
 @section('heroDiv')
+  <div class="row">
+    
+    <div class="col-xs-12 col-md-12">
+      <h1 class="page-header">
+        Holiday
+        @if(isset($department))
+          {{$department->name}} Department
+        @endif
+      </h1>
+  </div>
+  <div class="table-responsive p-2">
+    <div>
+      Legend: 
+      
+      @foreach($holidayList as $holiday)  
+        <br>
+        @if($holiday->start->format('m') === date('m') || $holiday->end->format('m') === date('m'))
+          <a href="/holiday/{{ $holiday->id }}" style="color:{{ $holiday->options['backgroundColor'] }}">
+          
+            {{ $holiday->title }} {{-- ( from: {{$holiday->start->format('d-M-y')}} to: {{$holiday->end->format('d-M-y')}} ) --}}
+            @if( $holiday->options['approved'] == 0)
+              <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff; ">
+                Need Approval
+              </span>
+            @endif
+            @if( $holiday->options['approved'] == 2)
+              <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#aaa;opacity: 0.5 ">
+                Denied
+              </span>
+            @endif
+            @if( $holiday->options['halfDay'] == 0.5)
+              <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff;" >
+              Half Day
+              </span>
+            @endif
+            
+          </a>
+        @endif
+        
+      @endforeach
+
+    </div>  
+    <br>
+    {!! $calendar->calendar() !!}
+    {!! $calendar->script() !!} 
+  </div>    
+  
+@endsection
+@section('sectionTable')
   <style type="text/css">
    
     .fc-row .fc-bgevent-skeleton td, .fc-row .fc-highlight-skeleton .fc-highlight {
@@ -13,12 +61,6 @@
 	<div class="row">
     
     <div class="col-xs-12 col-md-12">
-      <h1 class="page-header">
-        Holiday
-        @if(isset($department))
-          {{$department->name}} Department
-        @endif
-      </h1>
       
      
       
@@ -86,43 +128,5 @@
   	
 @endsection
 
-@section('sectionTable')
-  <div class="table-responsive p-2">
-    <div>
-      Legend: 
-      
-      @foreach($holidayList as $holiday)  
-        <br>
-        @if($holiday->start->format('m') === date('m') || $holiday->end->format('m') === date('m'))
-          <a href="/holiday/{{ $holiday->id }}" style="color:{{ $holiday->options['backgroundColor'] }}">
-          
-            {{ $holiday->title }} {{-- ( from: {{$holiday->start->format('d-M-y')}} to: {{$holiday->end->format('d-M-y')}} ) --}}
-            @if( $holiday->options['approved'] == 0)
-              <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff; ">
-                Need Approval
-              </span>
-            @endif
-            @if( $holiday->options['approved'] == 2)
-              <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#aaa;opacity: 0.5 ">
-                Denied
-              </span>
-            @endif
-            @if( $holiday->options['halfDay'] == 0.5)
-              <span class="btn btn-xs" style="background-color:{{ $holiday->options['backgroundColor'] }}; color:#fff;" >
-              Half Day
-              </span>
-            @endif
-            
-          </a>
-        @endif
-        
-      @endforeach
 
-    </div>  
-    <br>
-    {!! $calendar->calendar() !!}
-    {!! $calendar->script() !!} 
-  </div>    
-  
-@endsection
 

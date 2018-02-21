@@ -1,7 +1,6 @@
 @extends('layouts/master')
-
 @section('heroDiv')
-	<div class="row">
+  <div class="row">
     <div class="col-xs-12 col-md-12">
       <h1 class="page-header">
         @if(Request::segment(2) == 'department' )
@@ -10,6 +9,24 @@
           {{ ucfirst($user->name) }} {{ ucfirst($user->surname) }}'s Calendar
         @endif
       </h1>
+  </div>
+  <div class="table-responsive p-2">
+    <div>
+      Legend: 
+      <span class="success">Meeting</span>
+      <span class="info">Leisure</span>
+      <span class="danger">Conference</span>
+      <span class="warning">Appointment</span>
+      <span class="purple">Training</span>
+    </div>  
+    
+    {!! $calendar->calendar() !!}
+    {!! $calendar->script() !!} 
+  </div>    
+
+@section('sectionTable')
+	<div class="row">
+    <div class="col-xs-12 col-md-12">
       
       @permission(('calendar create'))
         <a href="/calendar/create" class="btn btn-primary">
@@ -66,21 +83,7 @@
   	--}}
 @endsection
 
-@section('sectionTable')
 
-  <div class="table-responsive p-2">
-    <div>
-      Legend: 
-      <span class="success">Meeting</span>
-      <span class="info">Leisure</span>
-      <span class="danger">Conference</span>
-      <span class="warning">Appointment</span>
-      <span class="purple">Training</span>
-    </div>  
-    
-    {!! $calendar->calendar() !!}
-    {!! $calendar->script() !!} 
-  </div>    
   
   <script type="text/javascript">
     function deleteEvent(id) {
