@@ -1,6 +1,8 @@
 @extends('layouts/master')
 @section('heroDiv')
   <div class="row">
+    {!! $calendar->calendar() !!}
+    {!! $calendar->script() !!} 
     <div class="col-xs-12 col-md-12">
       <h1 class="page-header">
         @if(Request::segment(2) == 'department' )
@@ -20,8 +22,7 @@
       <span class="purple">Training</span>
     </div>  
     
-    {!! $calendar->calendar() !!}
-    {!! $calendar->script() !!} 
+    
   </div>    
 
 @section('sectionTable')

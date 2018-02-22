@@ -1,7 +1,8 @@
 @extends('layouts/master')
 @section('heroDiv')
   <div class="row">
-    
+    {!! $calendar->calendar() !!}
+    {!! $calendar->script() !!} 
     <div class="col-xs-12 col-md-12">
       <h1 class="page-header">
         Holiday
@@ -43,8 +44,7 @@
 
     </div>  
     <br>
-    {!! $calendar->calendar() !!}
-    {!! $calendar->script() !!} 
+    
   </div>    
   
 @endsection
